@@ -8,18 +8,24 @@
 
    Writes tools/mjolnir_sheet.webp + a contact sheet to eyeball.
 
-   DIVISION OF LABOUR: the sheet carries only what CSS cannot do — the hammer
-   turning in 3D to face the viewer. The approach (translateZ), the in-plane
-   spin (rotate) and the scale all stay as CSS transforms on top of the sprite,
-   which is why 30 frames is enough for the whole opening. */
+   THE APPROACH IS BAKED, NOT SCALED. The first version rendered only the
+   rotation and let CSS scale() do the approach. That was wrong: scaling a
+   fixed-distance render is a flat zoom — the hammer never foreshortens, so it
+   reads as a decal getting bigger, and by impact it was displayed at 3x its
+   cell and visibly soft. Now the model dollies toward a 46-degree lens, so the
+   growth comes from the projection, and the cell is rendered at the size it is
+   actually displayed. CSS does translation and nothing else. */
 import { chromium } from 'playwright-core';
 import { mkdir, writeFile } from 'node:fs/promises';
 import { Buffer } from 'node:buffer';
 
 const FRAMES = 30;
 const COLS = 6;
-const CW = 360, CH = 400;          // sprite cell; rendered at 2x and downsampled
-const QUALITY = 0.86;
+/* Cell = the on-screen size at impact, so the sprite is never upscaled. Early
+   frames leave most of the cell empty, which costs nothing: WebP encodes flat
+   alpha to almost zero. */
+const CW = 720, CH = 800;
+const QUALITY = 0.84;
 
 const out = new URL('.', import.meta.url);
 const dir = new URL('frames/bake/', import.meta.url);
@@ -33,16 +39,27 @@ await p.goto('http://localhost:8000/tools/bake.html');
 await p.waitForFunction('window.BAKE_READY === true', null, { timeout: 60000 });
 
 /* Thrown, not presented: it spins 1.25 turns and lands square on the striking
-   face (rx45 ry90 — the pose the probe showed as head-on). easeIn so it winds
-   up slowly and arrives fast, which is what sells the impact that follows. */
+   face (rx45 ry90 — the pose the probe showed as head-on) while dollying from
+   far to almost touching the lens. easeIn on both, so it winds up slowly and
+   arrives fast, which is what sells the impact that follows. */
 const easeIn = t => t * t;
+
+/* Apparent size under perspective goes as 1/(camZ - z), so a linear dolly spends
+   most of its frames as a distant speck and does all its growing in the last
+   few. Solve for z from a LINEAR apparent size instead, and the hammer grows
+   evenly across the whole approach. */
+const CAM_Z = 6;
+const S_FAR = 1 / 20, S_NEAR = 1 / 1.7;
+const zAt = t => CAM_Z - 1 / (S_FAR + (S_NEAR - S_FAR) * t);
 
 const frames = [];
 for (let i = 0; i < FRAMES; i++) {
-  const t = easeIn(i / (FRAMES - 1));
+  const u = i / (FRAMES - 1);
+  const t = easeIn(u);            // rotation still winds up slowly and arrives fast
   const rx = 45 * t;
   const ry = 450 * t;
-  frames.push(await p.evaluate(([a, c]) => { BAKE.render(a, c, 0); return BAKE.frame(); }, [rx, ry]));
+  const z = zAt(u);               // ...but the dolly is even, so it reads as travel
+  frames.push(await p.evaluate(([a, c, d]) => { BAKE.render(a, c, 0, d); return BAKE.frame(); }, [rx, ry, z]));
   process.stdout.write(`\r  rendering ${i + 1}/${FRAMES}`);
 }
 console.log('');

@@ -3,6 +3,30 @@
 Dated log of what changed and why, so a new session can see the project's history at a
 glance without re-deriving it from the diff. Newest first.
 
+## 2026-08-06 (later still) — Thor's hammer: the approach is baked, not scaled
+
+**Why:** owner's note — "why is the hammer so flat, why didn't you animate it". It *was*
+animated (30 baked frames, sprite advancing), but it read as flat, and three things
+were wrong, all of them mine:
+
+- **I baked the wrong thing.** The first bake rendered only the rotation and left the
+  approach to CSS `scale()` — and the comment defended that as a virtue ("the sheet
+  carries only what CSS cannot do"). Scaling a fixed-distance render is a flat zoom:
+  no foreshortening, no parallax, so it read as a decal getting bigger. **The dolly is
+  now baked** — the model travels toward a 46-degree lens, so the growth comes from the
+  projection. The handle foreshortens and the head looms.
+- **Apparent size under perspective goes as `1/(camZ - z)`,** so a linear dolly spent 24
+  of 30 frames as a distant speck and did all its growing at the end. `zAt()` now solves
+  z from a *linear apparent size*, and the hammer grows evenly across the approach.
+- **Resolution.** Cells were 360x400 but the sprite was displayed at 1078x1197 by impact
+  — 3x upscaled and visibly soft. Cells are now 720x800, rendered at 1080x1200 and
+  downsampled for AA, and displayed 1:1. Sheet 180 KB -> 650 KB, which is the honest
+  price of it being sharp.
+- **The flash was erasing the hero frame.** `mix-blend-mode:screen` at full opacity over
+  the hammer's biggest moment bleached the metal to a grey silhouette. Now peaks at .72
+  and 60ms later.
+- CSS keeps only the drift onto the impact point; the scale ramp is gone.
+
 ## 2026-08-06 (later) — Thor and Doctor Strange openings rebuilt with real assets
 
 **Why:** reviewing the six openings, the owner's verdict was that Iron Man and

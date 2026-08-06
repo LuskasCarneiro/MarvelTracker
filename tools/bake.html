@@ -18,7 +18,7 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 
-const W = 720, H = 800;               // render at 2x the sprite cell, downsampled on composite
+const W = 1080, H = 1200;             // 1.5x the sprite cell, downsampled on composite for AA
 
 const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true });
 renderer.setSize(W, H);
@@ -46,7 +46,11 @@ const fill = new THREE.DirectionalLight(0xffe6c0, 0.7);
 fill.position.set(0, -2, 2);
 scene.add(fill);
 
-const camera = new THREE.PerspectiveCamera(32, W / H, 0.1, 100);
+/* Wide FOV on purpose. The approach used to be a CSS scale() on a fixed-distance
+   render, which is a flat zoom — no foreshortening, no parallax, so it read as a
+   decal getting bigger. The dolly is now baked (see `z` in render()), and a long
+   lens would waste it: perspective only looms at a wide angle. */
+const camera = new THREE.PerspectiveCamera(46, W / H, 0.1, 100);
 camera.position.set(0, 0, 6);
 camera.lookAt(0, 0, 0);
 
@@ -87,10 +91,12 @@ new GLTFLoader().load('/mjolnir_thors_hammer.glb', gltf => {
 window.BAKE = {
   info: () => info,
 
-  /* Euler angles in degrees, applied to the spin group only. */
-  render(rx = 0, ry = 0, rz = 0, tilt = 0) {
-    fix.rotation.set(0, 0, 0);
-    fix.rotateZ(THREE.MathUtils.degToRad(tilt));
+  /* Euler angles in degrees, plus `z` — the dolly. Camera sits at z=6, so higher
+     z means closer to the lens and a bigger, more distorted hammer. This is the
+     whole point: the growth has to come from the projection, not from scaling
+     the output afterwards. */
+  render(rx = 0, ry = 0, rz = 0, z = 0) {
+    spin.position.z = z;
     spin.rotation.set(
       THREE.MathUtils.degToRad(rx),
       THREE.MathUtils.degToRad(ry),
