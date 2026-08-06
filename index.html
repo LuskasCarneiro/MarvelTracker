@@ -6,14 +6,14 @@
 <title>Arquivo Temporal — TVA Marvel Dossier</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@110..125,600..800&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
     /* ---- TVA archive token system ---- */
-    --void:#14110c;         /* base — archive basement */
-    --void-2:#1b1712;       /* raised surfaces */
-    --void-3:#221d16;       /* panels */
-    --paper:#e8dfc8;        /* case-file card surface */
+    --void:#0E0C09;         /* base — archive basement */
+    --void-2:#141109;       /* raised surfaces */
+    --void-3:#191510;       /* panels */
+    --paper:#E9E0C9;        /* case-file card surface */
     --paper-dim:#d8cdae;
     /* --amber/--amber-dim are the LIVE theme accent: Marvel-logo red by default,
        overwritten per-title by the theme engine (themes.js) while a case file is open,
@@ -21,15 +21,15 @@
     --amber:#e0212b;        /* live signal / terminal glow — default: Marvel red */
     --amber-dim:#8a1414;
     --live-bg:#170707;       /* ambient wash tint — default: Marvel red, near-black */
-    --brass:#a9906a;        /* dividers, muted labels, iconography — structural, not thematic */
-    --brass-dim:#5f5140;
+    --brass:#B9A176;        /* dividers, muted labels, iconography — structural, not thematic */
+    --brass-dim:#79684D;
     --redstring:#c23b32;    /* crossovers, "seen" stamp ink — fixed meaning, not thematic */
-    --ink:#d8d0bf;          /* body text on void */
-    --ink-dim:#8c8371;
-    --ink-faint:#5a5344;
-    --border:#332c22;
+    --ink:#E4DCC8;          /* body text on void */
+    --ink-dim:#9A9078;
+    --ink-faint:#8A7E63;
+    --border:#2E2719;
 
-    --f-display:"Space Grotesk",-apple-system,sans-serif;
+    --f-display:"Archivo",-apple-system,sans-serif;
     --f-mono:"IBM Plex Mono",ui-monospace,monospace;
     --f-body:"IBM Plex Sans",-apple-system,sans-serif;
   }
@@ -98,7 +98,7 @@
     animation:draw 1.5s cubic-bezier(.65,0,.35,1) forwards;
   }
   #seal .word{
-    font-family:var(--f-display);font-weight:700;font-size:15px;letter-spacing:.2em;
+    font-family:var(--f-display);font-weight:700;font-stretch:125%;font-size:15px;letter-spacing:.2em;
     color:var(--ink);opacity:0;animation:fadein .6s ease forwards .9s;text-transform:uppercase;
   }
   @keyframes draw{ to{ stroke-dashoffset:0; } }
@@ -196,6 +196,24 @@
   .progbar{height:4px;border-radius:2px;background:var(--void);overflow:hidden;border:1px solid var(--border);}
   .progfill{height:100%;background:linear-gradient(90deg,var(--amber-dim),var(--amber));transition:width .3s ease;}
   .progtext{font-size:10.5px;color:var(--ink-faint);margin-top:7px;font-family:var(--f-mono);}
+
+  /* ---- sidebar hierarchy: three tiers, CSS-only ---- */
+  /* primary — search + branch filters: most contrast, largest touch targets */
+  .side-primary.searchbox{padding-bottom:20px;}
+  .side-primary.searchbox input{padding:10px 12px;font-size:13px;}
+  .grp.side-primary{margin-bottom:28px;}
+  .grp.side-primary h3{font-size:11px;color:var(--brass);letter-spacing:.2em;margin-bottom:12px;}
+  .grp.side-primary .filt{padding:8px 16px;font-size:13px;color:var(--ink);}
+  .grp.side-primary .filt:hover{color:var(--paper);}
+  /* secondary — protocols + mode toggle: normal weight, unchanged from base */
+  .side-secondary.modebox{margin-bottom:10px;}
+  /* tertiary — dossiê stats + ficha externa: demoted, smaller, tighter, quieter */
+  .grp.side-tertiary{margin-bottom:16px;}
+  .grp.side-tertiary h3{font-size:9px;letter-spacing:.14em;color:var(--ink-faint);margin-bottom:6px;}
+  .grp.side-tertiary .stat{font-size:10px;color:var(--ink-faint);line-height:1.6;}
+  .grp.side-tertiary .modehint{font-size:9.5px;line-height:1.5;}
+  .grp.side-tertiary .omdbkeyrow input{font-size:11px;padding:6px 8px;}
+  .grp.side-tertiary .omdbkeyrow button{font-size:11px;}
 
   .graph{flex:1;position:relative;min-width:0;}
   canvas{display:block;cursor:grab;}
@@ -985,7 +1003,7 @@
   .main.mode-logs .side, .main.mode-logs .graph, .main.mode-logs .note{display:none;}
   .main.mode-logs .logsview{display:block;}
   .logshead{display:flex;align-items:baseline;gap:14px;margin:0 0 22px;}
-  .logshead h2{font-family:var(--f-display);font-size:20px;font-weight:700;color:var(--ink);}
+  .logshead h2{font-family:var(--f-display);font-size:20px;font-weight:700;font-stretch:125%;letter-spacing:.08em;text-transform:uppercase;color:var(--ink);}
   .logsgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:16px;}
   .logcard{
     background:var(--void-2);border:1px solid var(--border);border-radius:7px;overflow:hidden;
@@ -2202,24 +2220,24 @@
 
 <div class="main">
   <aside class="side" id="side">
-    <div class="searchbox"><input id="q" placeholder="&gt; localizar dossiê..." autocomplete="off"></div>
-    <div class="modebox">
+    <div class="searchbox side-primary"><input id="q" placeholder="&gt; localizar dossiê..." autocomplete="off"></div>
+    <div class="modebox side-secondary">
       <button class="mode active" id="m-chrono">Cronológica</button>
       <button class="mode" id="m-release">Lançamento</button>
     </div>
-    <p class="modehint" id="modehint"></p>
-    <div class="grp" id="tracksGrp"><h3>Protocolos</h3><div id="tracks"></div>
+    <p class="modehint side-secondary" id="modehint"></p>
+    <div class="grp side-secondary" id="tracksGrp"><h3>Protocolos</h3><div id="tracks"></div>
       <p class="modehint" id="trackhint" style="margin-top:6px">Nenhum protocolo activo</p>
     </div>
-    <div class="grp"><h3 id="groupLabel">Ramos temporais</h3><div id="filters"></div></div>
-    <div class="grp"><h3>Dossiê</h3>
+    <div class="grp side-primary"><h3 id="groupLabel">Ramos temporais</h3><div id="filters"></div></div>
+    <div class="grp side-tertiary"><h3>Dossiê</h3>
       <div class="stat" id="stats"></div>
       <div class="progwrap">
         <div class="progbar"><div class="progfill" id="progfill"></div></div>
         <div class="progtext" id="progtext"></div>
       </div>
     </div>
-    <div class="grp"><h3>Ficha externa</h3>
+    <div class="grp side-tertiary"><h3>Ficha externa</h3>
       <div class="stat" id="omdbStatus">a verificar chave…</div>
       <div class="omdbkeyrow">
         <input id="omdbKey" type="password" placeholder="chave OMDb" autocomplete="off">
@@ -2227,7 +2245,7 @@
       </div>
       <p class="modehint" style="margin-top:8px">Grátis em omdbapi.com/apikey.aspx. Ou ponha-a no ficheiro .env desta pasta e sirva com um servidor local — carrega sozinha.</p>
     </div>
-    <div class="grp"><h3>Protocolo de leitura</h3><div class="stat">
+    <div class="grp side-tertiary"><h3>Protocolo de leitura</h3><div class="stat">
       Nº no nó = ordem de visionamento<br>no ramo<br><br>
       Clicar → abrir dossiê<br>Arrastar → reposicionar nó<br>Roda do rato → zoom
     </div></div>
@@ -2241,9 +2259,10 @@
       <button class="ctl" id="reset">⌂</button>
     </div>
     <div class="legend-hint">
-      linha sólida · sequência do ramo<br>
-      <b>fio vermelho</b> · desvio entre continuidades<br>
-      selo de latão · nó de convergência
+      nó vazado · por ver &nbsp;·&nbsp; nó cheio · carimbado<br>
+      arco dourado · classificação<br>
+      arco laranja · a ordem recua no tempo<br>
+      <b>fio vermelho</b> · desvio entre continuidades
     </div>
   </div>
 
@@ -3134,7 +3153,9 @@ let mode = 'chrono';
 let track = null, trackIdx = {}, trackSeq = [];
 const hidden = new Set();
 let query = "";
-let hover=null, selected=null, dragNode=null, panning=false, px=0, py=0, moved=false;
+/* Node dragging is gone: positions are derived from release year now, so
+   dragging one would be a lie about the data. Pan, zoom, hover, click stay. */
+let hover=null, selected=null, clicked=null, panning=false, px=0, py=0, moved=false;
 
 function buildGraph(){
   M = MEDIA[mediaKey];
@@ -3181,7 +3202,80 @@ function buildGraph(){
     (crossIn[l.t] = crossIn[l.t] || []).push(l);
   });
 
-  for(let i=0;i<300;i++) step();
+  layout();
+  nodes.forEach(n => { n.x = n.tx; n.y = n.ty; });   // positions are exact; the reveal does the drama
+  replay();
+}
+
+/* ===================== DISPOSIÇÃO — A LINHA SAGRADA =====================
+   There is no force simulation. Every node has a fixed target derived from
+   the data, and step() only eases toward it.
+
+   X IS ALWAYS THE RELEASE YEAR. `rel` is a clean number on all 152 titles;
+   `s` (the in-world chronology) is free text — "1943 e 1990", "anos 80",
+   "c. 2003" — and can never drive an axis. So the chrono/lançamento toggle
+   changes only WHICH NODE LINKS TO WHICH, not where anything sits. In
+   chronological mode the sequence visibly runs backwards through the years:
+   Captain America: The First Avenger sits at 2011 and is first in the order.
+   That jump is the most interesting fact in the data, and the old
+   force-directed blob hid it completely.
+
+   Each universe is a lane, ordered by the year it begins, peeling off the
+   spine at that year — the TVA's own picture of a branching timeline. */
+const LANE_H = 178, X_SPAN = 2600, NODE_FAN = 30, SPINE_GAP = 175;
+let lanes = [], yearMin = 0, yearMax = 0, spineY = 0, rulerY = 0;
+
+/* THE REVEAL. One number sweeps a playhead left to right through the years, and
+   everything is drawn only once time has reached it: the spine grows, each
+   branch peels off as its first year arrives, nodes land as they are passed.
+   The archive writes itself in chronological order, which is the one thing a
+   timeline can do that a blob of nodes cannot. Replays on every media switch. */
+let reveal = 1.4;
+const easeOutCubic = t => 1 - Math.pow(1 - t, 3);
+function replay(){ reveal = prefersReducedMotion() ? 1.4 : 0; }
+const sweepX = () => -X_SPAN/2 - 120 + (X_SPAN + 300) * easeOutCubic(Math.min(1, reveal));
+
+const xOfYear = y => (y - yearMin) / Math.max(yearMax - yearMin, 1) * X_SPAN - X_SPAN / 2;
+
+function layout(){
+  const live = nodes.filter(vis);
+  if(!live.length){ lanes = []; return; }
+  yearMin = Math.min(...live.map(n => n.rel));
+  yearMax = Math.max(...live.map(n => n.rel));
+
+  lanes = order
+    .filter(k => !hidden.has(k) && clusters[k].ids.length)
+    .map(k => {
+      const ids = clusters[k].ids;
+      return { key:k, ids, first: Math.min(...ids.map(i => nodes[i].rel)),
+                          last:  Math.max(...ids.map(i => nodes[i].rel)) };
+    })
+    .sort((a,b) => a.first - b.first || a.key.localeCompare(b.key));
+
+  const mid = (lanes.length - 1) * LANE_H / 2;
+  spineY = -mid - SPINE_GAP;
+  rulerY = mid + SPINE_GAP * 0.72;
+
+  lanes.forEach((lane, li) => {
+    lane.y  = li * LANE_H - mid;
+    lane.x0 = xOfYear(lane.first);
+    lane.x1 = xOfYear(lane.last);
+    /* Titles sharing a year would land on top of each other, so they fan
+       vertically around the lane — in the cluster's own chronological order,
+       so the fan reads top-to-bottom as the story goes. */
+    const byYear = {};
+    lane.ids.forEach(id => (byYear[nodes[id].rel] = byYear[nodes[id].rel] || []).push(id));
+    for(const yr in byYear){
+      const g = byYear[yr];
+      g.sort((a,b) => clusters[lane.key].chrono.indexOf(a) - clusters[lane.key].chrono.indexOf(b));
+      g.forEach((id, i) => {
+        const n = nodes[id];
+        n.tx = xOfYear(n.rel);
+        n.ty = lane.y + (i - (g.length - 1) / 2) * NODE_FAN;
+        n.fanI = i; n.fanN = g.length;
+      });
+    }
+  });
 }
 
 function rebuildOrder(){
@@ -3216,100 +3310,29 @@ function resize(){
 }
 window.addEventListener('resize', resize);
 
+/* Frame the whole span. The lane names hang off the left of every lane, so the
+   gutter is part of the content, not padding. */
+function frame(){
+  const gutter = 620;
+  scale = Math.max(0.16, Math.min(0.9, (W - 80) / (X_SPAN + gutter)));
+  ox = gutter * scale * 0.42;
+  oy = -((spineY - 40 + rulerY + 48) / 2) * scale;   // spine sits high, ruler low
+}
+
 const vis = n => !hidden.has(n.u);
 const dimmed = n => query && !n.t.toLowerCase().includes(query);
 
 function step(){
-  const act = nodes.filter(vis);
-  for(let i=0;i<act.length;i++){
-    const a = act[i];
-    for(let j=i+1;j<act.length;j++){
-      const b = act[j];
-      let dx=b.x-a.x, dy=b.y-a.y, d2=dx*dx+dy*dy;
-      if(d2<1) d2=1;
-      const same = a.u === b.u;
-      if(d2 > (same?90000:202500)) continue;
-      const f = (same ? 8775 : 17550) / d2;
-      const d = Math.sqrt(d2);
-      const fx=dx/d*f, fy=dy/d*f;
-      a.vx-=fx; a.vy-=fy; b.vx+=fx; b.vy+=fy;
-    }
-  }
-  links.forEach(l => {
-    const a=nodes[l.s], b=nodes[l.t];
-    if(!vis(a)||!vis(b)) return;
-    const dx=b.x-a.x, dy=b.y-a.y;
-    const d=Math.hypot(dx,dy)||1;
-    const f=(d-93)*0.028;
-    a.vx+=dx/d*f; a.vy+=dy/d*f; b.vx-=dx/d*f; b.vy-=dy/d*f;
-  });
+  /* The one piece of motion left. Nodes ease toward their targets, so a media
+     switch or a branch being hidden visibly re-times the archive instead of
+     cutting. Reduced motion snaps. */
+  if(reveal < 1.4) reveal += 0.011;
+  const k = prefersReducedMotion() ? 1 : 0.12;
   nodes.forEach(n => {
-    const c = U[n.u];
-    n.vx += (c.cx - n.x) * 0.004;
-    n.vy += (c.cy - n.y) * 0.004;
-    if(n === dragNode){ n.vx=0; n.vy=0; return; }
-    n.vx*=0.8; n.vy*=0.8;
-    n.x+=n.vx; n.y+=n.vy;
+    if(n.tx === undefined) return;
+    n.x += (n.tx - n.x) * k;
+    n.y += (n.ty - n.y) * k;
   });
-}
-
-function hull(pts){
-  if(pts.length < 3) return pts;
-  const p = pts.slice().sort((a,b)=>a.x-b.x||a.y-b.y);
-  const cross=(o,a,b)=>(a.x-o.x)*(b.y-o.y)-(a.y-o.y)*(b.x-o.x);
-  const lo=[], up=[];
-  for(const q of p){ while(lo.length>=2 && cross(lo[lo.length-2],lo[lo.length-1],q)<=0) lo.pop(); lo.push(q); }
-  for(let i=p.length-1;i>=0;i--){ const q=p[i]; while(up.length>=2 && cross(up[up.length-2],up[up.length-1],q)<=0) up.pop(); up.push(q); }
-  lo.pop(); up.pop();
-  return lo.concat(up);
-}
-
-function drawCluster(k){
-  const c = clusters[k];
-  const pts = c.ids.map(i=>nodes[i]);
-  if(!pts.length) return;
-  let cx=0, cy=0;
-  pts.forEach(p=>{cx+=p.x; cy+=p.y;});
-  cx/=pts.length; cy/=pts.length;
-  const pad = 62;
-  let h = hull(pts.map(p=>({x:p.x,y:p.y})));
-  if(h.length < 3){
-    ctx.beginPath();
-    ctx.arc(cx, cy, 70 + pad, 0, 6.2832);
-  } else {
-    h = h.map(p=>{
-      const dx=p.x-cx, dy=p.y-cy, d=Math.hypot(dx,dy)||1;
-      return {x:p.x+dx/d*pad, y:p.y+dy/d*pad};
-    });
-    ctx.beginPath();
-    const mid=(a,b)=>({x:(a.x+b.x)/2, y:(a.y+b.y)/2});
-    let m0 = mid(h[h.length-1], h[0]);
-    ctx.moveTo(m0.x, m0.y);
-    for(let i=0;i<h.length;i++){
-      const cur=h[i], nxt=h[(i+1)%h.length];
-      const m=mid(cur,nxt);
-      ctx.quadraticCurveTo(cur.x, cur.y, m.x, m.y);
-    }
-    ctx.closePath();
-  }
-  const col = U[k].color;
-  ctx.fillStyle = col + '14';
-  ctx.fill();
-  ctx.strokeStyle = col + '55';
-  ctx.setLineDash([7/scale, 6/scale]);
-  ctx.lineWidth = 1.4/scale;
-  ctx.stroke();
-  ctx.setLineDash([]);
-
-  let top = Infinity;
-  pts.forEach(p=>{ if(p.y < top) top = p.y; });
-  ctx.fillStyle = col;
-  ctx.font = '600 ' + (16/Math.max(scale,0.42)) + 'px "Space Grotesk", sans-serif';
-  ctx.textAlign = 'center';
-  ctx.fillText(U[k].name.toUpperCase(), cx, top - pad - 22/Math.max(scale,0.42));
-  ctx.fillStyle = '#8c8371';
-  ctx.font = (11/Math.max(scale,0.42)) + 'px "IBM Plex Mono", monospace';
-  ctx.fillText(c.n + ' ' + M.itemWord + ' · dossiê nº 1 abre o ramo', cx, top - pad - 6/Math.max(scale,0.42));
 }
 
 function draw(){
@@ -3317,8 +3340,6 @@ function draw(){
   ctx.save();
   ctx.translate(W/2+ox, H/2+oy);
   ctx.scale(scale, scale);
-
-  order.forEach(k => { if(!hidden.has(k)) drawCluster(k); });
 
   const focus = hover !== null ? hover : selected;
   const neigh = new Set();
@@ -3329,19 +3350,114 @@ function draw(){
     (crossOut[focus]||[]).forEach(l => neigh.add(l.t));
     (crossIn[focus]||[]).forEach(l => neigh.add(l.s));
   }
+  const px = v => v/scale;                       // keep hairlines hairline at any zoom
+  const x0 = xOfYear(yearMin), x1 = xOfYear(yearMax);
+  const sweep = sweepX(), live = reveal >= 1.4;
+  const arrived = x => live || x <= sweep;
+  const fadeIn = x => live ? 1 : Math.max(0, Math.min(1, (sweep - x) / 90));
 
+  /* ---- year ruler: real information, so it is drawn first and quietly ---- */
+  ctx.textAlign='center'; ctx.textBaseline='alphabetic';
+  /* Pick the labelled years BEFORE drawing any, so a half-decade or an endpoint
+     can never land on top of a neighbour. Decades always win. */
+  const marks = [];
+  const free = y => marks.every(m => Math.abs(m - y) >= (scale > .55 ? 2 : 4));
+  for(let y=yearMin; y<=yearMax; y++) if(y % 10 === 0) marks.push(y);
+  if(scale > 0.30) for(let y=yearMin; y<=yearMax; y++) if(y % 5 === 0 && free(y)) marks.push(y);
+  [yearMin, yearMax].forEach(y => { if(free(y)) marks.push(y); });
+
+  for(let y=yearMin; y<=yearMax; y++){
+    const x = xOfYear(y), decade = y % 10 === 0;
+    ctx.strokeStyle = decade ? 'rgba(185,161,118,.26)' : 'rgba(185,161,118,.08)';
+    ctx.lineWidth = px(decade ? 1.1 : 0.8);
+    ctx.beginPath(); ctx.moveTo(x, spineY - 30); ctx.lineTo(x, rulerY); ctx.stroke();
+    if(marks.includes(y)){
+      ctx.fillStyle = decade ? 'rgba(185,161,118,.9)' : 'rgba(185,161,118,.5)';
+      ctx.font = (decade ? '600 ' : '') + px(13) + 'px "IBM Plex Mono", monospace';
+      ctx.fillText(y, x, rulerY + px(21));
+    }
+  }
+
+  /* ---- the spine, and each branch peeling off it at the year it begins ---- */
+  ctx.strokeStyle = 'rgba(224,33,43,.13)';
+  ctx.lineWidth = px(14);
+  const spineEnd = Math.min(x1 + 70, live ? x1 + 70 : sweep);
+  ctx.beginPath(); ctx.moveTo(x0 - 70, spineY); ctx.lineTo(spineEnd, spineY); ctx.stroke();
+  ctx.strokeStyle = 'rgba(240,196,120,.28)';
+  ctx.lineWidth = px(5);
+  ctx.beginPath(); ctx.moveTo(x0 - 70, spineY); ctx.lineTo(spineEnd, spineY); ctx.stroke();
+  ctx.strokeStyle = 'rgba(247,232,198,.92)';
+  ctx.lineWidth = px(1.5);
+  ctx.beginPath(); ctx.moveTo(x0 - 70, spineY); ctx.lineTo(spineEnd, spineY); ctx.stroke();
+  ctx.save();
+  ctx.textAlign='left'; ctx.textBaseline='alphabetic';
+  if(ctx.letterSpacing !== undefined) ctx.letterSpacing = '0.34em';
+  ctx.fillStyle = 'rgba(247,232,198,.55)';
+  ctx.font = '700 ' + px(10) + 'px Archivo, sans-serif';
+  ctx.fillText('LINHA SAGRADA', x0 - 70, spineY - px(14));
+  ctx.restore();
+
+  lanes.forEach(lane => {
+    if(!arrived(lane.x0)) return;
+    const col = U[lane.key].color;
+    ctx.globalAlpha = fadeIn(lane.x0);
+    // the peel: leaves the spine vertically, arrives along the lane
+    ctx.strokeStyle = col + '77';
+    ctx.lineWidth = px(1.6);
+    ctx.beginPath();
+    ctx.moveTo(lane.x0, spineY);
+    ctx.bezierCurveTo(lane.x0, spineY + (lane.y-spineY)*0.55,
+                      lane.x0 - 34, lane.y - (lane.y-spineY)*0.18,
+                      lane.x0 - 34, lane.y);
+    ctx.stroke();
+    // the lane itself
+    ctx.strokeStyle = col + '44';
+    ctx.lineWidth = px(1.1);
+    ctx.beginPath(); ctx.moveTo(lane.x0 - 34, lane.y);
+    ctx.lineTo(Math.min(lane.x1 + 26, live ? lane.x1 + 26 : sweep), lane.y); ctx.stroke();
+    // divergence point
+    ctx.fillStyle = col;
+    ctx.beginPath(); ctx.arc(lane.x0, spineY, px(4.6), 0, 6.2832); ctx.fill();
+    ctx.strokeStyle = 'rgba(247,232,198,.8)'; ctx.lineWidth = px(1.2); ctx.stroke();
+    // branch name, set as signage
+    /* The name sits ABOVE its own lane at the divergence point. Hanging it off
+       to the LEFT put late branches' names on top of earlier branches' nodes. */
+    ctx.save();
+    ctx.textBaseline='alphabetic';
+    if(ctx.letterSpacing !== undefined) ctx.letterSpacing = '0.15em';
+    ctx.fillStyle = col;
+    ctx.font = '700 ' + px(16) + 'px Archivo, sans-serif';
+    /* Branches that begin late would run their name off the right edge — the
+       series tab is almost all post-2010 — so those flip to the other side. */
+    const label = U[lane.key].name.toUpperCase();
+    const flip = lane.x0 - 34 + ctx.measureText(label).width > x1 + 40;
+    ctx.textAlign = flip ? 'right' : 'left';
+    ctx.fillText(label, lane.x0 + (flip ? -14 : -34), lane.y - px(26));
+    ctx.restore();
+    ctx.globalAlpha = 1;
+  });
+
+  /* ---- the sequence. A link that runs RIGHT TO LEFT is a jump backwards in
+     time, which in chronological mode is the whole story; it bows below the
+     lane and is drawn brighter so it reads as an event, not an error. ---- */
   links.forEach(l => {
     const a=nodes[l.s], b=nodes[l.t];
     if(!vis(a)||!vis(b)) return;
+    if(!arrived(Math.max(a.tx,b.tx))) return;
     const on = focus!==null && (l.s===focus||l.t===focus);
-    const dx=b.x-a.x, dy=b.y-a.y, d=Math.hypot(dx,dy)||1;
-    const ux=dx/d, uy=dy/d;
-    const sx=a.x+ux*a.r, sy=a.y+uy*a.r, ex=b.x-ux*(b.r+5), ey=b.y-uy*(b.r+5);
-    ctx.strokeStyle = on ? U[a.u].color : (focus!==null ? '#2a231a' : '#4a4030');
-    ctx.lineWidth = (on?2:1.1)/scale;
-    ctx.beginPath(); ctx.moveTo(sx,sy); ctx.lineTo(ex,ey); ctx.stroke();
-    const ah = 6/scale;
-    ctx.fillStyle = on ? U[a.u].color : (focus!==null ? '#2a231a' : '#5a4f3a');
+    const back = b.x < a.x - 1;
+    const dx = b.x-a.x, dy = b.y-a.y, d = Math.hypot(dx,dy)||1;
+    const bow = Math.min(Math.abs(dx)*0.22, 120) * (back ? 1 : -0.35);
+    const mx = (a.x+b.x)/2, my = (a.y+b.y)/2 + bow;
+    ctx.strokeStyle = on ? U[a.u].color
+                    : back ? (focus!==null ? 'rgba(224,140,60,.14)' : 'rgba(224,150,70,.30)')
+                           : (focus!==null ? 'rgba(120,104,77,.14)' : 'rgba(168,157,131,.46)');
+    ctx.lineWidth = px(on ? 2.2 : back ? 1.3 : 1.15);
+    ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.quadraticCurveTo(mx,my,b.x,b.y); ctx.stroke();
+    // arrowhead at the far end, angled along the curve
+    const vx = b.x-mx, vy = b.y-my, vd = Math.hypot(vx,vy)||1, ux=vx/vd, uy=vy/vd;
+    const ex = b.x-ux*(b.r+3), ey = b.y-uy*(b.r+3), ah = px(6.5);
+    ctx.fillStyle = ctx.strokeStyle;
     ctx.beginPath();
     ctx.moveTo(ex+ux*ah, ey+uy*ah);
     ctx.lineTo(ex-uy*ah*0.55, ey+ux*ah*0.55);
@@ -3349,97 +3465,89 @@ function draw(){
     ctx.closePath(); ctx.fill();
   });
 
+  /* ---- crossovers: the red thread, jumping between branches ---- */
   xlinks.forEach(l => {
     const a=nodes[l.s], b=nodes[l.t];
     if(!vis(a)||!vis(b)) return;
+    if(!arrived(Math.max(a.tx,b.tx))) return;
     const on = focus!==null && (l.s===focus||l.t===focus);
     const dx=b.x-a.x, dy=b.y-a.y, d=Math.hypot(dx,dy)||1;
-    const ux=dx/d, uy=dy/d;
-    const sx=a.x+ux*a.r, sy=a.y+uy*a.r, ex=b.x-ux*(b.r+7), ey=b.y-uy*(b.r+7);
-    const mx=(sx+ex)/2 - uy*d*0.13, my=(sy+ey)/2 + ux*d*0.13;
-    ctx.strokeStyle = on ? '#e0453a' : (focus!==null ? '#3a1f1c' : '#7a3229');
-    ctx.lineWidth = (on?2.4:1.3)/scale;
+    const mx=(a.x+b.x)/2 - dy*0.10, my=(a.y+b.y)/2 + dx*0.10;
+    ctx.strokeStyle = on ? '#e0453a' : (focus!==null ? 'rgba(122,50,41,.20)' : 'rgba(194,59,50,.34)');
+    ctx.lineWidth = px(on?2.6:1.1);
+    ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.quadraticCurveTo(mx,my,b.x,b.y); ctx.stroke();
+    const vx=b.x-mx, vy=b.y-my, vd=Math.hypot(vx,vy)||1, ux=vx/vd, uy=vy/vd;
+    const ex=b.x-ux*(b.r+4), ey=b.y-uy*(b.r+4), ah=px(7.5);
+    ctx.fillStyle = ctx.strokeStyle;
     ctx.beginPath();
-    ctx.moveTo(sx,sy);
-    ctx.quadraticCurveTo(mx,my,ex,ey);
-    ctx.stroke();
-    const tx=ex-mx, ty=ey-my, td=Math.hypot(tx,ty)||1;
-    const vx=tx/td, vy=ty/td, ah=7/scale;
-    ctx.fillStyle = on ? '#e0453a' : (focus!==null ? '#3a1f1c' : '#7a3229');
-    ctx.beginPath();
-    ctx.moveTo(ex+vx*ah, ey+vy*ah);
-    ctx.lineTo(ex-vy*ah*0.55, ey+vx*ah*0.55);
-    ctx.lineTo(ex+vy*ah*0.55, ey-vx*ah*0.55);
+    ctx.moveTo(ex+ux*ah, ey+uy*ah);
+    ctx.lineTo(ex-uy*ah*0.55, ey+ux*ah*0.55);
+    ctx.lineTo(ex+uy*ah*0.55, ey-ux*ah*0.55);
     ctx.closePath(); ctx.fill();
   });
 
+  /* ---- an active percurso overrides everything else ---- */
   if(track && trackSeq.length > 1){
+    ctx.strokeStyle = '#f0c060';
+    ctx.lineWidth = px(3);
     for(let i=1;i<trackSeq.length;i++){
       const a=nodes[trackSeq[i-1]], b=nodes[trackSeq[i]];
       if(!vis(a)||!vis(b)) continue;
-      const dx=b.x-a.x, dy=b.y-a.y, d=Math.hypot(dx,dy)||1;
-      const ux=dx/d, uy=dy/d;
-      const sx=a.x+ux*(a.r+3), sy=a.y+uy*(a.r+3);
-      const ex=b.x-ux*(b.r+9), ey=b.y-uy*(b.r+9);
-      const mx=(sx+ex)/2 - uy*d*0.16, my=(sy+ey)/2 + ux*d*0.16;
-      ctx.strokeStyle = '#f0c060';
-      ctx.lineWidth = 3/scale;
+      const dx=b.x-a.x, bow = Math.min(Math.abs(dx)*0.18, 100) * (b.x<a.x ? 1 : -0.3);
       ctx.beginPath();
-      ctx.moveTo(sx,sy);
-      ctx.quadraticCurveTo(mx,my,ex,ey);
+      ctx.moveTo(a.x,a.y);
+      ctx.quadraticCurveTo((a.x+b.x)/2, (a.y+b.y)/2 + bow, b.x, b.y);
       ctx.stroke();
-      const tx=ex-mx, ty=ey-my, td=Math.hypot(tx,ty)||1;
-      const vx=tx/td, vy=ty/td, ah=10/scale;
-      ctx.fillStyle = '#f0c060';
-      ctx.beginPath();
-      ctx.moveTo(ex+vx*ah, ey+vy*ah);
-      ctx.lineTo(ex-vy*ah*0.5, ey+vx*ah*0.5);
-      ctx.lineTo(ex+vy*ah*0.5, ey-vx*ah*0.5);
-      ctx.closePath(); ctx.fill();
     }
   }
 
+  /* ---- nodes. Watched is the FILL, not a badge: hollow means unseen, and
+     the archive's progress is readable in one glance across 152 titles. The
+     rubber stamp is kept, but only once you are zoomed in enough to read it. */
   nodes.forEach(n => {
-    if(!vis(n)) return;
+    if(!vis(n) || !arrived(n.tx)) return;
+    const pop = fadeIn(n.tx);
     const inTrack = track ? trackIdx[n.id] !== undefined : true;
-    const isWatched = watched.has(watchKey(mediaKey, n.t));
+    const log = logs[watchKey(mediaKey, n.t)];
+    const isWatched = log !== undefined;
     const faded = (focus!==null && !neigh.has(n.id)) || dimmed(n) || !inTrack;
     const col = U[n.u].color;
-    ctx.globalAlpha = faded ? 0.2 : 1;
+    ctx.globalAlpha = (faded ? 0.18 : 1) * pop;
+
     if(n.id===selected){
-      ctx.beginPath(); ctx.arc(n.x,n.y,n.r+7,0,6.2832);
-      ctx.fillStyle = liveAccent+'40'; ctx.fill();
-      ctx.lineWidth=1.6/scale; ctx.strokeStyle=liveAccent+'90'; ctx.stroke();
+      ctx.beginPath(); ctx.arc(n.x,n.y,n.r+9,0,6.2832);
+      ctx.fillStyle = liveAccent+'33'; ctx.fill();
+      ctx.lineWidth=px(1.6); ctx.strokeStyle=liveAccent+'aa'; ctx.stroke();
     } else if(n.id===hover){
-      ctx.beginPath(); ctx.arc(n.x,n.y,n.r+6,0,6.2832);
-      ctx.fillStyle = col+'33'; ctx.fill();
+      ctx.beginPath(); ctx.arc(n.x,n.y,n.r+7,0,6.2832);
+      ctx.fillStyle = col+'2e'; ctx.fill();
     }
+
     ctx.beginPath(); ctx.arc(n.x,n.y,n.r,0,6.2832);
-    ctx.fillStyle = (track && inTrack) ? '#f0c060' : (n.ord===1 ? '#c9b183' : col);
-    ctx.fill();
-    if(track && inTrack){ ctx.lineWidth=2.5/scale; ctx.strokeStyle=col; ctx.stroke(); }
-    else if(n.ord===1){ ctx.lineWidth=2.4/scale; ctx.strokeStyle='#3a3020'; ctx.stroke(); }
+    if(track && inTrack){ ctx.fillStyle='#f0c060'; ctx.fill(); }
+    else if(isWatched){ ctx.fillStyle=col; ctx.fill(); }
+    else { ctx.fillStyle='#0E0C09'; ctx.fill(); }
+    ctx.lineWidth = px(isWatched ? 1.4 : 2);
+    ctx.strokeStyle = col;
+    ctx.stroke();
+
+    // rating, drawn as an arc of the circumference — never shown before now
+    if(log && log.rating){
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, n.r+5, -Math.PI/2, -Math.PI/2 + 6.2832*(log.rating/10));
+      ctx.strokeStyle = '#f0c060'; ctx.lineWidth = px(2.6); ctx.stroke();
+    }
     if(crossIn[n.id] && !track){
-      ctx.lineWidth=2/scale; ctx.strokeStyle='#c23b32';
-      ctx.beginPath(); ctx.arc(n.x,n.y,n.r+4,0,6.2832); ctx.stroke();
+      ctx.beginPath(); ctx.arc(n.x,n.y,n.r+(log&&log.rating?9:4),0,6.2832);
+      ctx.strokeStyle='rgba(194,59,50,.9)'; ctx.lineWidth=px(1.6); ctx.stroke();
     }
 
-    const shown = (track && inTrack) ? trackIdx[n.id] : n.ord;
-    ctx.fillStyle = (n.ord===1 || (track && inTrack)) ? '#241d10' : 'rgba(0,0,0,.72)';
-    ctx.font = '600 ' + (shown>9?12:13) + 'px "IBM Plex Mono", monospace';
-    ctx.textAlign='center'; ctx.textBaseline='middle';
-    ctx.fillText(shown, n.x, n.y+0.5);
-    ctx.textBaseline='alphabetic';
-
-    if(isWatched){
+    if(isWatched && scale > 1.15){
       ctx.save();
-      ctx.translate(n.x + n.r*0.75, n.y - n.r*0.75);
+      ctx.translate(n.x + n.r*0.8, n.y - n.r*0.9);
       ctx.rotate(-0.28);
-      ctx.fillStyle = '#c23b32';
-      ctx.fillRect(-9, -6, 18, 12);
-      ctx.strokeStyle = '#14110c';
-      ctx.lineWidth = 1.2/Math.max(scale,0.5);
-      ctx.strokeRect(-9, -6, 18, 12);
+      ctx.fillStyle = '#c23b32'; ctx.fillRect(-9,-6,18,12);
+      ctx.strokeStyle = '#0E0C09'; ctx.lineWidth = px(1.2); ctx.strokeRect(-9,-6,18,12);
       ctx.fillStyle = '#f2e6c8';
       ctx.font = '700 7px "IBM Plex Mono", monospace';
       ctx.textAlign='center'; ctx.textBaseline='middle';
@@ -3448,11 +3556,23 @@ function draw(){
     }
 
     if(scale > 0.62 || n.id===hover || n.id===selected || (track && inTrack) || (query && !dimmed(n))){
-      ctx.fillStyle = faded ? '#5a5344' : '#c9bfa5';
-      ctx.font = (11/Math.max(scale,0.62)) + 'px "IBM Plex Sans", sans-serif';
-      ctx.fillText(n.t, n.x, n.y + n.r + 14/Math.max(scale,0.62));
+      ctx.fillStyle = faded ? 'rgba(138,126,99,.8)' : '#E4DCC8';
+      ctx.font = px(11.5) + 'px "IBM Plex Sans", sans-serif';
+      ctx.textAlign='center'; ctx.textBaseline='alphabetic';
+      /* Titles sharing a year are stacked, and their labels would stack too;
+         each one drops a further line so the block stays readable. */
+      ctx.fillText(n.t, n.x, n.y + n.r + px(15) + (n.fanN > 1 ? n.fanI * px(12) : 0));
     }
   });
+  if(!live){
+    const g = ctx.createLinearGradient(sweep - 150, 0, sweep, 0);
+    g.addColorStop(0, 'rgba(247,232,198,0)');
+    g.addColorStop(1, 'rgba(247,232,198,.30)');
+    ctx.strokeStyle = g; ctx.lineWidth = px(2);
+    ctx.beginPath(); ctx.moveTo(sweep - 150, spineY); ctx.lineTo(sweep, spineY); ctx.stroke();
+    ctx.strokeStyle = 'rgba(255,247,224,.85)'; ctx.lineWidth = px(1.4);
+    ctx.beginPath(); ctx.moveTo(sweep, spineY - 22); ctx.lineTo(sweep, rulerY); ctx.stroke();
+  }
   ctx.globalAlpha=1;
   ctx.restore();
 }
@@ -3470,8 +3590,7 @@ function pick(cx,cy){
   return best;
 }
 cv.addEventListener('mousemove', e=>{
-  if(dragNode){ const p=toWorld(e.clientX,e.clientY); dragNode.x=p.x; dragNode.y=p.y; moved=true; return; }
-  if(panning){ ox+=e.clientX-px; oy+=e.clientY-py; px=e.clientX; py=e.clientY; return; }
+  if(panning){ ox+=e.clientX-px; oy+=e.clientY-py; px=e.clientX; py=e.clientY; moved=true; return; }
   const n=pick(e.clientX,e.clientY);
   hover = n?n.id:null;
   cv.style.cursor = n?'pointer':'grab';
@@ -3479,12 +3598,15 @@ cv.addEventListener('mousemove', e=>{
 cv.addEventListener('mousedown', e=>{
   const n=pick(e.clientX,e.clientY);
   moved=false;
-  if(n) dragNode=n;
-  else { panning=true; px=e.clientX; py=e.clientY; cv.classList.add('dragging'); }
+  /* Nodes are no longer draggable, so a press anywhere starts a pan; the note
+     only opens if the pointer never actually moved. */
+  clicked = n;
+  panning=true; px=e.clientX; py=e.clientY;
+  if(!n) cv.classList.add('dragging');
 });
 window.addEventListener('mouseup', ()=>{
-  if(dragNode && !moved) openNote(dragNode);
-  dragNode=null; panning=false; cv.classList.remove('dragging');
+  if(clicked && !moved) openNote(clicked);
+  clicked=null; panning=false; cv.classList.remove('dragging');
 });
 cv.addEventListener('wheel', e=>{
   e.preventDefault();
@@ -3492,7 +3614,7 @@ cv.addEventListener('wheel', e=>{
 },{passive:false});
 document.getElementById('zin').onclick=()=>scale=Math.min(3,scale*1.25);
 document.getElementById('zout').onclick=()=>scale=Math.max(0.2,scale*0.8);
-document.getElementById('reset').onclick=()=>{scale=0.32;ox=280;oy=0;};
+document.getElementById('reset').onclick=()=>{ frame(); };
 
 /* ===================== PAINEL DE NOTA ===================== */
 const note=document.getElementById('note');
@@ -3707,7 +3829,7 @@ function buildSidebar(){
     d.innerHTML='<span class="swatch" style="background:'+U[k].color+'"></span>'+U[k].name+
                 '<span class="cnt">'+clusters[k].n+'</span>';
     if(hidden.has(k)) d.classList.add('off');
-    d.onclick=()=>{ if(hidden.has(k)) hidden.delete(k); else hidden.add(k); d.classList.toggle('off'); persistState(); };
+    d.onclick=()=>{ if(hidden.has(k)) hidden.delete(k); else hidden.add(k); d.classList.toggle('off'); layout(); persistState(); };
     fc.appendChild(d);
   });
 
@@ -3758,8 +3880,8 @@ function setMedia(key, skipPersist){
   const savedTrack = persisted.track[key];
   if(savedTrack) setTrack(savedTrack, true);
 
-  scale = 0.32; ox = 280; oy = 0;
   resize();
+  frame();          // needs W, so it must follow resize
   if(!skipPersist) persistState();
 }
 tabMovies.onclick = () => setMedia('movies');
@@ -3842,6 +3964,7 @@ updateOmdbStatus();
 loadDotEnv();
 setMedia(mediaKey, true);
 resize();
+frame();
 loop();
 
 const seal = document.getElementById('seal');
