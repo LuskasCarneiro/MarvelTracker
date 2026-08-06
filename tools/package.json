@@ -1,0 +1,12 @@
+{
+  "name": "marvel-vault-tools",
+  "private": true,
+  "type": "module",
+  "comment": "Dev-only. The app itself ships zero dependencies — nothing here is loaded by index.html.",
+  "devDependencies": {
+    "playwright-core": "^1.56.0"
+  },
+  "dependencies": {
+    "three": "^0.185.1"
+  }
+}
