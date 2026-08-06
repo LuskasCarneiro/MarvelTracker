@@ -3,6 +3,81 @@
 Dated log of what changed and why, so a new session can see the project's history at a
 glance without re-deriving it from the diff. Newest first.
 
+## 2026-08-06 (late) — Next-movie links on the two new panels
+
+Owner's ask after seeing the two new panels: "missing: hyperlinks for the next movie."
+The standard "Ver antes / Ver a seguir" lists already existed for both titles but sat
+300–600 px below the visible note (the note is ~800 px tall, `#n-next` was at y≈1175–
+1276), so the links were effectively invisible. The fix is a per-skin `data-nextlink`
+slot filled from the same source as `#n-next` (`trackSeq[ti]` / `adjNext[n.id]`, via
+`linkBtn(nodes[ni], 'próximo: ')`; `hidden` when the lane ends):
+
+- **GOTG** — `.gx-next` top-right of the tracklist block (gold "próximo:" label,
+  dim button, hover underline), panel-enter `gxInk`.
+- **Hulk** — `.hb-next` inside the bottom foot strip (`.hb-foot`, margin-left auto),
+  `hbCell` entry.
+
+**Poster cover bug found and fixed.** The OMDb poster (natural 380×562) rendered
+full-height inside the note and covered the dossier — hit-testing at the note centre
+returned the `<img>`. Both skins now crop the poster to a plate
+(`height:260px` GOTG / `290px` Hulk, `object-fit:cover`, top-aligned for Hulk), so the
+sheet, the ficha and the foot stay visible. Both skins also hide the `.wl-b` brackets
+on the standard lists and underline on hover, so those read as links too.
+
+Verification: geometry, hit-testing (`elementFromPoint` → `#noteInner` at both slots)
+and click-navigation (GOTG slot opened *Guardians of the Galaxy Vol. 2*) all pass;
+`tools/check_intros.mjs` 8/8 OK. Caveat: headless Chromium screenshots do **not**
+composite the transformed fixed note layer (opaque sheet backgrounds paint as
+transparent, text does not) — the accepted Iron Man skin fails the same way, so this
+is a capture artifact, not an app bug. Still worth a human look at the two panels.
+
+## 2026-08-06 (night) — Guardians of the Galaxy and The Incredible Hulk join the deep pass
+
+Two new centered-intro titles, each built from researched facts rather than memory:
+
+**Guardians of the Galaxy — `mixtape` (2400 ms).** Quill's player is a **Sony TPS-L2**
+(the first Walkman, 1979); the intro renders its real anatomy — transport keys along
+the *top* edge, controls on the fixed body, and the cassette door as a **separate lower
+panel** that hinges open (this anatomy took a redesign pass after the first version
+swung the whole machine). The hero tape is a **TDK CDing 2** with a hand-lettered white
+"AWESOME MIX VOL. 1" label; the dossier is clip-path-slot-clipped so it grows *out of*
+the machine. The purple glow is the Power Stone, not the soundtrack insert art (that
+art is only on the panel's J-card band, with the verified 12-song A/B tracklist — and
+"Spirit in the Sky", which is trailer-only, is printed with a caveat rather than
+invented).
+
+**The Incredible Hulk — `heartbeat` (2000 ms).** Banner's heart-rate monitor (a
+Polar-style wristwatch) is the whole concept: an ECG strip scrolls with its beats
+growing closer, the readout climbs **072 → 096 → 124 → 163 → 200** (200 BPM is the
+canonical threshold), then at 200 the watch flashes green, the camera kicks and the
+dossier slams down out of the boom. The ECG strip is **generated** by
+`tools/gen_ecg.mjs` (viewBox 802x120, beats accelerating to a final 200-spike at
+x≈754–788, spliced into `MASK_HTML.heartbeat`) — never hand-typed. The panel is the
+gamma-lab sheet: CONFIDENCIAL stamp, "sujeito Mr. Green — B. Banner", "limiar FC ≥
+200 BPM", "local Roçinha · Rio", 158 days without incident (reviewer-observed figure,
+printed with that caveat).
+
+**Cascade bugs fixed along the way** (the classes the intros use must all sit inside
+the shared `.mk-layer` wrapper, which already centres + gives perspective):
+
+- Both intros originally defined their own `.mx-layer`/`.hb-layer` wrappers that never
+  matched, so the mixtape's fade-out and the heartbeat's camera kick were dead CSS —
+  the kick and fade now target `.note-stage.<key>-on .mk-layer`.
+- The heartbeat readout's stagger was silently overridden twice by cascade
+  specificity: the generic `animation` shorthand outbid the per-number
+  `animation-delay` longhands (delays now ride inline `--d` vars, the house pattern),
+  and the `:not(.hb-b1)` rule outbid the b5 alarm rule (b5's rule raised to
+  `.hb-b1`-level specificity). The "200" alarm flicker now only starts at 1.32 s.
+- `.hb-b1` (the resting "072") was being killed by the tick animation's `both` fill;
+  it's now excluded from the tick.
+
+Verification: `tools/check_intros.mjs` 8/8 OK, no console errors; frames + contact
+sheets regenerated in `tools/frames/mixtape/` and `tools/frames/heartbeat/` (also
+reduced-motion sets); pixel-verified states — door closed → label visible → machine
+faded for mixtape, trace → flash → note for heartbeat. The one caveat: the session
+model cannot view images, so the contact sheets still deserve a human look
+(`tools/frames/{mixtape,heartbeat}/contact.png`).
+
 ## 2026-08-06 (evening) — The graph became a timeline
 
 Owner's brief: full timeline rebuild, full creative liberty. See

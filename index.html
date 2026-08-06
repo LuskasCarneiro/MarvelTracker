@@ -2159,6 +2159,525 @@
     100%{opacity:1;transform:none;filter:none;}
   }
 
+  /* ================================================================
+     GUARDIANS OF THE GALAXY — "A FITA" (dossiê = J-card de cassete)
+
+     The dossier stops being a manila case file and becomes the folded
+     paper insert of the Awesome Mix Vol. 1 cassette in its case. The
+     top band is the FRONT panel: the purple/blue nebula with gold
+     lettering, the look of the official soundtrack release's insert
+     (the in-film tape itself has a plain white handwritten label — a
+     separate, verified thing, drawn inside the machine in the opening).
+     Below the crease, the printed BACK panel: the real twelve-song A/B
+     track listing in two mono columns. A fold lip along the bottom
+     edge carries the spine text, with a corner fold cut into it.
+     Sources: see the themes.js entry (TPS-L2, TDK CDing 2, the
+     verified tracklist). 460px.
+     ================================================================ */
+  .note.open.panel-guardians{width:460px;}
+  .note-inner.panel-guardians{
+    width:460px;padding:192px 176px 46px 24px;
+    --gx-ink:#ece5f6;
+    --gx-dim:#a99bc8;
+    --gx-faint:#6f6391;
+    --gx-gold:#f2c14e;
+    --gx-purp:#b74bd6;
+    --gx-rule:rgba(178,141,224,.22);
+    color:var(--gx-ink);
+    background:
+      /* the back panel's nebula watermark, printed behind the text */
+      radial-gradient(70% 42% at 28% 60%, rgba(103,58,183,.16) 0%, transparent 70%),
+      radial-gradient(55% 34% at 80% 40%, rgba(43,75,214,.10) 0%, transparent 70%),
+      /* J-card stock: deep indigo-black, not the manila case file */
+      linear-gradient(182deg,#1a1433 0%,#131025 55%,#0d0a1c 100%);
+    box-shadow:inset 0 0 0 1px rgba(178,141,224,.16), inset 0 0 90px rgba(60,30,120,.28);
+  }
+  .panel-guardians .note-close{color:var(--gx-dim);}
+  .panel-guardians .note-close:hover{color:var(--gx-gold);}
+  .panel-guardians .ordbadge{background:var(--gx-gold);color:#191430;border-radius:0;letter-spacing:.16em;}
+  .panel-guardians h1{
+    font-size:20px;letter-spacing:.07em;text-transform:uppercase;line-height:1.3;
+    color:var(--gx-gold);margin:0 0 5px;font-weight:800;font-style:italic;
+  }
+  .panel-guardians h1::after{
+    content:"";display:block;height:1px;margin-top:9px;
+    background:linear-gradient(90deg,var(--gx-gold) 0%,rgba(242,193,78,.12) 78%,transparent 100%);
+  }
+  .panel-guardians .tag{background:rgba(183,75,214,.14);color:var(--gx-dim);}
+  .panel-guardians .meta-table td{border-bottom-color:var(--gx-rule);color:var(--gx-dim);}
+  .panel-guardians .meta-table td:first-child{color:var(--gx-faint);}
+  .panel-guardians p.body{color:var(--gx-ink);}
+  .panel-guardians h2{color:var(--gx-gold);}
+  .panel-guardians h2::after{background:var(--gx-rule);}
+  /* the "ver antes / a seguir / desvios" lists read as real links, not
+     bracketed references: brackets hidden, underline on hover */
+  .panel-guardians .wl .wl-b{display:none;}
+  .panel-guardians .wl button{color:var(--gx-dim);text-decoration:underline;text-decoration-color:rgba(242,193,78,.35);text-underline-offset:2px;}
+  .panel-guardians .wl button:hover{color:var(--gx-gold);text-decoration-color:var(--gx-gold);}
+  .panel-guardians .watchtoggle{border-color:rgba(183,75,214,.45);color:var(--gx-dim);}
+  .panel-guardians .watchtoggle:hover{border-color:var(--gx-purp);color:var(--gx-ink);}
+  .panel-guardians .watchtoggle .chk{border-color:rgba(183,75,214,.55);}
+  .panel-guardians .watchtoggle.on{
+    border-color:var(--gx-gold);color:var(--gx-gold);
+    background:repeating-linear-gradient(-4deg,transparent 0 3px,rgba(242,193,78,.08) 3px 4px);
+  }
+  .panel-guardians .watchtoggle.on .chk{background:var(--gx-gold);border-color:var(--gx-gold);color:#191430;}
+  /* poster as a still from the tape's case: cover-cropped to a fixed
+     strip so the dossier (meta, ficha, "ver antes / a seguir") stays on
+     screen instead of being pushed below the fold by the full-height
+     portrait; the artwork's centre band survives the crop */
+  .panel-guardians .posterwrap{
+    aspect-ratio:auto;max-height:none;height:260px;min-height:130px;border-radius:0;
+    background:rgba(120,84,210,.10);border:1px solid rgba(242,193,78,.5);padding:6px;
+    box-shadow:0 0 0 3px rgba(25,20,48,.85), 0 4px 16px rgba(0,0,0,.5);
+  }
+  .panel-guardians .posterwrap img{width:100%;height:100%;object-fit:cover;}
+  .panel-guardians .posterph{color:rgba(169,155,200,.4);}
+  .panel-guardians .ratingbadge{background:transparent;border:1px solid rgba(169,155,200,.3);border-radius:0;}
+  .panel-guardians .ratingbadge .rb-src{color:var(--gx-faint);}
+  .panel-guardians .ratingbadge .rb-val{color:var(--gx-gold);}
+  .panel-guardians .omdbmeta{color:var(--gx-dim);}
+  .panel-guardians .omdbmeta b{color:var(--gx-ink);}
+  .panel-guardians .ratelabel{color:var(--gx-faint);}
+  .panel-guardians .ratedots button{border:1px solid rgba(169,155,200,.35);color:var(--gx-dim);border-radius:0;}
+  .panel-guardians .ratedots button.on{background:var(--gx-purp);border-color:var(--gx-purp);color:#1a1433;}
+
+  /* ---- decor ---- */
+  /* the front-panel art band: nebula, stars, gold title, the little TPS-L2 */
+  .gx-band{
+    position:absolute;left:0;right:0;top:0;height:158px;overflow:hidden;
+    background:
+      radial-gradient(58% 90% at 20% 0%, rgba(140,60,220,.5) 0%, transparent 66%),
+      radial-gradient(46% 80% at 80% 12%, rgba(60,90,220,.45) 0%, transparent 66%),
+      radial-gradient(34% 60% at 55% 32%, rgba(216,90,200,.3) 0%, transparent 70%),
+      linear-gradient(180deg,#0b0718 0%,#171036 55%,#251548 100%);
+    box-shadow:inset 0 0 0 1px rgba(220,190,255,.12);
+  }
+  .gx-stars{position:absolute;inset:0;width:100%;height:100%;display:block;}
+  .gx-star{fill:#ffffff;opacity:.5;}
+  .gx-star-b{fill:#ffe9ff;opacity:.9;}
+  .gx-t{
+    position:absolute;left:86px;right:0;top:46px;text-align:center;
+    font-family:var(--f-body);font-style:italic;font-weight:800;font-size:26px;
+    letter-spacing:.05em;color:var(--gx-gold);
+    text-shadow:0 0 26px rgba(242,193,78,.4), 0 2px 0 rgba(0,0,0,.4);
+  }
+  .gx-t i{
+    display:block;font-style:normal;font-weight:600;font-size:11px;
+    letter-spacing:.5em;margin-top:7px;text-indent:.5em;color:#cdb8f0;
+    text-shadow:0 0 14px rgba(183,75,214,.5);
+  }
+  .gx-sub{
+    position:absolute;left:0;right:0;top:130px;text-align:center;
+    font-family:var(--f-mono);font-size:7.5px;letter-spacing:.3em;text-transform:uppercase;
+    color:var(--gx-faint);
+  }
+  /* the machine in the band's corner: a stylised TPS-L2, tiny */
+  .gx-wm{position:absolute;right:16px;top:16px;width:52px;height:78px;}
+  .gx-wm svg{width:100%;height:100%;display:block;}
+  .gx-wm-body{fill:url(#gxMetal);stroke:#0b0718;stroke-width:1;}
+  .gx-wm-bezel{fill:#2b3340;}
+  .gx-wm-slot{fill:#141a22;}
+  .gx-wm-knob{fill:#c3cfdb;}
+  .gx-wm-hot{fill:#ff8a3d;}
+  .gx-wm-t{fill:#dfe8f0;font-family:var(--f-body);font-style:italic;font-weight:700;}
+  /* the crease where the J-card folds over the cassette */
+  .gx-crease{
+    position:absolute;left:0;right:0;top:158px;height:0;
+    border-top:1px dashed rgba(242,193,78,.35);
+  }
+  /* the printed BACK panel: the A/B track list, like the official insert */
+  .gx-side{
+    position:absolute;right:14px;top:182px;width:148px;
+    font-family:var(--f-mono);font-size:7px;line-height:1.75;color:var(--gx-dim);
+    border-left:1px dashed rgba(242,193,78,.3);padding-left:12px;
+  }
+  .gx-side b{
+    display:block;color:var(--gx-gold);font-size:8px;font-weight:600;
+    letter-spacing:.26em;margin:2px 0 3px;
+  }
+  .gx-side b + b{margin-top:10px;}
+  .gx-side .gx-trk{display:block;white-space:nowrap;overflow:hidden;}
+  .gx-side .gx-trk i{font-style:normal;color:var(--gx-faint);margin-right:6px;letter-spacing:.05em;}
+  /* the fold lip: the spine of the folded insert, wrapping the tape's foot */
+  .gx-lip{
+    position:absolute;left:0;right:0;bottom:0;height:30px;
+    display:flex;align-items:center;justify-content:center;
+    font-family:var(--f-mono);font-size:7.5px;letter-spacing:.32em;text-transform:uppercase;
+    color:#9a88c8;
+    background:linear-gradient(180deg,rgba(120,84,210,.18),rgba(70,48,140,.26));
+    box-shadow:inset 0 1px 0 rgba(178,141,224,.2);
+  }
+  .gx-fold{
+    position:absolute;right:0;bottom:0;width:0;height:0;
+    border-style:solid;border-width:0 0 30px 30px;
+    border-color:transparent transparent #0b0817 transparent;
+    filter:drop-shadow(-2px 2px 2px rgba(0,0,0,.45));
+  }
+  /* "próximo no percurso": the next dossier in the same lane, printed on
+     the insert's back panel under the track list — a real link, not decor.
+     Filled by openNote() from the same data as the "Ver a seguir" list. */
+  .gx-next{
+    position:absolute;right:14px;top:402px;width:148px;
+    font-family:var(--f-mono);font-size:7px;line-height:1.75;
+  }
+  .gx-next .wl-dir{
+    display:block;color:var(--gx-gold);font-size:8px;font-weight:600;
+    letter-spacing:.26em;margin-bottom:2px;text-transform:uppercase;
+  }
+  .gx-next button{
+    display:block;width:100%;text-align:left;padding:0;
+    font-family:var(--f-mono);font-size:7px;letter-spacing:.05em;color:var(--gx-dim);
+    background:none;border:0;cursor:pointer;
+  }
+  .gx-next button:hover{
+    color:var(--gx-gold);text-decoration:underline;
+    text-decoration-color:rgba(242,193,78,.4);text-underline-offset:2px;
+  }
+  .gx-next .wl-b{display:none;}
+
+  @media (prefers-reduced-motion:no-preference){
+    .panel-guardians.panel-enter .gx-band{animation:gxBand .9s cubic-bezier(.2,.9,.25,1) both;}
+    .panel-guardians.panel-enter .gx-wm{animation:gxWm .6s cubic-bezier(.25,1.4,.4,1) .3s both;}
+    .panel-guardians.panel-enter .gx-crease{animation:gxInk .5s ease .48s both;}
+    .panel-guardians.panel-enter .gx-side b{animation:gxInk .45s ease .55s both;}
+    .panel-guardians.panel-enter .gx-side .gx-trk{
+      animation:gxTrk .4s ease both;animation-delay:calc(var(--d,0s) + .62s);
+    }
+    .panel-guardians.panel-enter .gx-next{animation:gxInk .4s ease .85s both;}
+    .panel-guardians.panel-enter .gx-lip{animation:gxInk .6s ease 1s both;}
+    .panel-guardians.panel-enter .gx-fold{animation:gxInk .4s ease 1.05s both;}
+  }
+  @keyframes gxBand{0%{opacity:0;transform:translateY(-26px);}100%{opacity:1;transform:none;}}
+  @keyframes gxWm{0%{opacity:0;transform:translateY(-16px) rotate(-10deg) scale(.5);}100%{opacity:1;transform:none;}}
+  @keyframes gxTrk{0%{opacity:0;transform:translateX(10px);}100%{opacity:1;transform:none;}}
+  @keyframes gxInk{0%{opacity:0;}100%{opacity:1;}}
+
+  /* ---- Guardians: the opening — "O WALKMAN TOCA O DOSSIÊ" ----------
+     The Sony TPS-L2 (the first Walkman; the exact model Quill wears on
+     screen) resolves out of the Morag night-blue. The cassette door —
+     which on the TPS-L2 carries the controls and is the lower part of
+     the front face — hinges open toward the viewer on its bottom edge,
+     the TDK-style cassette inside shows its white hand-lettered
+     "AWESOME MIX VOL. 1" label, the two hubs spin, purple light builds
+     inside the machine, and the dossier is PLAYED OUT of the door:
+     it arrives small and low, clipped by a slot-shaped mask that opens
+     as it grows — like a tape coming out of the player.
+     Reduced motion: the machine still appears, lit and closed (the
+     recognisable image); only the motion drops. */
+   .mx-rig{position:relative;width:min(31vh,244px);aspect-ratio:320/480;transform-style:preserve-3d;}
+   .mx-rig > *{position:absolute;inset:0;}
+   .mx-glow{
+     background:radial-gradient(ellipse 52% 64% at 50% 60%,
+      rgba(150,70,220,.5) 0%,rgba(80,50,160,.2) 46%,transparent 72%);
+    filter:blur(16px);opacity:.55;
+  }
+  .mx-cassette{opacity:0;}
+  .mx-cassette svg{width:100%;height:100%;display:block;overflow:visible;}
+  .mx-door{transform-origin:50% 100%;}
+  .mx-doorpanel{fill:url(#mxMetal);}
+  .mx-seam{fill:#8fa2b5;opacity:.8;}
+  .mx-face{width:100%;height:100%;display:block;}
+  .mx-hub{transform-box:view-box;}
+  .mx-h1{transform-origin:112px 292px;}
+  .mx-h2{transform-origin:208px 292px;}
+  .mx-shell{fill:url(#mxCass);stroke:#3a424d;stroke-width:2;}
+  .mx-lbl{fill:#e9e4d4;}
+  .mx-lblage{fill:url(#mxAge);}
+  .mx-lblt{fill:#23262c;font-family:var(--f-body);font-style:italic;font-weight:700;}
+  .mx-win{fill:#080a0d;}
+  .mx-hubring{fill:#14181e;stroke:#3a424d;stroke-width:2;}
+  .mx-hubspokes{fill:none;stroke:#4d5763;stroke-width:2;}
+  .mx-cassbrand{fill:#5c6570;font-family:var(--f-mono);font-weight:500;}
+  .mx-body{fill:url(#mxMetal);}
+  .mx-bezel{fill:#3c4754;}
+  .mx-key{fill:#222a33;stroke:#151b22;stroke-width:1.5;}
+  .mx-slot{fill:#191f27;}
+  .mx-knob{fill:#c8d4de;}
+  .mx-hot{fill:#ff8a3d;}
+  .mx-hotdot{fill:#ffb27a;}
+  .mx-band{fill:#1e2a37;}
+  .mx-wm{fill:#e9eff6;font-family:var(--f-body);font-style:italic;font-weight:800;}
+  .mx-jack{fill:#151b23;stroke:#8fa2b5;stroke-width:1.5;}
+  .mx-jackt{fill:#aebccb;font-family:var(--f-mono);font-weight:600;}
+
+  @media (prefers-reduced-motion:no-preference){
+    .note-stage.mixtape-on .mk-layer{animation:mxFade 2.4s ease both;}
+    .note-stage.mixtape-on .mx-rig{animation:mxRig 2.4s cubic-bezier(.22,.68,.34,1) both;}
+    .note-stage.mixtape-on .mx-glow{animation:mxGlow 2.3s ease .15s both;}
+    .note-stage.mixtape-on .mx-door{animation:mxDoor .52s cubic-bezier(.6,0,.3,1) .4s both;}
+    .note-stage.mixtape-on .mx-cassette{animation:mxCassette .55s ease .44s both;}
+    .note-stage.mixtape-on .mx-hub{animation:mxSpin 1.05s linear .74s both;}
+    .note.note-centered.mixtape-arrive{animation:mxArrive .95s cubic-bezier(.16,.86,.3,1) 1.1s both;}
+  }
+  @keyframes mxFade{0%,54%{opacity:1;}100%{opacity:0;}}
+  @keyframes mxRig{0%{opacity:0;transform:translateY(34px) scale(.94);filter:blur(6px);}12%{opacity:1;filter:blur(0);}56%{opacity:1;}100%{opacity:0;transform:translateY(-18px) scale(1.045);}}
+  @keyframes mxGlow{0%{opacity:0;}16%{opacity:.9;}40%{opacity:.5;}58%{opacity:1;}100%{opacity:0;}}
+  @keyframes mxDoor{0%{transform:rotateX(0);}100%{transform:rotateX(-112deg);}}
+  @keyframes mxCassette{0%{opacity:0;}100%{opacity:1;}}
+  @keyframes mxSpin{0%{transform:rotate(0);}100%{transform:rotate(720deg);}}
+  /* the dossier comes OUT OF the machine: slot-clipped, growing as it
+     rises, the way a cassette leaves its case when you pull the tape */
+  @keyframes mxArrive{
+    0%{opacity:0;transform:translateY(60%) scale(.15);clip-path:inset(0 38% 0 38% round 10px);filter:blur(3px);}
+    34%{opacity:1;}
+    58%{transform:translateY(5%) scale(.985);clip-path:inset(0 9% 0 9% round 6px);filter:none;}
+    78%{transform:translateY(-1%) scale(1.015);}
+    100%{opacity:1;transform:none;clip-path:inset(0 0 0 0 round 0);filter:none;}
+  }
+
+  /* ================================================================
+     THE INCREDIBLE HULK (2008) — "A FICHA DE GAMMA"
+
+     A Culver gamma-lab specimen sheet: dark drab steel-grey paper (the
+     film's own murky, 1970s-TV grade), written in monitor-green with
+     the red DANGER accent of the opening credits. A stencilled header,
+     a diagonal red CONFIDENCIAL stamp, a data strip of verified facts,
+     and the film's own machine — the ECG trace — running as a divider,
+     spilling out of a glass vial of gamma blood. The faint targeting
+     reticule watermark is a nod to the opening credits' forehead
+     reticule. Sources: see the themes.js entry. 448px.
+     ================================================================ */
+  .note.open.panel-hulk2008{width:448px;}
+  .note-inner.panel-hulk2008{
+    width:448px;padding:150px 26px 46px;
+    --hb-ink:#d7dfd9;
+    --hb-dim:#8fa093;
+    --hb-faint:#5c6a5f;
+    --hb-grn:#6fcf7a;
+    --hb-red:#c24a3a;
+    --hb-rule:rgba(143,160,147,.22);
+    color:var(--hb-ink);
+    background:
+      /* the lab tray grid under a specimen */
+      repeating-linear-gradient(90deg, rgba(111,207,122,.05) 0 1px, transparent 1px 32px),
+      repeating-linear-gradient(0deg, rgba(111,207,122,.04) 0 1px, transparent 1px 32px),
+      linear-gradient(178deg,#1c2328 0%,#161c21 55%,#12171b 100%);
+    box-shadow:inset 0 0 0 1px rgba(143,160,147,.18), inset 0 0 70px rgba(0,0,0,.55);
+  }
+  .panel-hulk2008 .note-close{color:var(--hb-dim);}
+  .panel-hulk2008 .note-close:hover{color:var(--hb-red);}
+  .panel-hulk2008 .ordbadge{background:var(--hb-grn);color:#12171b;border-radius:0;letter-spacing:.16em;}
+  .panel-hulk2008 h1{
+    font-size:18px;letter-spacing:.12em;text-transform:uppercase;line-height:1.35;
+    color:var(--hb-grn);margin:0 0 5px;font-weight:600;font-family:var(--f-mono);
+  }
+  .panel-hulk2008 h1::after{
+    content:"";display:block;height:1px;margin-top:9px;
+    background:linear-gradient(90deg,var(--hb-grn) 0%,rgba(111,207,122,.12) 78%,transparent 100%);
+  }
+  .panel-hulk2008 .tag{background:rgba(111,207,122,.12);color:var(--hb-dim);}
+  .panel-hulk2008 .meta-table td{border-bottom-color:var(--hb-rule);color:var(--hb-dim);}
+  .panel-hulk2008 .meta-table td:first-child{color:var(--hb-faint);}
+  .panel-hulk2008 p.body{color:var(--hb-ink);}
+  .panel-hulk2008 h2{color:var(--hb-grn);}
+  .panel-hulk2008 h2::after{background:var(--hb-rule);}
+  /* the "ver antes / a seguir / desvios" lists read as real links, not
+     bracketed references: brackets hidden, underline on hover */
+  .panel-hulk2008 .wl .wl-b{display:none;}
+  .panel-hulk2008 .wl button{color:var(--hb-dim);text-decoration:underline;text-decoration-color:rgba(111,207,122,.35);text-underline-offset:2px;}
+  .panel-hulk2008 .wl button:hover{color:var(--hb-grn);text-decoration-color:var(--hb-grn);}
+  .panel-hulk2008 .watchtoggle{border-color:rgba(111,207,122,.4);color:var(--hb-dim);}
+  .panel-hulk2008 .watchtoggle:hover{border-color:var(--hb-grn);color:var(--hb-ink);}
+  .panel-hulk2008 .watchtoggle .chk{border-color:rgba(111,207,122,.5);}
+  .panel-hulk2008 .watchtoggle.on{
+    border-color:var(--hb-red);color:var(--hb-red);
+    background:repeating-linear-gradient(-4deg,transparent 0 3px,rgba(194,74,58,.08) 3px 4px);
+  }
+  .panel-hulk2008 .watchtoggle.on .chk{background:var(--hb-red);border-color:var(--hb-red);color:#12171b;}
+  /* poster as a mugshot plate: cover-cropped to a fixed strip so the
+     dossier (meta, ficha, "ver antes / a seguir") stays on screen instead
+     of being pushed below the fold by a full-height portrait; top-aligned
+     so Banner's face survives the crop */
+  .panel-hulk2008 .posterwrap{
+    aspect-ratio:auto;max-height:none;height:290px;min-height:130px;border-radius:0;
+    background:rgba(111,207,122,.06);border:1px solid rgba(111,207,122,.45);padding:6px;
+    box-shadow:0 0 0 3px rgba(18,23,27,.9), 0 4px 16px rgba(0,0,0,.55);
+  }
+  .panel-hulk2008 .posterwrap img{width:100%;height:100%;object-fit:cover;object-position:top;filter:contrast(1.04) saturate(.9);}
+  .panel-hulk2008 .posterph{color:rgba(143,160,147,.4);}
+  .panel-hulk2008 .ratingbadge{background:transparent;border:1px solid rgba(143,160,147,.3);border-radius:0;}
+  .panel-hulk2008 .ratingbadge .rb-src{color:var(--hb-faint);}
+  .panel-hulk2008 .ratingbadge .rb-val{color:var(--hb-grn);}
+  .panel-hulk2008 .omdbmeta{color:var(--hb-dim);}
+  .panel-hulk2008 .omdbmeta b{color:var(--hb-ink);}
+  .panel-hulk2008 .ratelabel{color:var(--hb-faint);}
+  .panel-hulk2008 .ratedots button{border:1px solid rgba(143,160,147,.35);color:var(--hb-dim);border-radius:0;}
+  .panel-hulk2008 .ratedots button.on{background:var(--hb-grn);border-color:var(--hb-grn);color:#12171b;}
+
+  /* ---- decor ---- */
+  .hb-head{
+    position:absolute;left:0;right:0;top:0;height:64px;padding:15px 22px 0;
+    background:linear-gradient(180deg,rgba(111,207,122,.10),transparent);
+    box-shadow:inset 0 -1px 0 var(--hb-rule);
+  }
+  .hb-head b{
+    display:block;font-family:var(--f-mono);font-weight:600;font-size:11px;
+    letter-spacing:.32em;color:var(--hb-grn);text-transform:uppercase;
+  }
+  .hb-head i{
+    display:block;font-style:normal;font-family:var(--f-mono);font-size:8px;
+    letter-spacing:.3em;color:var(--hb-faint);text-transform:uppercase;margin-top:4px;
+  }
+  /* the stamp the file gets slammed with — red DANGER of the credits */
+  .hb-stamp{
+    position:absolute;top:12px;right:20px;transform:rotate(-12deg);
+    font-family:var(--f-mono);font-weight:600;font-size:15px;letter-spacing:.42em;text-indent:.42em;
+    color:var(--hb-red);border:2px solid rgba(194,74,58,.7);padding:5px 8px 5px 0;
+    box-shadow:inset 0 0 12px rgba(194,74,58,.14);
+    text-shadow:0 1px 0 rgba(0,0,0,.45);mix-blend-mode:screen;
+  }
+  .hb-data{
+    position:absolute;left:22px;right:22px;top:66px;display:flex;
+    font-family:var(--f-mono);font-size:7.5px;line-height:1.6;letter-spacing:.05em;
+    color:var(--hb-dim);text-transform:uppercase;
+  }
+  .hb-data span{flex:1;padding:6px 10px 7px 0;border-right:1px solid var(--hb-rule);}
+  .hb-data span:last-child{border-right:0;}
+  .hb-data b{
+    display:block;color:var(--hb-grn);font-weight:500;font-size:8px;
+    letter-spacing:.12em;margin-bottom:2px;
+  }
+  /* the divider: the film's machine, a vial of gamma blood, and the trace
+     running out of it — the same accelerating ECG as the opening */
+  .hb-ecg{position:absolute;left:22px;right:22px;top:118px;height:46px;}
+  .hb-ecg svg{position:absolute;left:46px;right:0;top:0;bottom:0;width:auto;height:100%;display:block;}
+  .hb-vial{position:absolute;left:0;top:4px;width:36px;height:62px;}
+  .hb-vial svg{position:static;width:100%;height:100%;display:block;overflow:visible;}
+  .hb-glass{fill:rgba(159,216,239,.06);stroke:#9fd8ef;stroke-width:1.4;stroke-opacity:.8;stroke-dasharray:1;}
+  .hb-serum{transform-box:view-box;transform-origin:17px 58px;transform:scaleY(0);}
+  .hb-serumfill{fill:url(#hbSerum);}
+  .hb-serumglow{fill:#6fcf7a;opacity:.22;}
+  .hb-cap{fill:#2a3038;stroke:#1a1f25;stroke-width:1;}
+  .hb-bandlbl{fill:#d9d2c2;}
+  .hb-trace{fill:none;stroke:var(--hb-grn,#79e08c);stroke-width:1.2;stroke-opacity:.8;filter:drop-shadow(0 0 3px rgba(111,207,122,.55));stroke-dasharray:1;}
+  .hb-reticle{position:absolute;right:22px;top:36%;width:130px;height:130px;opacity:.07;}
+  .hb-reticle svg{width:100%;height:100%;display:block;}
+  .hb-reticle .hb-ret{fill:none;stroke:#79e08c;stroke-width:1;}
+  .hb-reticle .hb-retd{fill:#79e08c;}
+  .hb-foot{
+    position:absolute;left:0;right:0;bottom:0;height:30px;
+    display:flex;align-items:center;gap:12px;padding:0 22px;
+    font-family:var(--f-mono);font-size:7.5px;letter-spacing:.26em;text-transform:uppercase;
+    color:var(--hb-faint);
+    background:linear-gradient(0deg,rgba(111,207,122,.09),transparent);
+    box-shadow:inset 0 1px 0 var(--hb-rule);
+  }
+  .hb-foot b{color:var(--hb-grn);font-weight:500;}
+  /* "próximo no percurso": next dossier in the same lane, printed in the
+     foot strip itself so no content can cover it — a real link, not decor.
+     Filled by openNote() from the same data as the "Ver a seguir" list. */
+  .hb-next{margin-left:auto;display:inline-flex;align-items:baseline;gap:6px;flex:none;}
+  .hb-next .wl-dir{color:var(--hb-grn);}
+  .hb-next button{
+    font-family:var(--f-mono);font-size:7.5px;letter-spacing:.05em;
+    text-transform:none;color:var(--hb-dim);
+    background:none;border:0;padding:0;cursor:pointer;
+  }
+  .hb-next button:hover{
+    color:var(--hb-grn);text-decoration:underline;
+    text-decoration-color:rgba(111,207,122,.4);text-underline-offset:2px;
+  }
+  .hb-next .wl-b{display:none;}
+  .gx-next[hidden],.hb-next[hidden]{display:none;}
+
+  @media (prefers-reduced-motion:no-preference){
+    .panel-hulk2008.panel-enter .hb-head{animation:hbDrop .5s cubic-bezier(.2,.9,.3,1) both;}
+    .panel-hulk2008.panel-enter .hb-stamp{animation:hbStamp .32s cubic-bezier(.3,1.6,.5,1) .14s both;}
+    .panel-hulk2008.panel-enter .hb-data span{animation:hbCell .4s ease both;animation-delay:calc(var(--d,0s) + .22s);}
+    .panel-hulk2008.panel-enter .hb-glass{animation:hbDraw .5s ease .3s both;}
+    .panel-hulk2008.panel-enter .hb-serum{animation:hbFill .5s ease .52s both;}
+    .panel-hulk2008.panel-enter .hb-trace{animation:hbDraw .8s linear .34s both;}
+    .panel-hulk2008.panel-enter .hb-reticle{animation:hbCell 1s ease .7s both;}
+    .panel-hulk2008.panel-enter .hb-next{animation:hbCell .5s ease 1s both;}
+    .panel-hulk2008.panel-enter .hb-foot{animation:hbCell .5s ease .95s both;}
+  }
+  @keyframes hbDrop{0%{opacity:0;transform:translateY(-14px);}100%{opacity:1;transform:none;}}
+  @keyframes hbStamp{0%{opacity:0;transform:rotate(-12deg) scale(2.1);}62%{opacity:1;}100%{opacity:1;transform:rotate(-12deg) scale(1);}}
+  @keyframes hbCell{0%{opacity:0;transform:translateY(6px);}100%{opacity:1;transform:none;}}
+  @keyframes hbDraw{from{stroke-dashoffset:1;}to{stroke-dashoffset:0;}}
+  @keyframes hbFill{from{transform:scaleY(0);}to{transform:scaleY(1);}}
+
+  /* ---- Hulk: the opening — "FC 200: ELE TRANSFORMA-SE" ------------
+     Banner's Polar-style wrist heart-rate monitor (screen-used prop:
+     charcoal band, square face) resolves out of the lab dark. Its LCD
+     feeds an ECG strip whose beats get CLOSER together along the strip,
+     and the scroll eases in, so the pulse visibly climbs as the
+     readout crosses 072 → 096 → 124 → 163 → 200. At 200 — the film's
+     verified threshold — the trace spikes off the screen, the screen
+     flashes green, the room kicks like a camera punch, and the dossier
+     SLAMS in from above like a stamp hitting the desk.
+     Reduced motion: the monitor appears with the trace drawn and the
+     readout at rest; the beat (the device) is kept, only the motion
+     drops. */
+   .hb-rig{position:relative;width:min(60vh,560px);aspect-ratio:560/470;}
+  .hb-rig > *{position:absolute;}
+  .hb-band{left:50%;translate:-50% 0;width:54%;height:11%;background:linear-gradient(180deg,#262c33,#15191f);}
+  .hb-band-t{top:0;}
+  .hb-band-b{bottom:0;}
+  .hb-watch{
+    left:50%;top:12%;translate:-50% 0;width:66%;height:76%;border-radius:24px;
+    background:linear-gradient(165deg,#3c444d,#23282e);
+    box-shadow:0 20px 50px rgba(0,0,0,.68), inset 0 1px 0 rgba(255,255,255,.12), inset 0 -2px 6px rgba(0,0,0,.5);
+  }
+  .hb-lcd{
+    position:absolute;inset:7%;border-radius:14px;overflow:hidden;
+    background:radial-gradient(80% 80% at 50% 30%,#0d1810,#060b08 72%);
+    box-shadow:inset 0 0 20px rgba(0,0,0,.85);
+  }
+  .hb-svg{position:absolute;left:3%;right:3%;top:30%;bottom:6%;width:94%;height:64%;display:block;}
+  .hb-strip{transform:translateX(0);}
+  .hb-trace2{fill:none;stroke:#79e08c;stroke-width:2;stroke-linecap:round;filter:drop-shadow(0 0 4px rgba(121,224,140,.7));stroke-dasharray:1;}
+  .hb-read{
+    position:relative;left:8%;top:8%;width:60px;
+    font-family:var(--f-mono);font-size:14px;letter-spacing:.12em;color:#79e08c;
+    text-shadow:0 0 9px rgba(121,224,140,.65);
+  }
+  .hb-read b{font-weight:600;}
+  .hb-num{position:absolute;left:36px;top:0;opacity:0;}
+  .hb-b1{opacity:1;}
+  .hb-b5{color:#ff8a5c;text-shadow:0 0 9px rgba(255,138,92,.8);}
+  .hb-alarmglow{position:absolute;inset:0;border-radius:14px;opacity:0;pointer-events:none;
+    background:radial-gradient(80% 80% at 50% 50%,rgba(194,74,58,.28),transparent 80%);}
+  .hb-boom{
+    left:50%;top:50%;width:150px;height:150px;margin:-75px 0 0 -75px;border-radius:50%;
+    border:2.5px solid rgba(170,255,185,.85);opacity:0;
+    box-shadow:0 0 24px rgba(111,207,122,.6), inset 0 0 18px rgba(111,207,122,.45);
+  }
+  .hb-flash{
+    position:absolute;inset:-8%;opacity:0;pointer-events:none;
+    background:radial-gradient(circle at 50% 50%,
+      rgba(190,255,200,.95) 0%,rgba(90,210,120,.55) 32%,transparent 70%);
+  }
+
+  @media (prefers-reduced-motion:no-preference){
+    .note-stage.heartbeat-on .hb-rig{animation:hbRig 1.9s ease both;}
+    .note-stage.heartbeat-on .hb-trace2{animation:hbDraw .36s linear .26s both;}
+    .note-stage.heartbeat-on .hb-strip{animation:hbScroll 1.05s cubic-bezier(.35,.05,.75,.4) .62s both;}
+    .note-stage.heartbeat-on .hb-num:not(.hb-b1){animation:hbTick .46s ease var(--d,0s) both;}
+    .note-stage.heartbeat-on .hb-num.hb-b5{animation:hbTick .46s ease 1.32s both, hbAlarm .12s linear 1.32s infinite;}
+    .note-stage.heartbeat-on .hb-alarmglow{animation:hbAlarmGlow .55s ease 1.3s both;}
+    .note-stage.heartbeat-on .hb-boom{animation:hbBoom .6s cubic-bezier(.2,.8,.3,1) 1.36s both;}
+    .note-stage.heartbeat-on .hb-flash{animation:hbFlash .5s ease 1.4s both;}
+    .note-stage.heartbeat-on .mk-layer{animation:hbKick .42s cubic-bezier(.4,.1,.3,1) 1.42s both;}
+    .note.note-centered.heartbeat-arrive{animation:hbArrive .58s cubic-bezier(.2,.9,.25,1) 1.44s both;}
+  }
+  @keyframes hbRig{0%{opacity:0;transform:scale(.9);filter:blur(4px);}16%{opacity:1;filter:blur(0);}70%{opacity:1;}100%{opacity:0;transform:scale(1.05);}}
+  @keyframes hbScroll{from{transform:translateX(0);}to{transform:translateX(-540px);}}
+  @keyframes hbTick{0%{opacity:0;}22%{opacity:1;}70%{opacity:1;}100%{opacity:0;}}
+  @keyframes hbAlarm{0%,100%{opacity:1;}50%{opacity:.2;}}
+  @keyframes hbAlarmGlow{0%{opacity:0;}100%{opacity:1;}}
+  @keyframes hbBoom{0%{opacity:0;transform:scale(.5);}16%{opacity:.9;}100%{opacity:0;transform:scale(2.3);}}
+  @keyframes hbFlash{0%{opacity:0;}14%{opacity:.92;}100%{opacity:0;}}
+  @keyframes hbKick{0%{translate:0 0;}18%{translate:-7px 5px;}38%{translate:6px -4px;}58%{translate:-4px 3px;}78%{translate:3px -2px;}100%{translate:0 0;}}
+  /* the slam: dropped from above, hits, bounces a hair, locks */
+  @keyframes hbArrive{
+    0%{opacity:0;transform:translateY(-150%) scale(.97);filter:blur(2px);}
+    40%{opacity:1;}
+    64%{transform:translateY(1.5%) scale(1.012);filter:none;}
+    100%{opacity:1;transform:none;filter:none;}
+  }
+
   @media (max-width:820px){
     .side{
       position:absolute;top:0;bottom:0;left:0;z-index:6;
@@ -2176,13 +2695,17 @@
     .note.open.panel-avengers2012,
     .note.open.panel-ragnarok,
     .note.open.panel-strange,
-    .note.open.panel-antman{width:100%;}
+    .note.open.panel-antman,
+    .note.open.panel-guardians,
+    .note.open.panel-hulk2008{width:100%;}
     .note-inner.panel-ironman2008,
     .note-inner.panel-homecoming,
     .note-inner.panel-avengers2012,
     .note-inner.panel-ragnarok,
     .note-inner.panel-strange,
-    .note-inner.panel-antman{width:100%;}
+    .note-inner.panel-antman,
+    .note-inner.panel-guardians,
+    .note-inner.panel-hulk2008{width:100%;}
     .sidetoggle{display:flex;}
     .legend-hint{display:none;}
     /* Centred presentation on a phone is just full-screen. Must come LAST in
@@ -2888,7 +3411,102 @@ const PANEL_HTML = {
     '<div class="am-scale">' + '<svg viewBox="0 0 384 44" aria-hidden="true"><path class="am-rule" d="M0 26 L200 26 M0 26 L0 12 M10 26 L10 18 M20 26 L20 18 M30 26 L30 18 M40 26 L40 18 M50 26 L50 12 M60 26 L60 18 M70 26 L70 18 M80 26 L80 18 M90 26 L90 18 M100 26 L100 12 M110 26 L110 18 M120 26 L120 18 M130 26 L130 18 M140 26 L140 18 M150 26 L150 12 M160 26 L160 18 M170 26 L170 18 M180 26 L180 18 M190 26 L190 18 M200 26 L200 12"/><text class="am-rule-t" x="0" y="42">0</text><text class="am-rule-t" x="196" y="42">10 mm</text><circle class="am-tiny" cx="246" cy="22" r="0.85"/><path class="am-tiny-l" d="M246 22.9 L246 25 M246 23.5 L244.8 24.6 M246 23.5 L247.2 24.6 M246 25 L245 26.3 M246 25 L247 26.3"/><text class="am-rule-t" x="256" y="27">homem &#183; 1,80 m</text></svg>' + '</div>' +
     '<div class="am-thomas">' + '<svg viewBox="0 0 130 86" aria-hidden="true"><path class="am-th-beam" d="M6 50 L18 50 L18 66 L6 66 Z"/><path class="am-th-body" d="M18 30 L76 30 L76 62 L18 62 Z"/><path class="am-th-cab" d="M76 16 L106 16 L106 62 L76 62 Z"/><path class="am-th-dark" d="M82 22 L100 22 L100 36 L82 36 Z"/><path class="am-th-dark" d="M30 14 L44 14 L46 30 L28 30 Z"/><circle class="am-th-face" cx="24" cy="42" r="14"/><circle class="am-th-dark" cx="19" cy="38" r="2.8"/><circle class="am-th-dark" cx="30" cy="38" r="2.8"/><path class="am-th-line" d="M17 48 Q24 53 31 48"/><circle class="am-th-dark" cx="34" cy="66" r="11"/><circle class="am-th-dark" cx="62" cy="66" r="11"/><circle class="am-th-dark" cx="94" cy="68" r="8"/><circle class="am-th-body" cx="34" cy="66" r="5"/><circle class="am-th-body" cx="62" cy="66" r="5"/><circle class="am-th-body" cx="94" cy="68" r="3.5"/></svg>' + '</div>' +
     '<div class="am-thomas-lbl">1:87 &middot; locomotiva &middot; n&atilde;o catalogada</div>' +
-    '<div class="am-foot">esp&eacute;cime 247 &middot; part&iacute;culas pym &middot; massa constante</div>'
+    '<div class="am-foot">esp&eacute;cime 247 &middot; part&iacute;culas pym &middot; massa constante</div>',
+
+  /* ---- Guardians of the Galaxy: the J-card of the Awesome Mix --------
+     The dossier is the folded paper insert of the cassette: front panel
+     art (the purple nebula + gold lettering of the official release's
+     insert) across the top band with a tiny blue-silver TPS-L2 in the
+     corner, the crease, the printed BACK panel with the real twelve-song
+     A/B track listing in two mono columns, and the fold lip along the
+     bottom edge carrying the spine text, with a corner fold cut in.
+     Tracklist per the verified A/B sides of the in-film tape. */
+  guardians:
+    '<div class="gx-band">' +
+      '<svg class="gx-stars" viewBox="0 0 460 158" preserveAspectRatio="none" aria-hidden="true">' +
+        '<circle class="gx-star" cx="30" cy="28" r=".8"/><circle class="gx-star" cx="58" cy="102" r=".6"/>' +
+        '<circle class="gx-star" cx="86" cy="20" r=".9"/><circle class="gx-star" cx="110" cy="64" r=".5"/>' +
+        '<circle class="gx-star" cx="134" cy="120" r=".7"/><circle class="gx-star" cx="158" cy="36" r=".6"/>' +
+        '<circle class="gx-star" cx="184" cy="96" r=".9"/><circle class="gx-star" cx="212" cy="18" r=".5"/>' +
+        '<circle class="gx-star" cx="238" cy="70" r=".7"/><circle class="gx-star" cx="262" cy="128" r=".6"/>' +
+        '<circle class="gx-star" cx="288" cy="44" r=".8"/><circle class="gx-star" cx="314" cy="108" r=".5"/>' +
+        '<circle class="gx-star" cx="340" cy="26" r=".9"/><circle class="gx-star" cx="366" cy="84" r=".6"/>' +
+        '<circle class="gx-star" cx="392" cy="40" r=".7"/><circle class="gx-star" cx="418" cy="118" r=".5"/>' +
+        '<circle class="gx-star" cx="444" cy="60" r=".8"/><circle class="gx-star" cx="70" cy="140" r=".5"/>' +
+        '<circle class="gx-star" cx="150" cy="140" r=".6"/><circle class="gx-star" cx="230" cy="140" r=".5"/>' +
+        '<circle class="gx-star" cx="310" cy="140" r=".7"/><circle class="gx-star" cx="390" cy="140" r=".5"/>' +
+        '<circle class="gx-star" cx="10" cy="90" r=".6"/><circle class="gx-star" cx="452" cy="30" r=".7"/>' +
+        '<circle class="gx-star-b" cx="180" cy="52" r="1.5"/><circle class="gx-star-b" cx="320" cy="96" r="1.8"/>' +
+      '</svg>' +
+      '<div class="gx-t"><b>Awesome Mix</b><i>Vol. 1</i></div>' +
+      '<div class="gx-sub">fita preparada por M. Quill &middot; anos 70</div>' +
+      '<div class="gx-wm">' + '<svg viewBox="0 0 56 84" aria-hidden="true"><defs><linearGradient id="gxMetal" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#dbe4ec"/><stop offset=".5" stop-color="#9fb1c2"/><stop offset="1" stop-color="#6f8296"/></linearGradient></defs>' +
+        '<rect class="gx-wm-body" x="1" y="1" width="54" height="82" rx="9"/>' +
+        '<rect class="gx-wm-bezel" x="7" y="8" width="42" height="68" rx="5"/>' +
+        '<rect class="gx-wm-slot" x="10" y="14" width="3" height="30"/><rect class="gx-wm-knob" x="8" y="26" width="7" height="8" rx="2"/>' +
+        '<rect class="gx-wm-slot" x="43" y="14" width="3" height="30"/><rect class="gx-wm-knob" x="41" y="26" width="7" height="8" rx="2"/>' +
+        '<circle class="gx-wm-hot" cx="45" cy="19" r="5"/>' +
+        '<text class="gx-wm-t" x="28" y="49" text-anchor="middle" font-size="6.5" letter-spacing=".5">WALKMAN</text>' +
+        '<rect class="gx-wm-slot" x="13" y="55" width="30" height="11" rx="3"/>' +
+        '<circle class="gx-wm-body" cx="17" cy="60.5" r="3.5"/><circle class="gx-wm-body" cx="39" cy="60.5" r="3.5"/>' +
+        '<circle class="gx-wm-slot" cx="16" cy="74" r="3"/><circle class="gx-wm-slot" cx="40" cy="74" r="3"/>' +
+      '</svg>' + '</div>' +
+    '</div>' +
+    '<div class="gx-crease"></div>' +
+    '<div class="gx-side">' +
+      '<b>Lado A</b>' +
+      '<span class="gx-trk" style="--d:.06s"><i>A1</i>Hooked on a Feeling</span>' +
+      '<span class="gx-trk" style="--d:.12s"><i>A2</i>Go All the Way</span>' +
+      '<span class="gx-trk" style="--d:.18s"><i>A3</i>Spirit in the Sky</span>' +
+      '<span class="gx-trk" style="--d:.24s"><i>A4</i>Moonage Daydream</span>' +
+      '<span class="gx-trk" style="--d:.30s"><i>A5</i>Fooled Around and Fell in Love</span>' +
+      '<span class="gx-trk" style="--d:.36s"><i>A6</i>I Want You Back</span>' +
+      '<b>Lado B</b>' +
+      '<span class="gx-trk" style="--d:.44s"><i>B1</i>I&rsquo;m Not in Love</span>' +
+      '<span class="gx-trk" style="--d:.50s"><i>B2</i>Come and Get Your Love</span>' +
+      '<span class="gx-trk" style="--d:.56s"><i>B3</i>Cherry Bomb</span>' +
+      '<span class="gx-trk" style="--d:.62s"><i>B4</i>Escape (The Pi&ntilde;a Colada Song)</span>' +
+      '<span class="gx-trk" style="--d:.68s"><i>B5</i>O-O-H Child</span>' +
+      '<span class="gx-trk" style="--d:.74s"><i>B6</i>Ain&rsquo;t No Mountain High Enough</span>' +
+    '</div>' +
+    '<div class="gx-next" data-nextlink></div>' +
+    '<div class="gx-lip">TDK &middot; Awesome Mix Vol. 1</div>' +
+    '<div class="gx-fold"></div>',
+
+  /* ---- The Incredible Hulk (2008): the gamma-lab specimen sheet ------
+     Culver header, a red CONFIDENCIAL stamp, a data strip of verified
+     facts, the ECG divider with the vial of gamma blood spilling its
+     trace, the forehead-reticule watermark from the opening credits,
+     and a footer counter. All copy in the sheet's lab register. */
+  hulk2008:
+    '<div class="hb-head">' +
+      '<b>Laborat&oacute;rio Culver &middot; Divis&atilde;o Gamma</b>' +
+      '<i>ficha de sujeito &middot; projec&ccedil;&atilde;o interna &middot; n&atilde;o circular</i>' +
+    '</div>' +
+    '<div class="hb-stamp">CONFIDENCIAL</div>' +
+    '<div class="hb-data">' +
+      '<span style="--d:.0s"><b>sujeito</b>Mr. Green &mdash; B. Banner</span>' +
+      '<span style="--d:.08s"><b>limiar</b>FC &ge; 200 BPM</span>' +
+      '<span style="--d:.16s"><b>local</b>Ro&ccedil;inha &middot; Rio</span>' +
+      '<span style="--d:.24s"><b>estado</b>em fuga &middot; alvo m&oacute;vel</span>' +
+    '</div>' +
+    '<div class="hb-ecg">' +
+      '<div class="hb-vial">' + '<svg viewBox="0 0 36 62" aria-hidden="true"><defs><linearGradient id="hbSerum" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#a6f0a8"/><stop offset=".55" stop-color="#4fce6a"/><stop offset="1" stop-color="#1d7a3a"/></linearGradient></defs>' +
+        '<rect class="hb-cap" x="10" y="0" width="16" height="7" rx="2"/>' +
+        '<path class="hb-glass" d="M12 6 L12 50 Q12 60 18 60 Q24 60 24 50 L24 6" pathLength="1"/>' +
+        '<circle class="hb-serumglow" cx="18" cy="46" r="11"/>' +
+        '<path class="hb-serum hb-serumfill" d="M12.5 26 L23.5 26 L23.5 50 Q23.5 59 18 59 Q12.5 59 12.5 50 Z"/>' +
+      '</svg>' + '</div>' +
+      '<svg viewBox="0 0 404 44" preserveAspectRatio="none" aria-hidden="true"><path class="hb-trace" d="M46 26 L53 22 L57 28 L62 12 L67 32 L70 24 L78 26 M90 26 L97 22 L101 28 L106 12 L111 32 L114 24 L122 26 M140 26 L147 22 L151 28 L156 12 L161 32 L164 24 L172 26 M186 26 L193 22 L197 28 L202 12 L207 32 L210 24 L218 26 M228 26 L235 22 L239 28 L244 12 L249 32 L252 24 L260 26 M266 26 L273 22 L277 28 L282 12 L287 32 L290 24 L298 26 M300 26 L307 22 L311 28 L316 12 L321 32 L324 24 L332 26 M330 26 L337 22 L341 28 L346 12 L351 32 L354 24 L362 26 M366 26 L370 26 L374 2 L378 38 L382 26 L400 26" pathLength="1"/></svg>' +
+    '</div>' +
+    '<div class="hb-reticle">' + '<svg viewBox="0 0 120 120" aria-hidden="true">' +
+      '<circle class="hb-ret" cx="60" cy="60" r="52"/>' +
+      '<circle class="hb-ret" cx="60" cy="60" r="40"/>' +
+      '<path class="hb-ret" d="M60 8 L60 18 M60 102 L60 112 M8 60 L18 60 M102 60 L112 60"/>' +
+      '<path class="hb-ret" d="M36 36 L43 43 M84 36 L77 43 M36 84 L43 77 M84 84 L77 77"/>' +
+      '<circle class="hb-retd" cx="60" cy="60" r="2.5"/>' +
+    '</svg>' + '</div>' +
+    '<div class="hb-foot">Projec&ccedil;&atilde;o Gamma &middot; <b>dias sem incidente: 158</b> &middot; n&atilde;o carimbar sem ordem<span class="hb-next" data-nextlink></span></div>'
 };
 /* ---- opening sequences for `presentation:"centered"` titles ------------
    Keyed markup injected into #maskLayer, exactly like PANEL_HTML is injected
@@ -3062,7 +3680,111 @@ const MASK_HTML = {
       '<div class="am-br am-br2"><i></i><i></i><i></i><i></i></div>' +
       '<div class="am-br am-br3"><i></i><i></i><i></i><i></i></div>' +
       '<div class="am-streak"></div>' +
-    '</div>'
+    '</div>',
+
+  /* ---- Guardians of the Galaxy: the tape player plays the file -------
+     A stylised SONY TPS-L2 (the first Walkman; the exact model Quill
+     wears — blue-and-silver, portrait slab, transport keys along the TOP
+     edge, the controls on the fixed body) resolves out of the Morag
+     night-blue. The LOWER panel — on the real TPS-L2 the cassette door,
+     carrying the tape window and the headphone jacks — hinges open toward
+     the viewer on its bottom edge; behind it the TDK-style cassette shows
+     its white hand-lettered "AWESOME MIX VOL. 1" label and its two hubs
+     spin; purple light builds inside the machine. The dossier itself
+     arrives via the CSS (mxArrive) — small and low, slot-clipped,
+     growing as it rises, like a tape coming out of the player.
+     Everything geometric and mechanical is drawn from the verified
+     layout of the real device. */
+  mixtape:
+    '<div class="mx-rig">' +
+      '<div class="mx-glow"></div>' +
+      '<div class="mx-cassette">' +
+        '<svg viewBox="0 0 320 480" aria-hidden="true"><defs>' +
+          '<linearGradient id="mxCass" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2c323b"/><stop offset="1" stop-color="#191d23"/></linearGradient>' +
+          '<linearGradient id="mxAge" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#c9a86a" stop-opacity="0"/><stop offset=".8" stop-color="#b9915c" stop-opacity=".16"/></linearGradient>' +
+        '</defs>' +
+          '<rect class="mx-shell" x="52" y="128" width="216" height="232" rx="16"/>' +
+          '<rect class="mx-lbl" x="62" y="138" width="196" height="108" rx="5"/>' +
+          '<rect class="mx-lblage" x="62" y="138" width="196" height="108" rx="5"/>' +
+          '<text class="mx-lblt" x="160" y="186" text-anchor="middle" font-size="21" transform="rotate(-2 160 186)">AWESOME MIX</text>' +
+          '<text class="mx-lblt" x="160" y="212" text-anchor="middle" font-size="13" transform="rotate(1.5 160 212)">VOL. 1</text>' +
+          '<rect class="mx-win" x="70" y="258" width="84" height="58" rx="6"/>' +
+          '<rect class="mx-win" x="166" y="258" width="84" height="58" rx="6"/>' +
+          '<g class="mx-hub mx-h1">' +
+            '<circle class="mx-hubring" cx="112" cy="292" r="18"/>' +
+            '<circle class="mx-hubspokes" cx="112" cy="292" r="11" stroke-dasharray="4 3.5"/>' +
+            '<path class="mx-hubspokes" d="M112 278 L112 306 M98 292 L126 292"/>' +
+          '</g>' +
+          '<g class="mx-hub mx-h2">' +
+            '<circle class="mx-hubring" cx="208" cy="292" r="18"/>' +
+            '<circle class="mx-hubspokes" cx="208" cy="292" r="11" stroke-dasharray="4 3.5"/>' +
+            '<path class="mx-hubspokes" d="M208 278 L208 306 M194 292 L222 292"/>' +
+          '</g>' +
+          '<text class="mx-cassbrand" x="160" y="348" text-anchor="middle" font-size="8" letter-spacing="2.5">TDK CDING II</text>' +
+        '</svg>' +
+      '</div>' +
+      '<div class="mx-body">' +
+        '<svg class="mx-face" viewBox="0 0 320 480" aria-hidden="true"><defs>' +
+          '<linearGradient id="mxMetal" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#dfe7ee"/><stop offset=".45" stop-color="#aebccb"/><stop offset="1" stop-color="#7c8fa2"/></linearGradient>' +
+        '</defs>' +
+          '<rect class="mx-body" x="2" y="2" width="316" height="476" rx="26"/>' +
+          '<rect class="mx-bezel" x="16" y="16" width="288" height="448" rx="16"/>' +
+          '<rect class="mx-key" x="30" y="30" width="44" height="18" rx="5"/>' +
+          '<rect class="mx-key" x="84" y="30" width="44" height="18" rx="5"/>' +
+          '<rect class="mx-key" x="138" y="30" width="44" height="18" rx="5"/>' +
+          '<rect class="mx-key" x="192" y="30" width="44" height="18" rx="5"/>' +
+          '<rect class="mx-key" x="246" y="30" width="44" height="18" rx="5"/>' +
+          '<rect class="mx-slot" x="36" y="66" width="18" height="11" rx="2"/>' +
+          '<rect class="mx-knob" x="40" y="63" width="10" height="4" rx="1"/>' +
+          '<circle class="mx-hot" cx="274" cy="68" r="15"/>' +
+          '<circle class="mx-hotdot" cx="274" cy="68" r="6"/>' +
+          '<rect class="mx-slot" x="38" y="94" width="12" height="110" rx="4"/>' +
+          '<rect class="mx-knob" x="32" y="128" width="24" height="20" rx="4"/>' +
+          '<rect class="mx-slot" x="270" y="94" width="12" height="110" rx="4"/>' +
+          '<rect class="mx-knob" x="264" y="128" width="24" height="20" rx="4"/>' +
+          '<rect class="mx-band" x="28" y="232" width="264" height="60" rx="8"/>' +
+          '<text class="mx-wm" x="160" y="274" text-anchor="middle" font-size="32" letter-spacing="3">WALKMAN</text>' +
+          '<rect class="mx-seam" x="28" y="292" width="264" height="2"/>' +
+        '</svg>' +
+      '</div>' +
+      '<div class="mx-door">' +
+        '<svg class="mx-face" viewBox="0 0 320 480" aria-hidden="true">' +
+          '<path class="mx-doorpanel" d="M28 292 L292 292 L292 458 Q292 476 274 476 L46 476 Q28 476 28 458 Z"/>' +
+          '<rect class="mx-slot" x="100" y="322" width="120" height="56" rx="10"/>' +
+          '<circle class="mx-jack" cx="62" cy="438" r="12"/>' +
+          '<text class="mx-jackt" x="62" y="443" text-anchor="middle" font-size="11">A</text>' +
+          '<circle class="mx-jack" cx="258" cy="438" r="12"/>' +
+          '<text class="mx-jackt" x="258" y="443" text-anchor="middle" font-size="11">B</text>' +
+        '</svg>' +
+      '</div>' +
+    '</div>',
+
+  /* ---- The Incredible Hulk (2008): the heart-rate monitor ------------
+     Banner's Polar-style wrist watch (screen-used prop: charcoal band,
+     square face) with its LCD: an ECG strip whose beats get CLOSER
+     together along the strip, fed through at ease-in speed, so the
+     pulse visibly climbs while the readout crosses 072 → 096 → 124 →
+     163 → 200. At 200 — the film's verified transformation threshold —
+     the trace spikes off the screen, the LCD glows red-amber, the room
+     flashes green and kicks (hbKick), and the dossier slams in from
+     above (hbArrive). The strip is generated (tools/gen_ecg.mjs),
+     never hand-edited. */
+  heartbeat:
+    '<div class="hb-rig">' +
+      '<div class="hb-band hb-band-t"></div>' +
+      '<div class="hb-watch">' +
+        '<div class="hb-lcd">' +
+          '<div class="hb-read"><b>FC</b><span class="hb-num hb-b1">072</span><span class="hb-num hb-b2" style="--d:.4s">096</span><span class="hb-num hb-b3" style="--d:.78s">124</span><span class="hb-num hb-b4" style="--d:1.08s">163</span><span class="hb-num hb-b5">200</span></div>' +
+          '<div class="hb-alarmglow"></div>' +
+          '<svg class="hb-svg" viewBox="0 0 802 120" preserveAspectRatio="none" aria-hidden="true">' +
+            '<g class="hb-strip"><path class="hb-trace2" d="M85.5 58 L105.0 52 L111.5 62 L120.6 41 L128.4 66 L133.6 53 L144.0 58 L178.0 58 M207.31 58 L223.3 52 L228.6 62 L236.1 41 L242.5 66 L246.8 53 L255.3 58 L284.6 58 M307.1942 58 L320.3 52 L324.7 62 L330.8 41 L336.0 66 L339.5 53 L346.5 58 L372.0 58 M389.099244 58 L399.9 52 L403.4 62 L408.5 41 L412.8 66 L415.6 53 L421.4 58 L443.7 58 M456.26138008 58 L465.1 52 L468.0 62 L472.1 41 L475.7 66 L478.0 53 L482.7 58 L502.5 58 M511.3343316656 58 L518.6 52 L521.0 62 L524.3 41 L527.2 66 L529.2 53 L533.0 58 L550.7 58 M556.494151965792 58 L562.4 52 L564.4 62 L567.2 41 L569.5 66 L571.1 53 L574.3 58 L590.2 58 M593.5252046119493 58 L598.4 52 L600.0 62 L602.3 41 L604.2 66 L605.5 53 L608.1 58 L622.6 58 M623.8906677817985 58 L627.9 52 L629.2 62 L631.1 41 L632.7 66 L633.7 53 L635.8 58 L649.2 58 M648.7903475810748 58 L652.1 52 L653.1 62 L654.7 41 L656.0 66 L656.9 53 L658.6 58 L671.0 58 M669.2080850164813 58 L671.9 52 L672.8 62 L674.0 41 L675.1 66 L675.8 53 L677.2 58 L688.8 58 M685.9506297135147 58 L688.1 52 L688.9 62 L689.9 41 L690.8 66 L691.4 53 L692.5 58 L703.5 58 M699.679516365082 58 L701.5 52 L702.1 62 L702.9 41 L703.6 66 L704.1 53 L705.1 58 L715.5 58 M710.9372034193673 58 L712.4 52 L712.9 62 L713.6 41 L714.2 66 L714.6 53 L715.4 58 L725.3 58 M720.1685068038812 58 L721.4 52 L721.8 62 L722.3 41 L722.8 66 L723.2 53 L723.8 58 L733.4 58 M727.7381755791826 58 L728.7 52 L729.1 62 L729.5 41 L729.9 66 L730.2 53 L730.7 58 L740.0 58 M733.9453039749296 58 L734.8 52 L735.0 62 L735.4 41 L735.7 66 L736.0 53 L736.4 58 L745.5 58 M739.0351492594424 58 L739.7 52 L739.9 62 L740.2 41 L740.5 66 L740.7 53 L741.0 58 L749.9 58 M753.9 58 L757.9 58 L761.9 -26 L766.9 84 L770.9 58 L787.9 58" pathLength="1"/></g>' +
+          '</svg>' +
+        '</div>' +
+      '</div>' +
+      '<div class="hb-band hb-band-b"></div>' +
+      '<div class="hb-boom"></div>' +
+    '</div>' +
+    '<div class="hb-flash"></div>'
 };
 /* The intro is a one-shot: a timer tears the stage's mask layer down when the
    sequence has played. Anything that interrupts it — Escape, the ×, clicking
@@ -3075,7 +3797,7 @@ let activeIntroKey = null;
    overlay down. Iron Man's is a slow 2.4s cinematic; the web-pull is a fast
    ~1s kinetic hit, deliberately different pacing per the owner's brief that
    each title should feel like its own kind of discovery, not a uniform beat. */
-const INTRO_DURATION = { ironmask: 2400, webpull: 950, assemble: 1780, mjolnir: 2500, slingring: 2100, shrink: 1150 };
+const INTRO_DURATION = { ironmask: 2400, webpull: 950, assemble: 1780, mjolnir: 2500, slingring: 2100, shrink: 1150, mixtape: 2400, heartbeat: 2000 };
 function prefersReducedMotion(){
   return window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 }
@@ -3754,6 +4476,18 @@ function openNote(n){
   } else {
     fill(document.getElementById('n-prev'), adjPrev[n.id], 'prev');
     fill(document.getElementById('n-next'), adjNext[n.id], 'next');
+  }
+
+  /* Deep-pass skins carry a "próximo no percurso" slot (data-nextlink) in
+     their decor; the default note has none, so nothing happens elsewhere.
+     Same data as the "Ver a seguir" list, just placed where the skin
+     actually shows it. Hidden when the lane ends here. */
+  const nextSlot = document.querySelector('[data-nextlink]');
+  if(nextSlot){
+    nextSlot.innerHTML='';
+    const ni = (track && ti !== undefined) ? trackSeq[ti] : adjNext[n.id];
+    if(ni === undefined){ nextSlot.hidden = true; }
+    else { nextSlot.hidden = false; nextSlot.appendChild(linkBtn(nodes[ni], 'próximo: ')); }
   }
 
   const xe = document.getElementById('n-cross');

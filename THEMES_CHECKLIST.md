@@ -10,9 +10,10 @@ Legenda: `[x]` tema personalizado feito em themes.js · `[ ]` a usar tema de res
 Os `[x]` acima eram, até 2026-08-06, apenas os 2 títulos com passagem profunda — as entradas
 de cor do lote 1 nunca tinham sido carimbadas. Ficaram agora todas alinhadas com `themes.js`.
 
-**Passagem profunda (paleta + `panel:` + `presentation:"centered"` + `intro:`): 6 / 152** —
+**Passagem profunda (paleta + `panel:` + `presentation:"centered"` + `intro:`): 8 / 152** —
 Iron Man (`ironmask`), Spider-Man: Homecoming (`webpull`), The Avengers (`assemble`),
-Doctor Strange (`slingring`), Thor: Ragnarok (`mjolnir`), Ant-Man (`shrink`).
+Doctor Strange (`slingring`), Thor: Ragnarok (`mjolnir`), Ant-Man (`shrink`),
+Guardians of the Galaxy (`mixtape`), The Incredible Hulk (`heartbeat`).
 
 ---
 

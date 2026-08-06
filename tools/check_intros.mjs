@@ -18,6 +18,8 @@ const TITLES = {
   'Thor: Ragnarok': 'mjolnir',
   'Doctor Strange': 'slingring',
   'Ant-Man': 'shrink',
+  'Guardians of the Galaxy': 'mixtape',
+  'The Incredible Hulk': 'heartbeat',
 };
 
 const b = await chromium.launch();

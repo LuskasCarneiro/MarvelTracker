@@ -7,4 +7,6 @@ export const TITLES = {
   mjolnir:   'Thor: Ragnarok',
   slingring: 'Doctor Strange',
   shrink:    'Ant-Man',
+  mixtape:   'Guardians of the Galaxy',
+  heartbeat: 'The Incredible Hulk',
 };

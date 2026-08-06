@@ -794,6 +794,127 @@ const THEMES = {
     ref:"the Watcher's cosmic void, watercolor stars on deep Uatu-purple"
   },
 
+  /* ============ Deep pass — Guardians of the Galaxy ============
+     DEEP PASS (panel:"guardians") — NEW, ADDED 2026-08-06.
+     See .panel-guardians / .mx-* in index.html, PANEL_HTML.guardians
+     and MASK_HTML.mixtape there.
+
+     THE CARD: the dossier stops being a manila case file and becomes the
+     MIXTAPE'S J-CARD — the folded paper insert of a cassette in its case.
+     The top band is the front-panel art: a purple/blue nebula with gold
+     "AWESOME MIX VOL. 1" lettering, the look of the OFFICIAL soundtrack
+     release's insert (Discogs / widely reproduced artwork — the in-film
+     tape itself has a plain white handwritten label, which is a separate,
+     verified thing, not the art). A tiny blue-and-silver TPS-L2 sits in
+     the band's corner. Below the crease line, the printed BACK panel of
+     the J-card: the real twelve-song A/B track listing in two mono
+     columns. A fold lip along the bottom edge carries the spine text.
+     The dossier content (synopsis, OMDb, watch log) flows over the back
+     panel, over a faint nebula watermark. 460px.
+
+     THE OPENING (presentation:"centered", intro:"mixtape") — Peter
+     Quill's SONY TPS-L2 (the first Walkman, 1979; the exact model used
+     on screen per prop-matching sources) resolves out of the dark in
+     the Morag night-blue, the faceplate (the cassette door, which on
+     the TPS-L2 carries the controls) swings open toward the viewer on
+     a bottom hinge, the TDK-style cassette inside shows its white
+     hand-lettered "AWESOME MIX VOL. 1" label and its hubs spin briefly,
+     purple light builds inside the machine — and the dossier is
+     PLAYED OUT of the cassette door: it arrives small and low, clipped
+     by a slot-shaped mask that opens as it grows, like a tape coming
+     out of the player. 2400ms.
+
+     VERIFIED (WebSearch, 2026-08-06):
+       - the prop is a Sony TPS-L2, the very first Walkman, released in
+         Japan 1 July 1979; metal blue-and-silver body, portrait
+         orientation (~88x133.5mm); the transport keys run along the TOP
+         edge; the cassette door carries the controls and is the lower
+         part of the front face (Wikipedia "Walkman"; walkman.land;
+         collector prop-matching write-ups).
+       - the hero cassette is a TDK CDing 2 (black shell, white label,
+         hand-lettered "AWESOME MIX VOL. 1", aged/yellowed on the prop —
+         RPF replicator thread tracing the album art); a TDK D90 served
+         as the near-identical stand-in.
+       - the full twelve-song A/B tracklist of the in-film tape is
+         documented; caveat: "Spirit in the Sky" (A3) was trailer-only,
+         not heard in the film — the printed J-card includes it because
+         the official insert does, and the label's note is here instead.
+       - the label carries title only: no date, no signature (per the
+         album-art photo of the real prop).
+       - the official purple-nebula-with-gold-art is the SOUNDTRACK
+         release's insert art, not the in-film label.
+
+     OUR INVENTION, not a claim about the film: the J-card as a case
+     file, the Portuguese copy ("fita preparada por M. Quill",
+     "lado A/B", the spine lip), the starfield, and the machine drawing
+     — a stylised TPS-L2, geometric and mechanical, built from the
+     verified layout of the real device, not a trace of the prop photo. */
+  "Guardians of the Galaxy": {
+    bg:"#0a0714", accent:"#b74bd6", accent2:"#f2c14e", ink:"#ece6f5",
+    panel:"guardians", presentation:"centered", intro:"mixtape",
+    ref:"the purple Power Stone glow on Peter Quill's Sony TPS-L2 in the Morag night-blue"
+  },
+
+  /* ============ Deep pass — The Incredible Hulk (2008) ============
+     DEEP PASS (panel:"hulk2008") — NEW, ADDED 2026-08-06.
+     See .panel-hulk2008 / .hb-* in index.html, PANEL_HTML.hulk2008 and
+     MASK_HTML.heartbeat there.
+
+     THE CARD: a Culver University gamma-lab specimen sheet — dark
+     drab steel-grey paper (the film's own murky, desaturated grade),
+     written in monitor-green with the red DANGER accent of the film's
+     opening-credits signage. A stencilled header names the subject's
+     file, a diagonal red CONFIDENCIAL stamp hits it, a data strip runs
+     the verified facts, and the recurring ECG trace (drawn to the same
+     shape as the opening sequence's) runs as a divider, spilling out
+     of a glass vial of gamma blood. 448px.
+
+     THE OPENING (presentation:"centered", intro:"heartbeat") — the
+     film's own transformation machine, played as the transition. The
+     Polar-style wrist heart-rate monitor Banner wears (verified prop:
+     charcoal band, square face; destroyed in Brazil, replaced by Betty
+     at the motel) resolves out of the lab dark; its LCD draws an ECG
+     strip whose beats get CLOSER together along the strip, so as the
+     tape feeds through at constant speed the pulse visibly climbs;
+     the readout crosses 072 → 096 → 124 → 163 → 200. At 200 — the
+     film's verified threshold, "whenever his heart rate rises above
+     200 beats per minute, he transforms" (Wikipedia / MCU Wiki) — the
+     trace spikes off the screen, the screen flashes green, the room
+     kicks like a camera punch, and the dossier SLAMS in from above
+     like a government stamp hitting the desk. 1900ms.
+
+     VERIFIED (WebSearch, 2026-08-06):
+       - Banner wears a Polar heart-rate monitor wristwatch — charcoal
+         rubber band, metal clasp, square face — per screen-used prop
+         listings with Marvel COA; the exact Polar model is not
+         documented anywhere (prop dealers: propside.com; fans note no
+         chest strap is ever visible). Two screen-used units exist; the
+         second, given by Betty at the motel, spikes when he kisses her.
+       - the 200 BPM threshold is canonical (Wikipedia / IMDb / MCU
+         Wiki plot summaries).
+       - the opening credits paint a targeting reticule on Banner's
+         forehead beside x-ray skulls and a red "Danger" sign (IMDb
+         trivia; the 1977 TV-series homage) — hence the faint reticule
+         watermark on the sheet.
+       - Banner hides in Rocinha, Rio de Janeiro, working a soda
+         bottling line; his chat alias is "Mr. Green" (to Sterns'
+         "Mr. Blue") (Wikipedia locations; MCU Wiki).
+       - "158 days without incident" on his laptop counter is a
+         reviewer-observed value (Midwest Film Journal), not stated on
+         screen — it's printed here with that caveat.
+
+     OUR INVENTION, not a claim about the film: the lab sheet itself,
+     its Portuguese copy ("divisão gamma", "limiar de transformação",
+     "não carimbar sem ordem"), the vial drawing, the ECG divider, and
+     the readout's intermediate BPM numbers (only 200 is verified) —
+     and the heartbeat is the film's OWN monitor, not a score reference
+     (no heartbeat cue is documented in the Craig Armstrong score). */
+  "The Incredible Hulk": {
+    bg:"#0a0e10", accent:"#6fcf7a", accent2:"#c24a3a", ink:"#d9e2dc",
+    panel:"hulk2008", presentation:"centered", intro:"heartbeat",
+    ref:"the green gamma flash behind Banner's lab table in the drab, 1970s-TV grey of the film"
+  },
+
 };
 
 /* Cluster-color fallback for any title not listed above. */
