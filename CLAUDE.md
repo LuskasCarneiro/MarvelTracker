@@ -105,7 +105,7 @@ no-dependencies rule was abandoned — that rule is about what the *app* loads.
    | `ironmask` | Iron Man | 2400 | helmet appears, eye slits ignite, faceplate hinges open, camera pulled through |
    | `webpull` | Homecoming | 950 | web lines shoot in from both bottom corners, anchor, pull the dossier taut |
    | `assemble` | The Avengers | 1780 | six trails converge on one point from six directions, ring forms |
-   | `mjolnir` | Thor: Ragnarok | 1800 | Mjolnir is thrown at the viewer and breaks the screen; 44 glass shards fall off the dossier behind it |
+   | `mjolnir` | Thor: Ragnarok | 2500 | Mjolnir is thrown at the viewer and breaks the screen; 44 glass shards fall off the dossier behind it |
    | `slingring` | Doctor Strange | 2100 | a hot point traces a circle and a rim of fire ignites in its wake; the dossier rises through the hole, clipped by the rim |
    | `shrink` | Ant-Man | 1150 | bracket frames snap inward like a macro lens; the card itself arrives huge and shrinks (most of the motion is `amShrink` on `.shrink-arrive`, not the mask layer) |
 

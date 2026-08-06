@@ -622,7 +622,9 @@ const THEMES = {
      2026-08-06, new concept. Mjolnir is thrown AT the viewer, tumbling
      out of the dark and growing as it comes, and shatters the SCREEN;
      the dossier turns out to have been behind the glass, and the shards
-     fall off it. 1800ms.
+     fall off it. 2500ms — the approach, the break and the
+     uncovering each get their own beat; an earlier cut had the card land on
+     the impact frame and it stepped on its own shatter.
 
      THIS STAGING IS ORIGINAL TO THIS UI, NOT A SHOT FROM THE FILM. Hela
      catching and crushing Mjolnir is the film's beat; a hammer breaking

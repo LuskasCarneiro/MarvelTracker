@@ -55,7 +55,10 @@ rather than finished.
   `tools/gen_portal.mjs`, both seeded). The shatter is a radial + concentric
   tessellation, which is how glass actually breaks and also guarantees the 44 shards
   tile the pane exactly; 11 spokes because a prime count cannot read as a pinwheel.
-- Durations: `mjolnir` 1640 → 1800, `slingring` 1900 → 2100.
+- Durations: `mjolnir` 1640 → 2500, `slingring` 1900 → 2100. Thor was retimed after
+  the owner noted the card opened too fast to let the shatter play: the approach went
+  520 → 900ms and the card now arrives at 1.16s, after the cracks have spread and the
+  shards have begun to fall, rather than on the impact frame.
 - Repaired a self-inflicted file corruption along the way: the script splicing generated
   SVG into `MASK_HTML` used `/* ---- Ant-Man` as its end marker, and that comment exists
   **twice** (once in `PANEL_HTML`, once in `MASK_HTML`), so it matched the earlier one

@@ -1532,12 +1532,12 @@
 
   @media (prefers-reduced-motion:no-preference){
     .note-stage.mjolnir-on .mj-hammer{
-      animation:mjSprX .104s steps(6) 5 both,
-                mjSprY .52s  steps(5) 1 both,
-                mjThrow .52s linear both;
+      animation:mjSprX .18s steps(6) 5 both,
+                mjSprY .9s  steps(5) 1 both,
+                mjThrow .9s linear both;
     }
-    .note-stage.mjolnir-on .mj-flash{animation:mjFlash .34s ease-out .5s both;}
-    .note-stage.mjolnir-on .mj-glass{animation:mjPane 1.75s linear both;}
+    .note-stage.mjolnir-on .mj-flash{animation:mjFlash .36s ease-out .87s both;}
+    .note-stage.mjolnir-on .mj-glass{animation:mjPane 2.3s linear both;}
     /* FILL MODE MATTERS HERE. The base styles below are deliberately the
        reduced-motion end state — cracks drawn, shards sitting in place — so
        that a user who never sees the animation still gets a broken pane. With
@@ -1547,17 +1547,21 @@
        keeps them invisible until their delay elapses. */
     .note-stage.mjolnir-on .mj-crack{
       stroke-dashoffset:1;
-      animation:mjCrack .26s ease-out forwards;animation-delay:calc(.53s + var(--d,0s));
+      animation:mjCrack .28s ease-out forwards;animation-delay:calc(.9s + var(--d,0s));
     }
     .note-stage.mjolnir-on .mj-shard{
       opacity:0;
-      animation:mjFall .82s cubic-bezier(.3,0,.7,1) forwards;animation-delay:calc(.62s + var(--d,0s));
+      animation:mjFall .95s cubic-bezier(.3,0,.7,1) forwards;animation-delay:calc(1.02s + var(--d,0s));
     }
     /* the kick goes on the mask layer, not the stage: #note is not a child of
        #noteStage, so shaking the stage would move the glass and leave the card
        behind it perfectly still */
-    .note-stage.mjolnir-on .mk-layer{animation:mjKick .3s ease-out .52s both;}
-    .note.note-centered.mjolnir-arrive{animation:mjArrive .46s cubic-bezier(.16,.9,.28,1) .53s both;}
+    .note-stage.mjolnir-on .mk-layer{animation:mjKick .32s ease-out .9s both;}
+    /* The card deliberately arrives AFTER the cracks have spread and the shards
+       have started to go, not on the impact frame. Landing it on impact made the
+       reveal step on its own shatter — the glass never got a moment to be seen
+       breaking before the thing behind it was already there. */
+    .note.note-centered.mjolnir-arrive{animation:mjArrive .58s cubic-bezier(.16,.9,.28,1) 1.16s both;}
   }
   /* --- sprite: pixel steps, never percentages (see the note above) --- */
   @keyframes mjSprX{from{background-position-x:0;}      to{background-position-x:-2160px;}}
@@ -3049,7 +3053,7 @@ let activeIntroKey = null;
    overlay down. Iron Man's is a slow 2.4s cinematic; the web-pull is a fast
    ~1s kinetic hit, deliberately different pacing per the owner's brief that
    each title should feel like its own kind of discovery, not a uniform beat. */
-const INTRO_DURATION = { ironmask: 2400, webpull: 950, assemble: 1780, mjolnir: 1800, slingring: 2100, shrink: 1150 };
+const INTRO_DURATION = { ironmask: 2400, webpull: 950, assemble: 1780, mjolnir: 2500, slingring: 2100, shrink: 1150 };
 function prefersReducedMotion(){
   return window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 }
