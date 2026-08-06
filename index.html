@@ -2261,7 +2261,7 @@
     <div class="legend-hint">
       nó vazado · por ver &nbsp;·&nbsp; nó cheio · carimbado<br>
       arco dourado · classificação<br>
-      arco laranja · a ordem recua no tempo<br>
+      anel tracejado · data aproximada<br>
       <b>fio vermelho</b> · desvio entre continuidades
     </div>
   </div>
@@ -2576,16 +2576,16 @@ const MEDIA = {
   movies: {
     label:"Filmes", crumb:"Ramo Nuclear · cinema, agrupado por era de produção",
     groupLabel:"Ramos temporais", itemWord:"filmes", searchPh:"Filtrar filmes...",
-    modehintChrono:"Ordem dos acontecimentos dentro de cada ramo",
-    modehintRelease:"Ordem de estreia nos cinemas dentro de cada ramo",
+    modehintChrono:"Cada dossiê no ano em que a história se passa",
+    modehintRelease:"Cada dossiê no ano em que estreou nos cinemas",
     unitOf:"ramo", unitOfEnd:"fim-do-ramo",
     U:U_movies, order:movieOrder, items:films, crossovers:movieCross, tracks:movieTracks
   },
   series: {
     label:"Séries", crumb:"Ramo Nuclear · televisão, agrupado por continuidade",
     groupLabel:"Continuidades", itemWord:"séries", searchPh:"Filtrar séries...",
-    modehintChrono:"Ordem dos acontecimentos dentro de cada continuidade",
-    modehintRelease:"Ordem de estreia dentro de cada continuidade",
+    modehintChrono:"Cada dossiê no ano em que a história se passa",
+    modehintRelease:"Cada dossiê no ano em que estreou",
     unitOf:"continuidade", unitOfEnd:"fim-da-linha",
     U:U_series, order:seriesOrder, items:seriesItems, crossovers:seriesCross, tracks:seriesTracks
   }
@@ -3202,6 +3202,7 @@ function buildGraph(){
     (crossIn[l.t] = crossIn[l.t] || []).push(l);
   });
 
+  resolveChrono();
   layout();
   nodes.forEach(n => { n.x = n.tx; n.y = n.ty; });   // positions are exact; the reveal does the drama
   replay();
@@ -3237,18 +3238,72 @@ const sweepX = () => -X_SPAN/2 - 120 + (X_SPAN + 300) * easeOutCubic(Math.min(1,
 
 const xOfYear = y => (y - yearMin) / Math.max(yearMax - yearMin, 1) * X_SPAN - X_SPAN / 2;
 
+/* ---------------- WHEN DOES IT ACTUALLY HAPPEN? ----------------
+   In chronological mode a title must sit at the year its STORY happens, not
+   the year it was released. That year lives in the hand-written `s` field,
+   which is prose, not data: "1942–1945", "c. 2003", "Natal de 2013",
+   "anos 80", "5000 a.C. – 2024", "logo após Civil War", "fora do tempo".
+
+   So: pull real years out where they exist, read decade words, and for the
+   handful that name no year at all, INTERPOLATE from the neighbours in the
+   cluster's authored chronological sequence. That array order is itself the
+   owner's chronology, so a title with no date still lands between the two
+   titles it belongs between — no invented dates, no falling back to release
+   year, which would be the exact lie this is fixing.
+
+   CHRONO_FLOOR keeps one outlier ("1845 a anos 80") from stretching the axis
+   across a century of empty space; it pins to the left edge instead. */
+const CHRONO_FLOOR = 1930;
+
+function parseChrono(str){
+  if(!str) return null;
+  const yrs = (str.match(/\d{4}/g) || []).map(Number).filter(y => y >= 1800 && y <= 2100);
+  if(yrs.length) return { y: yrs[0], end: yrs[yrs.length-1], approx: /^c\.|cerca/i.test(str) };
+  const dec = str.match(/anos\s+(\d{2})/i);      // "anos 80", "anos 60 retro"
+  if(dec){ const d = +dec[1]; return { y: (d >= 30 ? 1900 : 2000) + d + 5, end: null, approx: true }; }
+  return null;                                     // resolved by interpolation
+}
+
+/* Fills n.cy (story year), n.cyEnd (span, if the title covers a range) and
+   n.cyApprox for every node. Must run after clusters[].chrono exists. */
+function resolveChrono(){
+  order.forEach(k => {
+    const seq = clusters[k].chrono;
+    const got = seq.map(id => parseChrono(nodes[id].s));
+    got.forEach((g, i) => {
+      const n = nodes[seq[i]];
+      if(g){ n.cy = Math.max(g.y, CHRONO_FLOOR); n.cyEnd = g.end && g.end !== g.y ? Math.max(g.end, CHRONO_FLOOR) : null;
+             n.cyApprox = !!g.approx; n.cyPinned = g.y < CHRONO_FLOOR; return; }
+      // no year named: sit between the nearest dated neighbours in this sequence
+      let a = i, b = i;
+      while(a >= 0 && !got[a]) a--;
+      while(b < got.length && !got[b]) b++;
+      const lo = a >= 0 ? Math.max(got[a].end || got[a].y, CHRONO_FLOOR) : null;
+      const hi = b < got.length ? Math.max(got[b].y, CHRONO_FLOOR) : null;
+      n.cy = lo !== null && hi !== null ? lo + (hi - lo) * ((i - a) / (b - a))
+           : lo !== null ? lo + (i - a)
+           : hi !== null ? hi - (b - i)
+           : nodes[seq[i]].rel;
+      n.cyEnd = null; n.cyApprox = true; n.cyPinned = false;
+    });
+  });
+}
+
+/* The axis field follows the mode — this IS the mode toggle now. */
+const yearOf = n => (mode === 'chrono' ? n.cy : n.rel);
+
 function layout(){
   const live = nodes.filter(vis);
   if(!live.length){ lanes = []; return; }
-  yearMin = Math.min(...live.map(n => n.rel));
-  yearMax = Math.max(...live.map(n => n.rel));
+  yearMin = Math.min(...live.map(yearOf));
+  yearMax = Math.max(...live.map(yearOf));
 
   lanes = order
     .filter(k => !hidden.has(k) && clusters[k].ids.length)
     .map(k => {
       const ids = clusters[k].ids;
-      return { key:k, ids, first: Math.min(...ids.map(i => nodes[i].rel)),
-                          last:  Math.max(...ids.map(i => nodes[i].rel)) };
+      return { key:k, ids, first: Math.min(...ids.map(i => yearOf(nodes[i]))),
+                          last:  Math.max(...ids.map(i => yearOf(nodes[i]))) };
     })
     .sort((a,b) => a.first - b.first || a.key.localeCompare(b.key));
 
@@ -3264,13 +3319,13 @@ function layout(){
        vertically around the lane — in the cluster's own chronological order,
        so the fan reads top-to-bottom as the story goes. */
     const byYear = {};
-    lane.ids.forEach(id => (byYear[nodes[id].rel] = byYear[nodes[id].rel] || []).push(id));
+    lane.ids.forEach(id => { const y = yearOf(nodes[id]); (byYear[y] = byYear[y] || []).push(id); });
     for(const yr in byYear){
       const g = byYear[yr];
       g.sort((a,b) => clusters[lane.key].chrono.indexOf(a) - clusters[lane.key].chrono.indexOf(b));
       g.forEach((id, i) => {
         const n = nodes[id];
-        n.tx = xOfYear(n.rel);
+        n.tx = xOfYear(yearOf(n));
         n.ty = lane.y + (i - (g.length - 1) / 2) * NODE_FAN;
         n.fanI = i; n.fanN = g.length;
       });
@@ -3501,6 +3556,21 @@ function draw(){
     }
   }
 
+  /* ---- a title that covers a range of years gets a bar showing the span;
+     "1942–1945" is a fact the old layout had nowhere to put ---- */
+  if(mode === 'chrono'){
+    nodes.forEach(n => {
+      if(!vis(n) || !n.cyEnd || !arrived(n.tx)) return;
+      const xa = xOfYear(n.cy), xb = xOfYear(n.cyEnd);
+      ctx.globalAlpha = (dimmed(n) ? .18 : .55) * fadeIn(n.tx);
+      ctx.strokeStyle = U[n.u].color;
+      ctx.lineWidth = px(2.5); ctx.lineCap = 'round';
+      ctx.beginPath(); ctx.moveTo(xa, n.y); ctx.lineTo(xb, n.y); ctx.stroke();
+      ctx.lineCap = 'butt';
+    });
+    ctx.globalAlpha = 1;
+  }
+
   /* ---- nodes. Watched is the FILL, not a badge: hollow means unseen, and
      the archive's progress is readable in one glance across 152 titles. The
      rubber stamp is kept, but only once you are zoomed in enough to read it. */
@@ -3529,7 +3599,11 @@ function draw(){
     else { ctx.fillStyle='#0E0C09'; ctx.fill(); }
     ctx.lineWidth = px(isWatched ? 1.4 : 2);
     ctx.strokeStyle = col;
+    // a dashed ring means the story year is approximate or inferred from
+    // neighbours, not stated — the data says "c. 2003" or names no year at all
+    if(mode === 'chrono' && n.cyApprox) ctx.setLineDash([px(3), px(3)]);
     ctx.stroke();
+    ctx.setLineDash([]);
 
     // rating, drawn as an arc of the circumference — never shown before now
     if(log && log.rating){
@@ -3765,11 +3839,11 @@ function setMode(m, skipPersist){
   if(mode === m) { if(!skipPersist) persistState(); return; }
   mode = m;
   rebuildOrder();
+  layout();          // the axis itself changes: titles slide to their story year
   mChrono.classList.toggle('active', m === 'chrono');
   mRelease.classList.toggle('active', m === 'release');
   modehint.textContent = m === 'chrono' ? M.modehintChrono : M.modehintRelease;
   if(selected !== null) openNote(nodes[selected]);
-  for(let i=0;i<40;i++) step();
   if(!skipPersist) persistState();
 }
 mChrono.onclick = () => setMode('chrono');

@@ -3,6 +3,44 @@
 Dated log of what changed and why, so a new session can see the project's history at a
 glance without re-deriving it from the diff. Newest first.
 
+## 2026-08-06 (evening) — The graph became a timeline
+
+Owner's brief: full timeline rebuild, full creative liberty. See
+`docs/superpowers/specs/2026-08-06-shell-and-graph-design.md`.
+
+**The problem:** the graph numbered every node 1..39 and then placed those numbers at
+random. It called itself a timeline and its own labels proved it wasn't one.
+
+- **Lanes peeling off a spine.** Each universe is a lane that diverges from a spine
+  (LINHA SAGRADA) at the year it begins. The force simulation is deleted; nodes ease
+  toward targets derived from the data. Node dragging is deleted with it — positions
+  mean something now, so dragging one would be a lie.
+- **The axis follows the mode.** My first design had x always be the release year,
+  on the grounds that the in-world chronology field is prose. **The owner overruled
+  that and was right.** `parseChrono()` now reads it: plain years, ranges, `c. 2003`,
+  `Natal de 2013`, `anos 80`, and `5000 a.C. – 2024`. Titles naming no year are
+  **interpolated between their dated neighbours in the authored chrono sequence** —
+  that order is itself the owner's chronology, so nothing is invented and nothing
+  falls back to the release year.
+- Two marks fall out of the parse: a **span bar** for titles covering a range
+  (`1942–1945`), and a **dashed ring** where the year is approximate or inferred.
+- `CHRONO_FLOOR` pins the one pre-1930 outlier to the left edge instead of letting it
+  stretch the axis across a century of nothing.
+- **The reveal.** A playhead sweeps left to right through the years on load and on every
+  media switch: the spine grows, branches peel off as their first year arrives, nodes
+  land as they are passed. The archive writes itself in chronological order.
+- **Watched is now the node fill** (hollow = unseen), so progress across 152 titles
+  reads at a glance; the VISTO stamp survives only above 1.15x where it is legible.
+  **Rating is drawn for the first time**, as an arc of the node's circumference.
+- Per-node ordinals cut — the axis encodes order now. Legend rewritten: it described
+  the old visual language and had become wrong rather than merely redundant.
+- **Shell**, by subagent: contrast lift across the palette (the sidebar was near
+  illegible), display face Space Grotesk -> Archivo expanded, sidebar split into three
+  tiers. The subagent rejected two of my prescribed token values that failed WCAG at
+  2.7:1 and lifted them rather than shipping my numbers.
+
+The six opening sequences are untouched and still pass 6/6.
+
 ## 2026-08-06 (later still) — Thor's hammer: the approach is baked, not scaled
 
 **Why:** owner's note — "why is the hammer so flat, why didn't you animate it". It *was*
