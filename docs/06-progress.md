@@ -2,6 +2,24 @@
 
 > Ficheiro de retoma. Lê-se no início de cada sessão depois do CLAUDE.md.
 
+## 2026-08-12 (9ª sessão) — Commit Fase 3 + publish-ready + percursos ligados
+
+**Feito:**
+- Commit `cbb0448` (Fase 3 completa, 212 ficheiros) — pedido do owner.
+- Publish-ready: `base: './'` + posters relativos (subpath-safe), meta/OG +
+  favicon SVG. Verificado em `vite preview` (dist serve, covers OK).
+- PERCURSOS LIGADOS: cross-links no dossiê derivados das `references`
+  (match por palavra inteira, strip S\d+, max 4); `jumpToItem` partilhado
+  entre busca e dossiê. Verificado: X-Men → Days of Future Past/First
+  Class/Logan, salto fecha o dossiê.
+- Owner: commit aprovado + "continua como achares melhor".
+
+**Você está aqui:** ▶ App publicável (offline, sem keys). Próximos possíveis:
+deploy real (GH Pages etc.), refactor #8 se a estante crescer, temas do
+legado (decisão tua), mais polimento (ex. filtros VISTO/POR VER no dossiê).
+
+**Pendente do owner:** nada.
+
 ## 2026-08-12 (8ª sessão) — Busca no arquivo + poster no dossiê + fixes mobile
 
 **Feito:**

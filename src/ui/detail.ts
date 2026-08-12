@@ -1,10 +1,36 @@
 import * as THREE from 'three';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { type CatalogItem } from '../data/catalog';
+import { CLUSTER_LABELS, type CatalogItem } from '../data/catalog';
+import catalog from '../data/catalog.json';
 import { getEntry, isWatched, setRating, setWatched } from '../data/logs';
 
 gsap.registerPlugin(ScrollTrigger);
+
+const ALL = catalog as unknown as CatalogItem[];
+
+const norm = (s: string) => s.toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu, '');
+const escapeRe = (t: string) => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+// percursos ligados: candidatos do catálogo cujo título (minúsculas, sem
+// acentos, série sem «S\d») aparece como palavra inteira nalguma referência.
+function relatedTo(item: CatalogItem, limit = 4): CatalogItem[] {
+  const refs = item.references ?? [];
+  const firstIn = (cand: CatalogItem): number => {
+    const t = escapeRe(norm(cand.title.replace(/ S\d+$/, '')));
+    if (!t) return -1;
+    const re = new RegExp(`\\b${t}\\b`, 'i');
+    for (let i = 0; i < refs.length; i++) if (re.test(refs[i])) return i;
+    return -1;
+  };
+  return ALL
+    .filter((c) => c.id !== item.id)
+    .map((c) => ({ c, i: firstIn(c) }))
+    .filter((o) => o.i >= 0)
+    .sort((a, b) => a.i - b.i)
+    .slice(0, limit)
+    .map((o) => o.c);
+}
 
 const ERA_LABEL: Record<string, string> = {
   reel: 'ROLO DE CINEMA',
@@ -34,9 +60,10 @@ export interface DetailOptions {
   beforeOpen?: (mesh: THREE.Mesh) => void; // tira o hero de palco antes do tween
   onOpen?: () => void;
   onClose?: () => void;
+  onRelated?: (item: CatalogItem) => void; // chip de percurso ligado → salta para o item
 }
 
-export function initDetail({ canvas, camera, getShelf, beforeOpen, onOpen, onClose }: DetailOptions): {
+export function initDetail({ canvas, camera, getShelf, beforeOpen, onOpen, onClose, onRelated }: DetailOptions): {
   close(): void;
   open(mesh: THREE.Mesh): void;
 } {
@@ -52,6 +79,8 @@ export function initDetail({ canvas, camera, getShelf, beforeOpen, onOpen, onClo
   const factsUl = document.getElementById('detail-facts')!;
   const refsH = document.getElementById('detail-refs-h')!;
   const refsUl = document.getElementById('detail-refs')!;
+  const linksH = document.getElementById('detail-links-h')!;
+  const linksBox = document.getElementById('detail-links')!;
   const toggle = document.getElementById('detail-toggle') as HTMLButtonElement;
   const watchedBox = document.getElementById('detail-watched') as HTMLElement;
   const dateP = document.getElementById('detail-date')!;
@@ -92,6 +121,16 @@ export function initDetail({ canvas, camera, getShelf, beforeOpen, onOpen, onClo
     };
     fill(factsUl, factsH, current.facts);
     fill(refsUl, refsH, current.references);
+    const related = relatedTo(current);
+    linksH.hidden = related.length === 0;
+    linksBox.replaceChildren(...related.map((item) => {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'chip';
+      b.textContent = `${item.title} · ${CLUSTER_LABELS[item.cluster]}`;
+      b.addEventListener('click', () => onRelated?.(item));
+      return b;
+    }));
     const watched = isWatched(current.id);
     toggle.textContent = watched ? 'PERCURSO CARIMBADO ✓' : 'CARIMBAR PERCURSO';
     watchedBox.hidden = !watched;

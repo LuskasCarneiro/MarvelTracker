@@ -3,6 +3,35 @@
 Dated log of what changed and why, so a new session can see the project's history at a
 glance without re-deriving it from the diff. Newest first.
 
+## 2026-08-12 (9ª sessão) — Publish-ready + percursos ligados + commit Fase 3
+
+- Commit `cbb0448` — Fase 3 completa na `feature/3d-shelf` (212 ficheiros).
+- Publish-readiness: `vite.config.ts` `base: './'`; posters relativos
+  (`covers/x.jpg` em vez de `/covers/x.jpg`) — deploy em subpath (GH Pages)
+  passa a funcionar; meta description + og:title/description + favicon SVG
+  data-URI. Verificado com `vite preview` (dist serve, covers carregam).
+- PERCURSOS LIGADOS no dossiê (ver entrada do builder abaixo) — cross-links
+  entre títulos via `references`; `jumpToItem` partilhado com a busca.
+
+## 2026-08-12 (9ª sessão) — Percursos ligados (spec-links.md)
+
+- `src/ui/detail.ts`: secção PERCURSOS LIGADOS. `relatedTo(current)` cruza o
+  catálogo (`import catalog from '../data/catalog.json'`, mesmo import do
+  wrapper) com `current.references`: match por palavra inteira
+  (`\b…\b`, regex do título escapado), título normalizado minúsculas+sem
+  acentos, séries com ` S\d+$` stripado, exclui o próprio, limita 4 na ordem
+  de aparecimento no texto. Chips `.chip` `TÍTULO · CLUSTER` (CLUSTER_LABELS);
+  secção escondida se 0 ligados; click → `onRelated(item)` (nova opção).
+- `src/main.ts`: lógica do `onPick` da busca extraída para `jumpToItem(item)`
+  (nav.setState + writeState + `setTimeout(80)` + scrollTo(slot)), que agora
+  **fecha o dossiê** (`detail.close()`) — necessário no chip intra-cluster (o
+  mount não corre). Busca (`initSearch(jumpToItem)`) e dossiê
+  (`onRelated: jumpToItem`) partilham-na.
+- `app.html`: `#detail-links-h` + `#detail-links` (CURIOSIDADES-style) e CSS
+  `.chip` (borda `color-mix` do accent, hover borda sólida).
+- `tools/check_links.mjs` (novo): Playwright one-off. Log abaixo. Build verde
+  + `tsc --noEmit` limpo. Sem commits (regra da spec).
+
 ## 2026-08-12 (8ª sessão) — Busca no arquivo (spec-search.md, paridade legado)
 
 - `src/ui/search.ts` (novo): `initSearch(onPick)`. Input `#search` topo-centro,

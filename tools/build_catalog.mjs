@@ -40,7 +40,7 @@ for (const c of curated) {
     overview: c.overview,
     seasonOf: c.seasonOf,
     seasonNumber: c.seasonNumber,
-    poster: `/${m.poster}`,
+    poster: m.poster, // relativo ("covers/x.jpg") — funciona em root E subpath após deploy
     imdbRating: typeof imdb.rating === 'number' ? imdb.rating : null,
     imdbVotes: typeof imdb.votes === 'number' ? imdb.votes : null,
     ...(typeof en.longOverview === 'string' ? { longOverview: en.longOverview } : {}),

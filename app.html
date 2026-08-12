@@ -3,7 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>MARVEL VAULT</title>
+<title>MARVEL VAULT — Arquivo 3D do Multiverso</title>
+<meta name="description" content="Arquivo pessoal de filmes e séries Marvel: estante 3D era-aware, dossiês com história, curiosidades e referências, carimbos e ratings.">
+<meta property="og:title" content="MARVEL VAULT">
+<meta property="og:description" content="Estante 3D do arquivo Marvel — dossiês, curiosidades e percurso de cada título.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='4' fill='%230e0c0a'/%3E%3Ctext x='16' y='21' font-family='monospace' font-size='13' fill='%23d8a24a' text-anchor='middle'%3EMV%3C/text%3E%3C/svg%3E">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html, body { background: #0e0c0a; color: #d8a24a; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
@@ -231,6 +235,14 @@
     padding-left: 1rem; position: relative; margin-bottom: 0.45rem;
   }
   #detail .facts li::before { content: '▸'; position: absolute; left: 0; color: color-mix(in srgb, var(--accent) 53%, transparent); }
+  #detail .chip {
+    background: none;
+    border: 1px solid color-mix(in srgb, var(--accent) 33%, transparent);
+    color: var(--accent);
+    font: inherit; font-size: 0.68rem; letter-spacing: 0.08em;
+    padding: 0.35rem 0.6rem; cursor: pointer; margin: 0 0.4rem 0.4rem 0;
+  }
+  #detail .chip:hover { border-color: var(--accent); }
   #detail #detail-imdb { color: var(--accent); font-size: 0.8rem; letter-spacing: 0.1em; margin-top: 0.4rem; }
   #detail.open { transform: none; }
   #detail-close {
@@ -364,6 +376,8 @@
   <ul class="facts" id="detail-facts"></ul>
   <h3 class="sec" id="detail-refs-h" hidden>REFERÊNCIAS</h3>
   <ul class="facts" id="detail-refs"></ul>
+  <h3 class="sec" id="detail-links-h" hidden>PERCURSOS LIGADOS</h3>
+  <div id="detail-links"></div>
   <button id="detail-toggle" type="button"></button>
   <div id="detail-watched" hidden>
     <p id="detail-date"></p>

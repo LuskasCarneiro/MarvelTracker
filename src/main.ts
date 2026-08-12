@@ -43,6 +43,7 @@ const detail = initDetail({
   canvas: renderer.domElement,
   camera,
   getShelf: () => currentGroup,
+  onRelated: jumpToItem,
   beforeOpen: (mesh) => {
     if (mesh !== heroMesh) return;
     unposeHero(mesh, false); // hero volta ao slot antes do quick path
@@ -232,7 +233,8 @@ function onNav(cluster: string, media: Media, mode: Mode): void {
 
 const navApi = initNav(onNav);
 
-function onPick(item: CatalogItem): void {
+function jumpToItem(item: CatalogItem): void {
+  detail.close(); // o dossiê pode estar aberto (chip) ou a busca pode saltar por cima
   const media: Media = item.type === 'movie' ? 'filmes' : 'series';
   const s: NavState = { cluster: item.cluster, media, mode: current.mode };
   navApi.setState(s);
@@ -246,7 +248,7 @@ function onPick(item: CatalogItem): void {
   }, 80); // deixa o mount/refresh assentar; o snap assenta no slot e pose o hero
 }
 
-initSearch(onPick);
+initSearch(jumpToItem);
 
 // A — nav + busca auto-escondidas: esconde a descer, mostra a subir / rato no topo / focus
 const hideable = document.querySelectorAll<HTMLElement>('#nav, #search');
