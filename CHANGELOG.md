@@ -3,6 +3,17 @@
 Dated log of what changed and why, so a new session can see the project's history at a
 glance without re-deriving it from the diff. Newest first.
 
+## 2026-08-12 (10ª sessão) — Filtros de percurso (VISTO / POR VER / TUDO)
+
+- Hash 4.º segmento (`#/cluster/media/modo/filtro`, default `tudo`), grupo
+  «Estado do percurso» no nav (reusa `.media`; 0 alterações de CSS).
+- Filtro por subgrupo por **re-parenção** dos meshes da cache (sem duplicar
+  geometrias; `restoreFilter` devolve ao cache); board mantém-se; `n` filtrado
+  no span/percurso/scroll; vazio quando o filtro não tem resultados.
+- Busca/percursos ligados fora do filtro ativo → recua para `tudo` antes de
+  saltar. Verificado: 3/36/39, vazio X-MEN VISTO, dossiê por click no subgrupo,
+  fim do scroll `PERCURSO 3/3`. Visual: filtro com 3 itens + board + hero OK.
+
 ## 2026-08-12 (9ª sessão) — Publish-ready + percursos ligados + commit Fase 3
 
 - Commit `cbb0448` — Fase 3 completa na `feature/3d-shelf` (212 ficheiros).

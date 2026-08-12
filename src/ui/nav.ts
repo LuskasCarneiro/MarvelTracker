@@ -2,28 +2,35 @@ import { CLUSTERS, CLUSTER_LABELS } from '../data/catalog';
 
 export type Media = 'filmes' | 'series';
 export type Mode = 'estreia' | 'cron';
+export type Filter = 'tudo' | 'visto' | 'porver';
 
 export interface NavState {
   cluster: string;
   media: Media;
   mode: Mode;
+  filter: Filter;
 }
 
-const DEFAULT: NavState = { cluster: 'mcu', media: 'filmes', mode: 'estreia' };
+const DEFAULT: NavState = { cluster: 'mcu', media: 'filmes', mode: 'estreia', filter: 'tudo' };
 
 export function readState(): NavState {
-  const m = /^#\/([^/]+)\/(filmes|series)(?:\/(estreia|cron))?$/.exec(location.hash);
+  const m = /^#\/([^/]+)\/(filmes|series)(?:\/(estreia|cron))?(?:\/(tudo|visto|porver))?$/.exec(location.hash);
   if (!m) return DEFAULT;
   if (!CLUSTERS.includes(m[1])) return DEFAULT;
-  return { cluster: m[1], media: m[2] as Media, mode: (m[3] as Mode | undefined) ?? 'estreia' };
+  return {
+    cluster: m[1],
+    media: m[2] as Media,
+    mode: (m[3] as Mode | undefined) ?? 'estreia',
+    filter: (m[4] as Filter | undefined) ?? 'tudo',
+  };
 }
 
 export function writeState(state: NavState): void {
-  history.replaceState(null, '', `#/${state.cluster}/${state.media}/${state.mode}`);
+  history.replaceState(null, '', `#/${state.cluster}/${state.media}/${state.mode}/${state.filter}`);
 }
 
 export function initNav(
-  onChange: (cluster: string, media: Media, mode: Mode) => void
+  onChange: (cluster: string, media: Media, mode: Mode, filter: Filter) => void
 ): { setState: (s: NavState) => void } {
   const nav = document.getElementById('nav')!;
 
@@ -70,7 +77,22 @@ export function initNav(
     order.appendChild(b);
   }
 
-  nav.replaceChildren(strip, toggle, order);
+  const status = document.createElement('div');
+  status.className = 'media';
+  status.setAttribute('role', 'tablist');
+  status.setAttribute('aria-label', 'Estado do percurso');
+  const filterBtns = {} as Record<Filter, HTMLButtonElement>;
+  for (const f of ['tudo', 'visto', 'porver'] as const) {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.role = 'tab';
+    b.dataset.filter = f;
+    b.textContent = f === 'tudo' ? 'TUDO' : f === 'visto' ? 'VISTO' : 'POR VER';
+    filterBtns[f] = b;
+    status.appendChild(b);
+  }
+
+  nav.replaceChildren(strip, toggle, order, status);
 
   const clusterBtns = new Map(
     [...strip.querySelectorAll<HTMLButtonElement>('button')].map((b) => [b.dataset.cluster!, b])
@@ -97,24 +119,33 @@ export function initNav(
       modeBtns[m].setAttribute('aria-selected', String(on));
       modeBtns[m].tabIndex = on ? 0 : -1;
     }
+    for (const f of ['tudo', 'visto', 'porver'] as const) {
+      const on = f === s.filter;
+      filterBtns[f].classList.toggle('active', on);
+      filterBtns[f].setAttribute('aria-selected', String(on));
+      filterBtns[f].tabIndex = on ? 0 : -1;
+    }
   }
 
   function setState(s: NavState): void {
-    if (s.cluster === state.cluster && s.media === state.media && s.mode === state.mode) return;
+    if (s.cluster === state.cluster && s.media === state.media && s.mode === state.mode && s.filter === state.filter) return;
     state = s;
     sync(state);
     writeState(state);
-    onChange(state.cluster, state.media, state.mode);
+    onChange(state.cluster, state.media, state.mode, state.filter);
   }
 
   for (const [id, b] of clusterBtns) {
-    b.addEventListener('click', () => setState({ cluster: id, media: state.media, mode: state.mode }));
+    b.addEventListener('click', () => setState({ cluster: id, media: state.media, mode: state.mode, filter: state.filter }));
   }
   for (const m of ['filmes', 'series'] as const) {
-    mediaBtns[m].addEventListener('click', () => setState({ cluster: state.cluster, media: m, mode: state.mode }));
+    mediaBtns[m].addEventListener('click', () => setState({ cluster: state.cluster, media: m, mode: state.mode, filter: state.filter }));
   }
   for (const m of ['estreia', 'cron'] as const) {
-    modeBtns[m].addEventListener('click', () => setState({ cluster: state.cluster, media: state.media, mode: m }));
+    modeBtns[m].addEventListener('click', () => setState({ cluster: state.cluster, media: state.media, mode: m, filter: state.filter }));
+  }
+  for (const f of ['tudo', 'visto', 'porver'] as const) {
+    filterBtns[f].addEventListener('click', () => setState({ cluster: state.cluster, media: state.media, mode: state.mode, filter: f }));
   }
 
   // roving keyboard: setas movem + ativam (wrapping), Home/End extremos
@@ -140,17 +171,18 @@ export function initNav(
   strip.addEventListener('keydown', (ev) => rove(strip, ev));
   toggle.addEventListener('keydown', (ev) => rove(toggle, ev));
   order.addEventListener('keydown', (ev) => rove(order, ev));
+  status.addEventListener('keydown', (ev) => rove(status, ev));
 
   window.addEventListener('hashchange', () => {
     const next = readState();
-    if (next.cluster === state.cluster && next.media === state.media && next.mode === state.mode) return;
+    if (next.cluster === state.cluster && next.media === state.media && next.mode === state.mode && next.filter === state.filter) return;
     state = next;
     sync(state);
-    onChange(state.cluster, state.media, state.mode);
+    onChange(state.cluster, state.media, state.mode, state.filter);
   });
 
   sync(state);
-  onChange(state.cluster, state.media, state.mode);
+  onChange(state.cluster, state.media, state.mode, state.filter);
 
   return { setState };
 }

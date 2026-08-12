@@ -2,6 +2,21 @@
 
 > Ficheiro de retoma. Lê-se no início de cada sessão depois do CLAUDE.md.
 
+## 2026-08-12 (10ª sessão) — Filtros VISTO/POR VER/TUDO
+
+**Feito:**
+- Filtro por estado do percurso (logs.v1): hash 4.º segmento, grupo no nav,
+  subgrupo por re-parenção (sem duplicar geometrias), vazio sem resultados,
+  busca fora do filtro recua para TUDO. Verificado: 3/36/39, vazio X-MEN
+  VISTO, visual OK (3 itens + board + hero).
+- Commits: `cbb0448` (Fase 3), `f79bc06` (publish-ready + percursos ligados).
+
+**Você está aqui:** ▶ App publicável e com paridade+ (busca, filtros, cross-
+links, a11y, era-aware, 60 FPS). Próximos possíveis: deploy real, mais
+polimento, temas do legado (decisão tua).
+
+**Pendente do owner:** nada.
+
 ## 2026-08-12 (9ª sessão) — Commit Fase 3 + publish-ready + percursos ligados
 
 **Feito:**
