@@ -86,6 +86,7 @@ function rebuildMesh(mesh: THREE.Mesh, item: CatalogItem, format: EraFormat, x: 
   mesh.material = materials;
   mesh.userData.format = format;
   mesh.userData.coverMaterial = cover;
+  mesh.userData.coverBase = undefined; // a cover mudou — recaptura na próxima pose
   mesh.userData.height = height;
   mesh.position.x = x;
   mesh.position.y = height / 2;
@@ -186,6 +187,24 @@ export function poseHero(mesh: THREE.Mesh, animate: boolean): void {
   killBob(mesh);
   gsap.killTweensOf(mesh.position);
   gsap.killTweensOf(mesh.rotation);
+  const tex = (mesh.userData.coverMaterial as THREE.MeshStandardMaterial | undefined)?.map;
+  if (tex) {
+    if (!mesh.userData.coverBase) {
+      mesh.userData.coverBase = { rx: tex.repeat.x, ox: tex.offset.x, ry: tex.repeat.y, oy: tex.offset.y };
+    }
+    if (animate) {
+      const b = mesh.userData.coverBase as { rx: number; ox: number; ry: number; oy: number };
+      gsap.killTweensOf(tex.repeat);
+      gsap.killTweensOf(tex.offset);
+      gsap.to(tex.repeat, { x: b.rx * 1.06, y: b.ry * 1.06, duration: 2.2, ease: 'power1.out' });
+      gsap.to(tex.offset, {
+        x: b.ox + (b.rx - b.rx * 1.06) / 2,
+        y: b.oy + (b.ry - b.ry * 1.06) / 2,
+        duration: 2.2,
+        ease: 'power1.out',
+      });
+    }
+  }
   const stageY = (mesh.userData.height as number) / 2 + STAGE_LIFT;
   mesh.userData.stageY = stageY;
   const startBob = () => {
@@ -207,6 +226,19 @@ export function unposeHero(mesh: THREE.Mesh, animate: boolean): void {
   killBob(mesh);
   gsap.killTweensOf(mesh.position);
   gsap.killTweensOf(mesh.rotation);
+  const tex = (mesh.userData.coverMaterial as THREE.MeshStandardMaterial | undefined)?.map;
+  const b = mesh.userData.coverBase as { rx: number; ox: number; ry: number; oy: number } | undefined;
+  if (tex && b) {
+    gsap.killTweensOf(tex.repeat);
+    gsap.killTweensOf(tex.offset);
+    if (!animate) {
+      tex.repeat.set(b.rx, b.ry);
+      tex.offset.set(b.ox, b.oy);
+    } else {
+      gsap.to(tex.repeat, { x: b.rx, y: b.ry, duration: 0.5, ease: 'power2.inOut' });
+      gsap.to(tex.offset, { x: b.ox, y: b.oy, duration: 0.5, ease: 'power2.inOut' });
+    }
+  }
   const y = (mesh.userData.height as number) / 2;
   if (!animate) {
     mesh.position.y = y;

@@ -3,6 +3,13 @@
 Dated log of what changed and why, so a new session can see the project's history at a
 glance without re-deriving it from the diff. Newest first.
 
+## 2026-08-12 (10ª sessão) — Living cover no hero
+
+- Zoom subtil da cover no palco (repeat/offset ×1.06, 2.2s power1.out, centro
+  preservado); regresso ao repouso em unpose; reduced-motion = sem zoom;
+  `killTweensOf(texture props)` no scroll rápido; `coverBase` reset no
+  rebuildMesh (morph era-aware). Verificado: sem erros, cover alinhada.
+
 ## 2026-08-12 (10ª sessão) — Filtros de percurso (VISTO / POR VER / TUDO)
 
 - Hash 4.º segmento (`#/cluster/media/modo/filtro`, default `tudo`), grupo
