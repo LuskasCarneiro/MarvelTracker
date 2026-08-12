@@ -1,0 +1,21 @@
+{
+  "name": "marvel-vault",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "catalog": "node tools/build_catalog.mjs"
+  },
+  "dependencies": {
+    "gsap": "^3.15.0",
+    "three": "^0.185.1"
+  },
+  "devDependencies": {
+    "@types/three": "^0.185.4",
+    "playwright-core": "^1.62.1",
+    "stats.js": "^0.17.0",
+    "typescript": "^7.0.2",
+    "vite": "^8.2.1"
+  }
+}

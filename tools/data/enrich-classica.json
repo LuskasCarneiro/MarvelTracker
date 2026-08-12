@@ -1,0 +1,64 @@
+{
+  "series|The Amazing Spider-Man (1977)": {
+    "longOverview": "Registo de arquivo: na temporada de 1977 a 1979, o jornalista Peter Parker vive a dupla existência de estudante e herói, investigando crimes em Nova Iorque e enfrentando ameaças com recurso aos sentidos e à agilidade. Sem a trupe de vilões dos quadrinhos, a série foca-se no homem por detrás da máscara e na dificuldade de conciliar as duas vidas. Foi a primeira vez que o Homem-Aranha ganhou corpo em imagem real.",
+    "facts": [
+      "Nicholas Hammond interpreta Peter Parker.",
+      "Foi a primeira adaptação live-action do Homem-Aranha para televisão.",
+      "Alguns episódios foram montados em formato de filme e chegaram a cinemas de outros mercados."
+    ],
+    "references": [
+      "O Peter Parker jornalista segue de perto a origem criada por Stan Lee e Steve Ditko nos anos 60.",
+      "Esta série antecede em décadas as grandes adaptações cinematográficas do Homem-Aranha, da Sony ao MCU."
+    ]
+  },
+  "series|The Incredible Hulk (1978)": {
+    "longOverview": "Registo de arquivo: na temporada de 1978 a 1982, o cientista David Banner, transformado por uma exposição a radiação, vive em fuga permanente, mudando de cidade e identidade para escapar à perseguição e para proteger os outros do monstro que carrega. Cada episódio é uma nova paragem de uma viagem sem fim, onde o conflito central é o de um homem a fugir de si próprio. Mais melancólica do que heroica, tornou-se a adaptação Marvel mais popular da sua era.",
+    "facts": [
+      "Bill Bixby interpreta David Banner e Lou Ferrigno o Hulk.",
+      "O Hulk desta série não fala, comunicando apenas por grunhidos.",
+      "O nome David foi usado no lugar de Bruce para se distanciar de associações sonoras com o alter ego."
+    ],
+    "references": [
+      "A dualidade entre o homem e o monstro é o mesmo conflito que o Hulk carrega nos quadrinhos e no MCU.",
+      "A fuga sem fim do protagonista ecoa o destino do Hulk em banda desenhada, perseguido pelo exército."
+    ]
+  },
+  "series|X-Men: The Animated Series": {
+    "longOverview": "Registo de arquivo: na temporada de 1992 a 1997, os X-Men, mutantes dotados de poderes extraordinários, protegem um mundo que os teme e odeia, sob a liderança do Professor Xavier. A série adapta arcos densos dos quadrinhos sem simplificar as tramas, entre a Saga da Fénix Negra e o Dias de um Futuro Esquecido. Tornou-se a porta de entrada de uma geração inteira no universo mutante.",
+    "facts": [
+      "Foi transmitida pela Fox Kids, no bloco de animação de sábado de manhã.",
+      "O tema de abertura tornou-se um dos mais icónicos da animação dos anos 90.",
+      "A série serviu de inspiração direta ao filme X-Men (2000)."
+    ],
+    "references": [
+      "É a fundação da linhagem X no ecrã, que a Fox levou ao cinema e o MCU retomou com os X-Men na era do multiverso.",
+      "O episódio de abertura adapta o arco Dias de um Futuro Esquecido, dos quadrinhos de Chris Claremont e John Byrne.",
+      "A Fénix Negra é um dos arcos centrais, o mesmo que viria a inspirar o filme X-Men: Dark Phoenix."
+    ]
+  },
+  "series|Spider-Man: The Animated Series": {
+    "longOverview": "Registo de arquivo: na temporada de 1994 a 1998, Peter Parker equilibra a vida de estudante e fotógrafo com a de herói, numa continuidade longa que atravessa temporadas. Os arcos acompanham vilões clássicos e avançam para territórios de realidades paralelas, culminando numa saga que já brincava com o multiverso. Uma das adaptações mais completas do Homem-Aranha da sua época.",
+    "facts": [
+      "Foi transmitida pela Fox Kids, no mesmo bloco que acolhia os X-Men.",
+      "A série manteve uma continuidade narrativa prolongada, rara na animação da época.",
+      "O episódio final cruzou o Homem-Aranha com os X-Men, num encontro entre os dois universos animados."
+    ],
+    "references": [
+      "A saga final explora realidades paralelas, antecipando o conceito do multiverso que o cinema retomaria em Spider-Man: No Way Home e nos filmes do Spider-Verse.",
+      "O encontro com os X-Men liga esta série à animação X-Men: The Animated Series, do mesmo catálogo.",
+      "O Peter Parker fotógrafo segue a leitura clássica de Stan Lee e Steve Ditko."
+    ]
+  },
+  "series|Blade: The Series": {
+    "longOverview": "Registo de arquivo: em 2006, esta temporada dá continuidade ao universo dos filmes do Blade, com o caçador de vampiros a operar num cenário urbano onde as casas de vampiros disputam o poder. O conflito central opõe o protagonista a uma nova estrutura de poder entre os sanguinários. Uma única temporada encerra este percurso televisivo.",
+    "facts": [
+      "Kirk Jones, conhecido por Sticky Fingaz, assume o papel de Blade.",
+      "Foi transmitida pela Spike TV.",
+      "A série durou apenas uma temporada."
+    ],
+    "references": [
+      "Continua diretamente a mitologia da trilogia Blade (1998 a 2004), presente no catálogo.",
+      "A personagem Blade, criada por Marv Wolfman e Gene Colan, pertence à mesma mitologia vampírica dos quadrinhos da Marvel."
+    ]
+  }
+}

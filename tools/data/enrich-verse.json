@@ -1,0 +1,30 @@
+{
+  "movies|Into the Spider-Verse": {
+    "longOverview": "Registo de abertura do universo de Miles Morales, estudante de liceu de Brooklyn. Mordido por uma aranha trans-dimensional libertada no acelerador de Wilson Fisk, Miles desperta com o sentido de aranha e cruza-se com um Homem-Aranha veterano, Peter B. Parker, que o orienta na iniciação. A abertura de fendas entre universos arrasta para Nova Iorque outras variantes do herói, cada uma vinda da sua dimensão. Miles tem de dominar os poderes ainda instáveis para contrariar o plano do Rei do Crime e devolver cada um à sua realidade.",
+    "facts": [
+      "O filme venceu o Óscar de Melhor Filme de Animação em 2019.",
+      "Miles Morales foi criado por Brian Michael Bendis e Sara Pichelli em «Ultimate Fallout» nº 4, de 2011.",
+      "A animação compõe uma estética de banda desenhada viva, com painéis, onomatopeias, marcas de impressão e mudanças de caligrafia.",
+      "A galeria de variantes inclui um Homem-Aranha noir, uma aranha protagonista e a versão animada de 1967."
+    ],
+    "references": [
+      "O multiverso aqui apresentado será expandido em «Across the Spider-Verse» e cruzará o universo do MCU em «Spider-Man: No Way Home».",
+      "O Rei do Crime, adversário clássico do Demolidor nas páginas da Marvel, assume aqui o papel central de antagonista.",
+      "A iniciação de Miles reescreve o cânone da origem do herói estabelecido em 1962 na banda desenhada."
+    ]
+  },
+  "movies|Across the Spider-Verse": {
+    "longOverview": "Registo de continuação do universo de Miles Morales, dois anos depois do primeiro arquivo. Miles atravessa pela primeira vez as dimensões na perseguição de um novo vilão e encontra a Sociedade Aranha, a organização de Miguel O'Hara que vigia os acontecimentos canónicos do multiverso. A Sociedade defende que certas tragédias são obrigatórias no percurso de qualquer herói, uma lógica com a qual Miles se recusa a pactuar. O conflito central coloca a liberdade de Miles contra o determinismo da teia, com Gwen Stacy a tomar partido pelo amigo.",
+    "facts": [
+      "Miguel O'Hara, o Homem-Aranha 2099, foi criado por Peter David e Rick Leonardi e estreou-se em 1992.",
+      "O filme é a sequela de «Into the Spider-Verse», com encerramento em aberto para um terceiro título.",
+      "A animação atribui a cada universo uma gramática visual própria, distinguindo as variantes do herói pelo desenho.",
+      "A Sociedade Aranha reúne centenas de variantes do herói, num exercício deliberado de escala do multiverso."
+    ],
+    "references": [
+      "O conceito de acontecimentos canónicos dialoga com a lógica do multiverso de «What If...?» e de «Doctor Strange in the Multiverse of Madness».",
+      "A relação entre Miles e Gwen continua o fio emocional aberto no primeiro arquivo de Spider-Verse.",
+      "O estilo por universos ecoa a tradição de identidade visual das várias eras do Homem-Aranha na banda desenhada."
+    ]
+  }
+}

@@ -1,0 +1,376 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MARVEL VAULT</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { background: #0e0c0a; color: #d8a24a; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  :root { --accent: #d8a24a; }
+  body[data-cluster="mcu"] { --accent: #d8a24a; }
+  body[data-cluster="xmen"] { --accent: #4a7fd8; }
+  body[data-cluster="sony"] { --accent: #d84a3a; }
+  body[data-cluster="netflix"] { --accent: #a8324a; }
+  body[data-cluster="vintage"] { --accent: #c9a86a; }
+  body[data-cluster="classica"] { --accent: #7d9b76; }
+  body[data-cluster="fox"] { --accent: #8a93a3; }
+  body[data-cluster="hulu"] { --accent: #4aa96c; }
+  body[data-cluster="abc"] { --accent: #5f8f9f; }
+  body[data-cluster="anim"] { --accent: #d87f4a; }
+  body[data-cluster="verse"] { --accent: #c34a9e; }
+  body[data-cluster="f4"] { --accent: #56a8d8; }
+  #scene { position: fixed; inset: 0; width: 100%; height: 100%; }
+  #hud {
+    position: fixed;
+    top: 0; left: 0;
+    padding: 2rem;
+    z-index: 1;
+    pointer-events: none;
+    text-shadow: 0 1px 8px #0e0c0a, 0 0 3px #0e0c0a; /* legível sobre qualquer cover */
+  }
+  #hud h1 { font-size: 1.4rem; letter-spacing: 0.35em; }
+  #hud .sub {
+    margin-top: 0.4rem;
+    font-size: 0.8rem;
+    color: var(--accent);
+    letter-spacing: 0.2em;
+  }
+  #percurso {
+    position: fixed;
+    bottom: 2rem; right: 2rem;
+    z-index: 1;
+    font-size: 0.8rem;
+    color: var(--accent);
+    letter-spacing: 0.2em;
+    pointer-events: none;
+  }
+  #nav {
+    position: fixed;
+    top: 2rem; right: 2rem;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    row-gap: 0.5rem;
+    max-width: calc(100vw - 24rem);
+    gap: 1rem;
+    transition: transform 0.35s ease, visibility 0.35s;
+  }
+  #nav.nav-hidden {
+    transform: translateY(calc(-100% - 2rem));
+    visibility: hidden; /* fora do ecrã deixa de ser focusable depois do slide */
+    transition-delay: 0s, 0.35s;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    #nav { transition: none; }
+    #detail { transition: none; }
+  }
+  #search {
+    position: fixed;
+    top: 1.2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 3;
+    width: 320px;
+    background: #141210f2;
+    border: 1px solid #d8a24a33;
+    color: #efe7da;
+    font: inherit;
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    padding: 0.55rem 0.8rem;
+    outline: none;
+    transition: transform 0.35s ease, visibility 0.35s;
+  }
+  #search:focus { border-color: var(--accent); }
+  #search::placeholder { color: #8a7f6d; letter-spacing: 0.2em; }
+  #search.nav-hidden {
+    transform: translate(-50%, -150%);
+    visibility: hidden;
+    transition-delay: 0s, 0.35s;
+  }
+  #search-results {
+    position: fixed;
+    top: calc(1.2rem + 2.6rem);
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 3;
+    width: 320px;
+    display: flex;
+    flex-direction: column;
+    background: #141210f2;
+    border: 1px solid #d8a24a33;
+    max-height: 60vh;
+    overflow-y: auto;
+  }
+  #search-results[hidden] { display: none; }
+  #search-results button {
+    background: none;
+    border: none;
+    border-bottom: 1px solid #d8a24a1a;
+    color: #d8cfc0;
+    font: inherit;
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-align: left;
+    padding: 0.55rem 0.8rem;
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  #search-results button:last-child { border-bottom: none; }
+  #search-results button:hover,
+  #search-results button.active { background: color-mix(in srgb, var(--accent) 12%, transparent); color: var(--accent); }
+  #search.nav-hidden + #search-results { opacity: 0; visibility: hidden; transition: opacity 0.35s ease; }
+  @media (prefers-reduced-motion: reduce) {
+    #search { transition: none; }
+  }
+  @media (max-width: 700px) {
+    #search, #search-results { width: 70vw; }
+  }
+  #nav .clusters {
+    display: flex;
+    gap: 0.5rem;
+    max-width: 55vw;
+    overflow-x: auto;
+  }
+  #nav .media {
+    display: flex;
+    gap: 0.5rem;
+    border-left: 1px solid color-mix(in srgb, var(--accent) 20%, transparent);
+    padding-left: 1rem;
+  }
+  #nav button {
+    background: none;
+    border: none;
+    color: #8a7f6d;
+    font: inherit;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-shadow: 0 1px 6px #0e0c0a, 0 0 2px #0e0c0a;
+    text-transform: uppercase;
+    white-space: nowrap;
+    padding: 0.3rem 0.4rem;
+    cursor: pointer;
+  }
+  #nav button:hover { color: var(--accent); }
+  #nav button.active {
+    color: var(--accent);
+    border-bottom: 1px solid var(--accent);
+  }
+  #empty {
+    position: fixed;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    color: #8a7f6d;
+    letter-spacing: 0.2em;
+    font-size: 0.8rem;
+  }
+  #preview {
+    position: fixed;
+    right: 2rem; top: 50%;
+    width: 300px;
+    transform: translate(1.5rem, -50%);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.35s ease, transform 0.35s ease;
+    background: #141210f2;
+    border: 1px solid color-mix(in srgb, var(--accent) 20%, transparent);
+    padding: 1.2rem;
+    color: #d8cfc0;
+    z-index: 3;
+  }
+  #preview.visible { opacity: 1; transform: translate(0, -50%); pointer-events: auto; }
+  #preview .kick { color: var(--accent); font-size: 0.65rem; letter-spacing: 0.2em; }
+  #preview h2 { color: #efe7da; font-size: 1.05rem; margin: 0.35rem 0; }
+  #preview-meta { color: #8a7f6d; font-size: 0.7rem; letter-spacing: 0.08em; }
+  #preview-rating { color: var(--accent); font-size: 0.75rem; letter-spacing: 0.1em; margin-top: 0.4rem; }
+  #preview-overview {
+    color: #b8ae9d; font-size: 0.75rem; line-height: 1.5; margin: 0.6rem 0;
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+  }
+  #preview-open {
+    background: none; border: 1px solid color-mix(in srgb, var(--accent) 33%, transparent); color: var(--accent);
+    font: inherit; font-size: 0.7rem; letter-spacing: 0.15em;
+    padding: 0.5rem 0.8rem; cursor: pointer; width: 100%;
+  }
+  #preview-open:hover { border-color: var(--accent); }
+  @media (prefers-reduced-motion: reduce) { #preview { transition: none; } }
+  @media (max-width: 700px) { #preview { display: none; } }
+  #scroll-space { width: 100%; }
+  #detail {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(105deg, #0e0c0a00 0%, #0e0c0acc 32%, #0e0c0af2 55%);
+    color: #d8cfc0;
+    z-index: 4; /* acima do #nav (3) — sem colisão botões/título */
+    pointer-events: none; /* fechado está fora do ecrã mas o bbox cobre o viewport */
+    transform: translateX(100%);
+    visibility: hidden; /* fechado deixa de ser focusable */
+    transition: transform 0.35s ease, visibility 0.35s;
+    transition-delay: 0s, 0.35s; /* esconder só depois do slide; abrir imediato */
+  }
+  #detail.open { pointer-events: auto; visibility: visible; }
+  #detail .page {
+    margin-left: auto;
+    width: min(600px, 92vw);
+    height: 100%;
+    overflow-y: auto;
+    padding: 4rem 3rem 3rem;
+  }
+  #detail .sec {
+    color: var(--accent); font-size: 0.65rem; letter-spacing: 0.2em;
+    margin: 1.6rem 0 0.5rem;
+  }
+  #detail .facts { list-style: none; }
+  #detail .facts li {
+    color: #b8ae9d; font-size: 0.78rem; line-height: 1.5;
+    padding-left: 1rem; position: relative; margin-bottom: 0.45rem;
+  }
+  #detail .facts li::before { content: '▸'; position: absolute; left: 0; color: color-mix(in srgb, var(--accent) 53%, transparent); }
+  #detail #detail-imdb { color: var(--accent); font-size: 0.8rem; letter-spacing: 0.1em; margin-top: 0.4rem; }
+  #detail.open { transform: none; }
+  #detail-close {
+    position: absolute;
+    top: 0.6rem; right: 0.8rem;
+    background: none; border: none;
+    color: #a9782f;
+    font: inherit; font-size: 1.4rem;
+    cursor: pointer;
+    padding: 0.2rem 0.5rem;
+  }
+  #detail-close:hover { color: var(--accent); }
+  #detail .kick {
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+    color: #a9782f;
+    margin-bottom: 0.6rem;
+  }
+  #detail-poster {
+    width: 140px;
+    aspect-ratio: 2/3;
+    object-fit: cover;
+    border: 1px solid #d8a24a33;
+    margin-bottom: 1rem;
+    box-shadow: 0 8px 24px #000a;
+  }
+  #detail-title {
+    color: #d8cfc0;
+    font-size: 1.15rem;
+    letter-spacing: 0.05em;
+    line-height: 1.3;
+    margin-bottom: 0.5rem;
+  }
+  #detail-meta { font-size: 0.8rem; color: #a9782f; margin-bottom: 1.2rem; }
+  #detail-overview {
+    font-size: 0.85rem;
+    line-height: 1.6;
+    color: #c4b9a6;
+    margin-bottom: 1.6rem;
+  }
+  #detail-toggle {
+    width: 100%;
+    background: none;
+    border: 1px solid color-mix(in srgb, var(--accent) 33%, transparent);
+    color: var(--accent);
+    font: inherit;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    padding: 0.7rem 1rem;
+    cursor: pointer;
+  }
+  #detail-toggle:hover { background: color-mix(in srgb, var(--accent) 10%, transparent); }
+  #detail-watched { margin-top: 1.4rem; }
+  #detail-date { font-size: 0.8rem; color: #a9782f; margin-bottom: 0.8rem; }
+  #detail-rating { display: grid; grid-template-columns: repeat(10, 1fr); gap: 0.3rem; }
+  #detail-rating button {
+    background: none;
+    border: 1px solid color-mix(in srgb, var(--accent) 20%, transparent);
+    color: #8a7f6d;
+    font: inherit;
+    font-size: 0.7rem;
+    padding: 0.4rem 0;
+    cursor: pointer;
+  }
+  #detail-rating button.active { color: var(--accent); border-color: var(--accent); background: color-mix(in srgb, var(--accent) 10%, transparent); }
+  #detail-close:focus-visible,
+  #detail-toggle:focus-visible,
+  #detail-rating button:focus-visible,
+  #preview-open:focus-visible,
+  #nav button:focus-visible,
+  #search:focus-visible,
+  #search-results button:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+  @media (max-width: 700px) {
+    #detail { background: #0e0c0af2; } /* mobile: página opaca a full-screen */
+    #detail .page { width: 100%; padding: 3.5rem 1.4rem 2rem; }
+  }
+  @media (max-width: 700px) {
+    #nav {
+      top: 4.6rem; left: 0; right: 0; /* abaixo da barra de busca — sem sobreposição */
+      max-width: 100%; /* anula o calc(100vw - 24rem) do desktop — senão comprime para ~6px */
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+      padding: 1rem;
+    }
+    #nav .clusters { max-width: 100%; }
+    #nav .media {
+      border-left: none;
+      border-top: 1px solid color-mix(in srgb, var(--accent) 20%, transparent);
+      padding: 0.5rem 0 0;
+    }
+  }
+</style>
+</head>
+<body>
+<canvas id="scene"></canvas>
+<header id="hud">
+  <h1>MARVEL VAULT</h1>
+  <p class="sub" id="dossie"></p>
+</header>
+<nav id="nav"></nav>
+<input id="search" type="search" role="combobox" aria-label="Procurar no arquivo"
+       aria-controls="search-results" aria-autocomplete="list" aria-expanded="false"
+       placeholder="PROCURAR NO ARQUIVO…" autocomplete="off">
+<div id="search-results" role="listbox" aria-label="Sugestões" hidden></div>
+<p id="percurso"></p>
+<aside id="preview" aria-live="polite" aria-hidden="true">
+  <p class="kick" id="preview-kick"></p>
+  <h2 id="preview-title"></h2>
+  <p id="preview-meta"></p>
+  <p id="preview-rating"></p>
+  <p id="preview-overview"></p>
+  <button id="preview-open" type="button">ABRIR DOSSIÊ →</button>
+</aside>
+<div id="empty" hidden>SEM PERCURSOS NESTE RAMO</div>
+<div id="scroll-space"></div>
+<aside id="detail" role="dialog" aria-modal="false" aria-hidden="true" aria-labelledby="detail-title">
+  <button id="detail-close" type="button" aria-label="Fechar dossiê">×</button>
+  <div class="page">
+  <p class="kick" id="detail-kick"></p>
+  <img id="detail-poster" alt="">
+  <h2 id="detail-title"></h2>
+  <p class="meta" id="detail-meta"></p>
+  <p id="detail-imdb"></p>
+  <h3 class="sec" id="detail-story-h">HISTÓRIA</h3>
+  <p class="overview" id="detail-overview"></p>
+  <h3 class="sec" id="detail-facts-h" hidden>CURIOSIDADES</h3>
+  <ul class="facts" id="detail-facts"></ul>
+  <h3 class="sec" id="detail-refs-h" hidden>REFERÊNCIAS</h3>
+  <ul class="facts" id="detail-refs"></ul>
+  <button id="detail-toggle" type="button"></button>
+  <div id="detail-watched" hidden>
+    <p id="detail-date"></p>
+    <div id="detail-rating" role="radiogroup" aria-label="Classificação"></div>
+  </div>
+  </div>
+</aside>
+<script type="module" src="/src/main.ts"></script>
+</body>
+</html>

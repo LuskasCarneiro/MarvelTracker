@@ -3,6 +3,239 @@
 Dated log of what changed and why, so a new session can see the project's history at a
 glance without re-deriving it from the diff. Newest first.
 
+## 2026-08-12 (8ª sessão) — Busca no arquivo (spec-search.md, paridade legado)
+
+- `src/ui/search.ts` (novo): `initSearch(onPick)`. Input `#search` topo-centro,
+  estilo dossiê, normalização sem acentos (`\p{Diacritic}`), max 8 sugestões
+  `TÍTULO — CLUSTER · FILMES/SÉRIES`, role=combobox/listbox/option,
+  aria-activedescendant. Setas/Enter/Esc + click, fecha ao clicar fora. Termos
+  pt-PT→EN (`doutor`→`doctor`, etc.) num mapa curado (ponytail: marca o teto).
+- `src/main.ts`: `initNav` passa a devolver `setState` (nav.ts) — o pick da
+  busca sincroniza botões do nav + hash e navega via o mesmo `onNav`. `onPick`
+  salta para o slot: `scrollTo(p * (scrollHeight - innerHeight))` num
+  `setTimeout(80)`; o snap do ScrollTrigger pose o hero + preview. Hide partilhado
+  `#nav, #search` (scroll/mousemove/focusin).
+- `app.html`: markup do input + `#search-results` + CSS (fixo topo-centro,
+  `#search.nav-hidden { translate(-50%,-150%) }`, 70vw mobile, `:focus-visible`).
+- `tools/check_search.mjs` (novo): Playwright one-off. Log:
+  `[doutor]→'Doctor Strange — MCU · FILMES'`, Enter→`#/mcu/filmes/estreia`,
+  preview `Doctor Strange`; `[loki]`→Loki S1/S2, Enter→`#/mcu/series/estreia`;
+  `[venom]`→`Venom — SONY · FILMES`, Enter→`#/sony/filmes/estreia`; Esc fecha.
+  `✓ check_search: PASS`. Build verde + `tsc --noEmit` limpo.
+- Poster no dossiê (`#detail-poster`): gap mobile — o dossiê mobile é opaco e
+  não mostrava imagem; agora a página tem a cover no topo (desktop também
+  beneficia). Verificado: src `/covers/mcu-iron-man.jpg`, naturalWidth 342.
+
+
+## 2026-08-10 (7ª sessão) — #11 a11y + fixes pós-review + spot-check D2
+
+- #11 (flash-free): focus trap + aria-modal/labelledby no `#detail`, foco
+  restaurado ao abridor, roving tabindex + setas/Home/End no nav, `visibility`
+  no `#nav`/`#detail` fechados (sem focusables fora do ecrã), `:focus-visible`
+  âmbar, `aria-hidden` sincronizado no `#preview`.
+- frames3d: fix do hash duplicado com flags combinadas (`url.split('#')[0]`).
+- Fix Kimi (bug pré-existente reportado pelo builder): `ScrollTrigger.refresh()`
+  não dispara onUpdate com progresso igual → hero não voltava a palco nem o
+  preview reaparecia após fechar o dossiê. Refactor: `applyHero(group, p)`
+  partilhada por onUpdate/onClose/morph. Verificado com probe (preview volta ✓).
+- `#preview-open` `tabIndex` -1 quando invisível.
+- Spot-check D2 (6 clusters amostrados): factos corretos e verificáveis, voz
+  dossiê, referências intra-Marvel. Qualidade aprovada.
+
+## 2026-08-10 (6ª sessão) — #9 FPS dev-only + #10 covers 152/152 + #8 adiado
+
+- `stats.js` dev-only (guard `import.meta.env.DEV` + `moduleSideEffects` no
+  rolldown; 0 referências no bundle prod). `tools/fps.mjs` (medição Playwright).
+  FPS headless (SwiftShader) ≈ 3–4 — software, não representativo; medição real
+  pendente do owner no browser (stats visível só em dev).
+- `tools/audit_covers.mjs` + 4 sheets em `tools/frames/covers/` — auditoria
+  **152/152 corretas** (0 erros tipo Wonder Man).
+- #8 (atlas + InstancedMesh + sharp) **adiado**: ≤62 draw calls por estante
+  (uma de cada vez, ADR-0002) é trivial para iGPU real; o budget ≤20 era para
+  renderização multi-estante que não existe. Revisitar se a estante >100 itens
+  ou entrar multi-estante. Sem sharp instalado, sem shader, sem refactor.
+- End-to-end final com todas as flags do frames3d: nav, vazio, morph ida/volta,
+  hero+drag, dossiê completo com carimbo+rating (logs.v1 ✓). Tudo verde.
+
+## 2026-08-10 (5ª sessão) — Hero levitante + preview + dossiê completo + D2
+
+- Requisito owner: item focado **sai da prateleira e levita** no centro, com
+  **drag-to-rotate** e card de preview (IMDb); nav auto-escondido; página completa
+  com história/fun facts/referências; **`index.html` nunca é eliminado** (ADR/00).
+- D1: `tools/imdb_fetch.mjs` — ratings IMDb reais via dataset oficial
+  (151/152; Doomsday sem rating por estar por estrear). Campos no catálogo.
+- A+B+C (Kimi build — flash-free falhou 2× e a escalação `general-luna` exige
+  restart): nav auto-hide, `applyFocus`/`poseHero`/`unposeHero` (bob de
+  levitação, snap por slot → hero centrado), drag-rotate com supressão de
+  click-pós-drag, `#preview` card com nota IMDb, hooks `beforeOpen/onOpen/onClose`.
+- E: `#detail` passa a **página full-screen** (gradiente sobre a cena, coluna
+  direita): HISTÓRIA (longOverview), CURIOSIDADES (facts), REFERÊNCIAS, IMDb,
+  carimbo+rating. PANEL_SHIFT 0.9.
+- D2: conteúdo editorial gerado por flash-free (spec em /tmp/opencode/D2-SPEC.md)
+  — **152/152** com longOverview/facts/references (enrich-*.json, merge no
+  build_catalog). Voz dossiê TVA, regras anti-alucinação (sem box office/datas
+  inventados; referências só intra-Marvel).
+- Bug hard-won: `//` não é comentário CSS — 4 ocorrências partiam as declarações
+  seguintes (z-index, pointer-events, transform) via error recovery do parser.
+  Apanhado com probe `elementFromPoint` quando o `#detail` fechado interceptava
+  cliques. Lição registada no 05.
+- Frames3d: flag `--hero`. Tudo verificado visualmente (frames + probe).
+
+## 2026-08-10 (4ª sessão) — #7 emergência por scroll + toggle cron/release + morph
+
+- Build #6 (flash-free): `shelf.ts` — `geometryFor`, `buildShelf(items, mode)`
+  (formato por ano efetivo), `applyOrder` (reordena + morph scale out/in com dispose
+  correto: geometria + material da cover, nunca o `DARK` partilhado nem texturas),
+  `applyEmergence` (z/tilt por distância ao foco), `SPACING` exportado.
+  `nav.ts` — 3.º grupo ESTREIA/CRONOLÓGICA, hash `#/cluster/media/modo` (3.º
+  segmento opcional). `main.ts` — morph in-place quando só muda o modo, reduced-motion
+  desliga emergência/morph. `detail.ts` — z do item a 0 durante o quick path.
+  `frames3d.mjs --ordem`.
+- Revisão Kimi + 5 fixes próprios: emergência z 1.0→0.6/tilt 0.08 (item em foco
+  enchia o ecrã); rolo r1.5→0.8 (Ø>SPACING intersectava rolos adjacentes);
+  camZ 3.4 para rolo no detalhe; meta do dossiê mostra o formato do modo ativo
+  (`2011 · 1942–1945 · ROLO DE CINEMA`); `#detail` z-index 4 (nav colidia com o
+  painel); nav com wrap (3.º grupo de botões colidia com o logo).
+- Verificação: contact sheet (emergência), `--ordem` (morph ida/volta, HUD/hash),
+  detalhe de rolo em cron via Playwright one-off. Tudo verde.
+
+## 2026-08-10 (3ª sessão) — storyYears, paleta por universo, nav multi-cluster
+
+- `tools/apply_storyyear.mjs` — aplica os 22 storyYear do owner a `curated.json`
+  (22/22, check runnable; 0 pendentes). Dados do era morph completos.
+- Decisão: materialidade por universo (07 fechada; tokens na tarefa #6a).
+- ADR-0002: uma estante visível de cada vez (lazy cache, hash deep-link).
+- Build #5 (flash-free): `src/ui/nav.ts` (strip 12 clusters + toggle FILMES/SÉRIES,
+  hash `#/cluster/media`), `main.ts` refatorado para `mount()` com cache de
+  estantes, estado vazio; `detail.ts` com `close()` imediato + `getShelf()` getter.
+  Bug apanhado em frames: estante abria a meio (scrub sem onUpdate inicial) →
+  câmara posicionada explicitamente no 1.º item em cada mount.
+- 1.º dispatch do build #5 devolveu vazio (falha silenciosa flash-free);
+  redispatch idêntico funcionou. Registado no 08, sem escalação.
+
+## 2026-08-10 (2ª sessão) — Plano de custos + quick path/detalhe/logs.v1
+
+- `docs/08-model-plan.md` criado e aprovado pelo owner: builders/explorador em
+  `deepseek-v4-flash-free` (grátis), Kimi K3 só para spec/revisão/visual, escalação
+  para `gpt-5.6-luna` (decisão do owner) quando um builder falha 2×. Regra de ouro:
+  só se delega quando brief << trabalho. Referenciado no CLAUDE.md.
+- Build #2 (flash-free, spec completa): `src/data/logs.ts` (logs.v1 no formato
+  legado exato + migração watched.v1), `src/ui/detail.ts` (quick path: raycast →
+  tween GSAP, ScrollTriggers off durante o detalhe; overlay dossiê pt-PT com
+  CARIMBAR PERCURSO + rating 1–10), painel em app.html, `userData.item` na shelf.
+- `frames3d.mjs --detail`: click → overlay, carimbar+rating (logs.v1 verificado em
+  localStorage), Esc → regresso ao PERCURSO certo. Fixes pós-review: clique-fora
+  fecha; PANEL_SHIFT +0.35 para o item compor fora do painel lateral.
+
+## 2026-08-10 — Fase 3 MVP: scaffold Vite + primeira estante 3D (MCU)
+
+Pipeline de dados fechada e app viva pela primeira vez. Build delegado num agente
+`general` (DeepSeek V4 Flash, binding confirmado em opencode.jsonc); Kimi ficou com
+spec, revisão e verificação visual.
+
+- `tools/build_catalog.mjs` — merge determinístico curated.json + tmdb-map.json →
+  `src/data/catalog.json` (152 itens / 12 clusters; check runnable falha se faltar
+  match, poster ou releaseYear). Nota: o progress dizia `catalog.js`; ficou JSON
+  puro + wrapper tipado `src/data/catalog.ts` (`resolveJsonModule`) — artefato
+  gerado sem lógica.
+- Scaffold: `app.html` é a entrada Vite (o `index.html` da raiz continua a ser o
+  legado — `vite.config.ts` aponta o build input). Stack exata do ADR-0001: three
+  vanilla + gsap/ScrollTrigger, mais nada.
+- `src/scene.ts` (1 key quente + 1 rim frio + ambiente, sem shadow maps, fog),
+  `src/shelf.ts` (4 formatos era-aware procedurais com proporções reais do
+  docs/02; cover com center-crop `fitCover`; 1 Mesh por item — marcado ponytail,
+  atlas/InstancedMesh quando entrarem as 12 estantes), `src/main.ts` (scroll
+  scrub da câmara ao longo de 57 itens MCU + HUD dossiê com contador PERCURSO n/57).
+- `tools/frames3d.mjs` — sucessor do frames.mjs para a app nova (frames por %
+  de scroll + contact sheet). playwright-core passou a devDep (chromium já estava
+  em ~/.cache/ms-playwright).
+
+Verificação visual (frames olhados, não inferidos): 2 defeitos apanhados e corrigidos
+— prateleira azulada (rim frio a 0.5 na tábua horizontal → rim 0.25 + material
+próprio rugoso/escuro) e poster errado do Wonder Man (variante «Magnum» no TMDb
+para pt; substituído pelo teaser oficial top-voted, mesmo artwork com título certo).
+
+`npx tsc --noEmit` limpo; build 696 kB (gzip 191 kB — three.js, sem code-splitting,
+aceitável por agora). FPS por medir (stats.js dev-only fica para quando houver
+emergência/InstancedMesh).
+
+## 2026-08-09 (later) — tmdb_fetch: fix do matching por temporada
+
+Full run anterior: 125 high / 23 low / 4 unmatched. Causa raiz única: temporadas S2+
+eram pesquisadas com `first_air_date_year` = ano da TEMPORADA, mas o filtro do TMDb
+casa com o ano de estreia da SÉRIE — o retry sem ano aterrava em podcasts, spinoffs
+de webisodes e documentários, e a cache v1 ficou envenenada. Fix em
+`tools/tmdb_fetch.mjs` (mesmo CLI, stdlib only):
+
+- Temporadas agrupadas por `seasonOf`; cada série resolve UMA vez (ano = releaseYear
+  mais antigo do grupo, retry sem ano se 0 resultados, pick por nome exacto
+  `name`/`original_name` foldado com preferência ±1 ano) e as entradas mapeiam via
+  `seasons[]`. Temporada ausente de `seasons[]` → só essa entrada vai a review.
+- Query de filme faz strip de QUALQUER parentético final ("Hulk (Ang Lee)" → "Hulk").
+- Especiais TV sem resultado em `search/tv` (Werewolf by Night, GOTG Holiday Special,
+  Punisher: One Last Kill) caem para `search/movie`; match fica `tmdbType: "movie"`,
+  forçado `low` para ir a review (self-check exige seasonAirYear ou review).
+- Cache key bumpada para `sha1('v2|'+url)` — entradas v1 envenenadas ficam órfãs
+  (a pasta NÃO foi apagada aqui; o orchestrator trata disso no full run).
+
+Verificação: `node tools/tmdb_fetch.mjs --sample` em cache v2 fria →
+`processed 8, high 8, low 0, unmatched 0, posters downloaded 8` e self-check verde.
+Nota: o sample sobrescreve `tmdb-map.json`/`tmdb-review.md` (comportamento pré-
+existente); o full run do orchestrator regenera-os.
+
+## 2026-08-09 (late) — Phase 2 done: data pipeline live
+
+Two builder agents + one fix pass produced the build-time data layer:
+
+- `tools/extract_curated.mjs` — deterministically extracts `films`/`seriesItems`
+  from legacy `index.html` (array-literal slice + eval, no LLM): 152 entries
+  (82 movies, 70 seasons; 25 unsuffixed series normalized to implicit S1). IDs
+  replicate the legacy `watchKey` scheme (`movies|Title` / `series|Title`) so
+  `marvelVault.logs.v1` keeps matching. Surprise finding: a 12th cluster `f4`
+  (Fantastic Four ×3) existed in the data but not in any docs — docs updated.
+- `tools/tmdb_fetch.mjs` — TMDb matcher + poster downloader, sha1-url disk cache,
+  50ms politeness, 429 backoff, stdlib only. First full run: 125 high / 23 low /
+  4 unmatched. Root cause of nearly all failures: season entries searched with
+  `first_air_date_year` set to the *season's* year, which can never match (the
+  filter is on the show's FIRST air year) → retries landed on wrong shows and
+  poisoned the cache. Fix: resolve each show once (grouped by `seasonOf`), map all
+  seasons from one `/tv/{id}` call; strip any `(...)` from movie queries; TV→movie
+  fallback for TV specials; cache bumped to v2.
+- **Final run: 149/152 high confidence, 0 unmatched, 152 posters in
+  `public/covers/`.** The 3 "low" are TV specials correctly matched as movies.
+- `tools/data/`: `curated.json`, `tmdb-map.json`, `storyyear-review.md` (22 fuzzy
+  story eras for owner curation — not blocking), `tmdb-review.md`.
+- opencode config: `general`, `explore` and `small_model` bound to
+  `deepseek-v4-flash-free` (pending opencode restart to take effect).
+
+**State:** catalog data + covers ready. Next: Phase 3 — generate
+`src/data/catalog.js`, Vite+TS scaffold, first instanced MCU shelf.
+
+## 2026-08-09 — Pivot para 3D: fundações documentais
+
+Owner dropped `improve.md`: replace the 2D TVA graph with an immersive 3D shelf
+frontpage (press.stripe.com bar), era-aware physical formats (reel/VHS/DVD/Blu-ray),
+TMDb as data source, multi-agent workflow, persistent docs structure. This session
+executed the brief's "initial steps" only — **no app code yet**:
+
+- Created branch `feature/3d-shelf`; `main` keeps the 2D app intact as rollback.
+- Created `docs/00`–`07` + `adr/0001`: brief+decisions, architecture, design skeleton,
+  TMDb pipeline (endpoints smoke-tested live — token valid, pt-PT works), auth
+  placeholder, 3D contract (perf budget: 60fps, ≤20 draw calls, single 4096² WebP
+  atlas, InstancedMesh per format), progress/resume file, open questions.
+- Stack decided (ADR-0001): Vite + TS + **Three.js vanilla + GSAP**, no React/R3F —
+  one immersive scene, text stays in DOM. The old zero-build rule is revoked.
+- Data decisions: TMDb is **build-time only** (publishable, no shipped keys); curated
+  pt-PT copy stays source of truth; series = one object per season (dataset already
+  is); `storyYear` needs a numeric sibling — ~40 fuzzy labels queued for owner
+  curation in Phase 2. Known key finding: `s` fields are fuzzy strings, not numbers.
+- Logs/ratings: new app reads `marvelVault.logs.v1` as-is from day 1.
+- CLAUDE.md rewritten for the 3D era (context kept, old constraints dropped).
+- Obsidian findings note created at `Projects/Marvel Vault/` in the owner's vault.
+
+**State:** docs foundation done. Next: Phase 2 — `tools/extract_curated.mjs` +
+`tools/tmdb_fetch.mjs` producing `catalog.js`.
+
 ## 2026-08-06 (late) — Next-movie links on the two new panels
 
 Owner's ask after seeing the two new panels: "missing: hyperlinks for the next movie."
