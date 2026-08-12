@@ -3,6 +3,17 @@
 Dated log of what changed and why, so a new session can see the project's history at a
 glance without re-deriving it from the diff. Newest first.
 
+## 2026-08-12 (11ª sessão) — Inércia do hero + busca vazia + carimbo da estante
+
+- Inércia no drag-to-rotate: decay de velocidade no release (gsap.ticker, dt
+  real, `0.94^(dt/16.7)`, limiar 0.0005); cancelada por pointerdown/troca de
+  hero (guarda de identidade do mesh — cobre applyHero/beforeOpen/mount/onNav).
+- Busca sem resultados: `SEM RESULTADOS NO ARQUIVO` (não clicável); some ao
+  limpar o input.
+- Carimbo da estante: drop+stagger de assentamento no mount (0.5s power3.out,
+  stagger 0.006, exclui board e hero; reduced-motion = nada).
+- Todos verificados (build, tsc, frames3d --nav sem erros, probes).
+
 ## 2026-08-12 (10ª sessão) — Living cover no hero
 
 - Zoom subtil da cover no palco (repeat/offset ×1.06, 2.2s power1.out, centro

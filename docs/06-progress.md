@@ -2,6 +2,20 @@
 
 > Ficheiro de retoma. Lê-se no início de cada sessão depois do CLAUDE.md.
 
+## 2026-08-12 (11ª sessão) — Polimento: inércia, busca vazia, carimbo da estante
+
+**Feito:**
+- Inércia no drag do hero (decay manual no ticker, dt real, cancelamento
+  robusto), "SEM RESULTADOS NO ARQUIVO" na busca, entrada de estante com
+  drop+stagger (carimbo; exclui hero/board; reduced-motion = nada).
+- Commits: `cbb0448` Fase 3, `f79bc06` publish-ready+links, `7d23d13` filtros,
+  `f729d8a` living cover, +11ª sessão.
+
+**Você está aqui:** ▶ App publicável, paridade+, polida (60 FPS). Próximos
+possíveis: deploy real, temas do legado (decisão tua), mais micro-polimento.
+
+**Pendente do owner:** nada.
+
 ## 2026-08-12 (10ª sessão) — Filtros VISTO/POR VER/TUDO
 
 **Feito:**

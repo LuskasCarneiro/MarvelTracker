@@ -48,22 +48,35 @@ export function initSearch(onPick: (item: CatalogItem) => void): void {
   }
 
   function render(): void {
-    box.replaceChildren(
-      ...options.map((item, i) => {
-        const b = document.createElement('button');
-        b.type = 'button';
-        b.id = `sr-${i}`;
-        b.setAttribute('role', 'option');
-        b.setAttribute('aria-selected', String(i === active));
-        b.className = i === active ? 'active' : '';
-        b.textContent = `${item.title} — ${CLUSTER_LABELS[item.cluster]} · ${item.type === 'movie' ? 'FILMES' : 'SÉRIES'}`;
-        b.addEventListener('click', () => pick(item));
-        b.addEventListener('mousemove', () => setActive(i));
-        return b;
-      })
-    );
-    box.hidden = options.length === 0;
-    input.setAttribute('aria-expanded', String(options.length > 0));
+    if (options.length === 0) {
+      const empty = input.value.trim()
+        ? Object.assign(document.createElement('div'), {
+            className: 'empty',
+            textContent: 'SEM RESULTADOS NO ARQUIVO',
+          })
+        : null;
+      if (empty) box.replaceChildren(empty);
+      else box.replaceChildren();
+      box.hidden = empty === null;
+      input.setAttribute('aria-expanded', String(empty !== null));
+    } else {
+      box.replaceChildren(
+        ...options.map((item, i) => {
+          const b = document.createElement('button');
+          b.type = 'button';
+          b.id = `sr-${i}`;
+          b.setAttribute('role', 'option');
+          b.setAttribute('aria-selected', String(i === active));
+          b.className = i === active ? 'active' : '';
+          b.textContent = `${item.title} — ${CLUSTER_LABELS[item.cluster]} · ${item.type === 'movie' ? 'FILMES' : 'SÉRIES'}`;
+          b.addEventListener('click', () => pick(item));
+          b.addEventListener('mousemove', () => setActive(i));
+          return b;
+        })
+      );
+      box.hidden = false;
+      input.setAttribute('aria-expanded', 'true');
+    }
     if (active >= 0) input.setAttribute('aria-activedescendant', `sr-${active}`);
     else input.removeAttribute('aria-activedescendant');
   }

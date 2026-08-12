@@ -90,6 +90,40 @@ const ndc = new THREE.Vector2();
 let dragging = false;
 let lastPX = 0;
 let lastPY = 0;
+let lastT = 0;
+
+// inércia no largar: GSAP free não tem InertiaPlugin → decay manual no gsap.ticker
+const INERTIA_KICK = 0.0005; // rad/ms mínimo para arrancar o decay
+const INERTIA_FLOOR = 0.0001; // rad/ms abaixo do qual a inércia para
+const INERTIA_FRICTION = 0.94; // fator por frame (a 60fps)
+let velY = 0;
+let velX = 0;
+let inertiaMesh: THREE.Mesh | null = null;
+
+function killInertia(): void {
+  gsap.ticker.remove(tickInertia);
+  inertiaMesh = null;
+  velY = 0;
+  velX = 0;
+}
+
+function tickInertia(_t: number, dt: number): void {
+  const m = inertiaMesh;
+  if (!m || m !== heroMesh) {
+    killInertia(); // hero mudou (unpose/mount) → mata o decay
+    renderer.domElement.style.cursor = '';
+    return;
+  }
+  const decay = Math.pow(INERTIA_FRICTION, dt / 16.7); // dt real normalizado a 60fps
+  velY *= decay;
+  velX *= decay;
+  m.rotation.y += velY * dt;
+  m.rotation.x = THREE.MathUtils.clamp(m.rotation.x + velX * dt, -0.5, 0.5);
+  if (Math.abs(velY) + Math.abs(velX) < INERTIA_FLOOR) {
+    killInertia();
+    renderer.domElement.style.cursor = '';
+  }
+}
 
 renderer.domElement.addEventListener('pointerdown', (ev) => {
   if (!heroMesh) return;
@@ -97,9 +131,11 @@ renderer.domElement.addEventListener('pointerdown', (ev) => {
   ndc.set(((ev.clientX - r.left) / r.width) * 2 - 1, -((ev.clientY - r.top) / r.height) * 2 + 1);
   dragRay.setFromCamera(ndc, camera);
   if (!dragRay.intersectObject(heroMesh, false).length) return;
+  killInertia(); // agarrar de novo cancela o decay
   dragging = true;
   lastPX = ev.clientX;
   lastPY = ev.clientY;
+  lastT = performance.now();
   renderer.domElement.setPointerCapture(ev.pointerId);
   (heroMesh.userData.bob as gsap.core.Tween | undefined)?.pause();
   renderer.domElement.style.cursor = 'grabbing';
@@ -108,10 +144,15 @@ window.addEventListener('pointermove', (ev) => {
   if (dragging && heroMesh) {
     const dx = ev.clientX - lastPX;
     const dy = ev.clientY - lastPY;
+    const now = performance.now();
+    const dt = Math.max(now - lastT, 1); // evita /0 em movimentos do mesmo frame
     lastPX = ev.clientX;
     lastPY = ev.clientY;
+    lastT = now;
     heroMesh.rotation.y += dx * 0.01;
     heroMesh.rotation.x = THREE.MathUtils.clamp(heroMesh.rotation.x + dy * 0.005, -0.5, 0.5);
+    velY = (dx * 0.01) / dt;
+    velX = (dy * 0.005) / dt;
     return;
   }
   // hover: cursor grab sobre o hero (descobribilidade do drag)
@@ -124,8 +165,15 @@ window.addEventListener('pointermove', (ev) => {
 window.addEventListener('pointerup', () => {
   if (!dragging) return;
   dragging = false;
-  renderer.domElement.style.cursor = '';
   (heroMesh?.userData.bob as gsap.core.Tween | undefined)?.resume();
+  if (heroMesh && Math.abs(velY) + Math.abs(velX) >= INERTIA_KICK) {
+    inertiaMesh = heroMesh;
+    gsap.ticker.add(tickInertia);
+    renderer.domElement.style.cursor = 'grab'; // ainda "no" hero durante a inércia
+  } else {
+    killInertia();
+    renderer.domElement.style.cursor = '';
+  }
 });
 
 const stats = import.meta.env.DEV ? new Stats() : null;
@@ -247,6 +295,21 @@ function mount(cluster: string, media: Media, mode: Mode, filter: Filter): void 
   camera.lookAt(xmin, 1.0, 0);
   percurso.textContent = `PERCURSO 1/${n}`;
   applyHero(shown, 0);
+
+  // carimbo: drop + stagger de assentamento ao montar (o hero já está em palco)
+  if (!REDUCED) {
+    const slots = shown.children
+      .filter((c) => c.userData.item && c.userData.slot !== heroIdx)
+      .map((c) => (c as THREE.Mesh).position);
+    if (slots.length) {
+      gsap.from(slots, {
+        y: (_i: number, p: THREE.Vector3) => p.y + 0.35,
+        duration: 0.5,
+        ease: 'power3.out',
+        stagger: { each: 0.006, from: 0 },
+      });
+    }
+  }
 
   window.scrollTo(0, 0);
   ScrollTrigger.refresh();
