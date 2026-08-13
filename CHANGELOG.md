@@ -3,6 +3,16 @@
 Dated log of what changed and why, so a new session can see the project's history at a
 glance without re-deriving it from the diff. Newest first.
 
+## 2026-08-12 (11ª sessão) — Service worker offline-first
+
+- `public/sw.js`: cache-first stale-while-revalidate; pre-cache do shell +
+  assets + 152 covers no install (o registo no load não apanhava o bundle na
+  1.ª visita — desvio corrigido); `ignoreVary` para o vite preview; limpeza de
+  caches antigas por VERSION; fallback `./app.html` nas navegações.
+- Verificado offline (vite preview + contexto offline): reload sem rede
+  renderiza a app com os 39 covers do percurso, 0 pageerrors.
+- Remote: `origin` GitHub (MarvelTracker) — push/deploy ficam para o owner.
+
 ## 2026-08-12 (11ª sessão) — Inércia do hero + busca vazia + carimbo da estante
 
 - Inércia no drag-to-rotate: decay de velocidade no release (gsap.ticker, dt
