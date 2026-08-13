@@ -2,6 +2,25 @@
 
 > Ficheiro de retoma. Lê-se no início de cada sessão depois do CLAUDE.md.
 
+## 2026-08-12 (11ª sessão) — Offline-first (SW) + fecho da ronda
+
+**Feito:**
+- `public/sw.js`: offline-first (pre-cache shell+assets+152 covers no install,
+  stale-while-revalidate, caches versionadas, fallback de navegação).
+  Verificado: reload offline renderiza a app com todos os covers, 0 erros.
+- E2E final com todas as flags verde (hash 4 segmentos integrado: `cron/tudo`).
+- Commits da branch: `cbb0448` Fase 3 · `f79bc06` publish-ready+links ·
+  `7d23d13` filtros · `f729d8a` living cover · `e53c774` inércia+busca+carimbo ·
+  `016147a` service worker.
+- Remote GitHub `origin` (MarvelTracker) existe — **push/deploy = decisão do
+  owner** (não feito).
+
+**Você está aqui:** ▶ App completa, publicável e offline-first. Próximos
+possíveis: `git push` + GH Pages (owner), temas do legado (decisão tua),
+micro-polimento contínuo.
+
+**Pendente do owner:** decidir push/deploy.
+
 ## 2026-08-12 (11ª sessão) — Polimento: inércia, busca vazia, carimbo da estante
 
 **Feito:**
