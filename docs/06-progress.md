@@ -2,6 +2,30 @@
 
 > Ficheiro de retoma. Lê-se no início de cada sessão depois do CLAUDE.md.
 
+## 2026-08-20 (13ª sessão) — Deploy live + teclado + próximo no percurso + temas 152/152
+
+**Feito (4 frentes paralelas + orquestrador):**
+- **Deploy (agente):** branch pushed; `gh-pages` com o build; live em
+  https://luskascarneiro.github.io/MarvelTracker/app.html. Canary: canvas, HUD,
+  cover e sw 200, 0 erros.
+- **Temas completos (agente):** `tools/gen_cover_themes.mjs` — 110 temas derivados
+  das covers reais (paleta ImageMagick, guardas de luminância, `src` curado/cover).
+  152/152 cobertos, drift 0.
+- **Teclado (agente):** ←/→ (wrap), Home/End, Enter abre o dossiê, Esc fecha;
+  `tools/check_keys.mjs` verde.
+- **Próximo no percurso (agente):** botão no dossiê → `mv-next-in-path` → fecha o
+  dossiê e salta ao item seguinte (fix de 1 linha do orquestrador: fechar o dossiê).
+- **QA tools curados (agente):** hashes `/tudo` (4.º segmento), contact sheet do
+  frames3d não-fatal, foco no check do Esc.
+- Verificação combinada final (orquestrador): tsc, build, 5 checks, frames3d
+  combinado, offline, audits — tudo verde.
+
+**Você está aqui:** ▶ App publicada e com paridade a11y+. Próximos possíveis:
+micro-polimento (filtros no dossiê, #8 perf quando a estante crescer), mais
+curadoria de temas, decisões de domínio (guardar domínio próprio vs. subpath GH).
+
+**Pendente do owner:** nada.
+
 ## 2026-08-20 (12ª sessão) — Temas do legado no 3D (cores por título)
 
 **Feito:**

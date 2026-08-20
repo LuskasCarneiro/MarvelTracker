@@ -280,6 +280,11 @@ export function initDetail({ canvas, camera, getShelf, beforeOpen, onOpen, onClo
 
   closeBtn.addEventListener('click', closeDetail);
 
+  const nextBtn = document.getElementById('detail-next');
+  nextBtn?.addEventListener('click', () => {
+    window.dispatchEvent(new CustomEvent('mv-next-in-path'));
+  });
+
   toggle.addEventListener('click', () => {
     if (!current) return;
     setWatched(current.id, !isWatched(current.id));

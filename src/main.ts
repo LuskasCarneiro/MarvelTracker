@@ -397,3 +397,57 @@ window.addEventListener('mousemove', (ev) => {
   if (ev.clientY < 64) hideable.forEach((el) => el.classList.remove('nav-hidden'));
 }, { passive: true });
 hideable.forEach((el) => el.addEventListener('focusin', () => el.classList.remove('nav-hidden')));
+
+// --- navegação por teclado da estante (a11y) ---
+function shelfCount(): number {
+  return itemsFor(current.cluster, MODE_CAT[current.mode], current.media).filter((i) => passesFilter(i, current.filter)).length;
+}
+
+function scrollToSlot(index: number): void {
+  const n = shelfCount();
+  if (n < 2) return;
+  window.scrollTo(0, (index / (n - 1)) * (document.documentElement.scrollHeight - innerHeight));
+}
+
+function keyIgnored(e: KeyboardEvent): boolean {
+  const t = e.target as HTMLElement;
+  if (t instanceof HTMLInputElement || t instanceof HTMLTextAreaElement) return true;
+  if (document.activeElement === document.getElementById('search')) return true;
+  if (document.getElementById('nav')?.contains(document.activeElement)) return true;
+  if (document.getElementById('detail')?.classList.contains('open')) return true;
+  return e.ctrlKey || e.metaKey || e.altKey;
+}
+
+window.addEventListener('keydown', (e) => {
+  if (keyIgnored(e)) return;
+  const n = shelfCount();
+  switch (e.key) {
+    case 'ArrowRight':
+      e.preventDefault();
+      if (n >= 2) scrollToSlot(heroIdx < 0 ? 0 : (heroIdx + 1) % n);
+      break;
+    case 'ArrowLeft':
+      e.preventDefault();
+      if (n >= 2) scrollToSlot(heroIdx < 0 ? n - 1 : (heroIdx - 1 + n) % n);
+      break;
+    case 'Home':
+      e.preventDefault();
+      scrollToSlot(0);
+      break;
+    case 'End':
+      e.preventDefault();
+      scrollToSlot(n - 1);
+      break;
+    case 'Enter':
+      if (heroMesh && document.activeElement !== document.getElementById('preview-open')) detail.open(heroMesh);
+      break;
+  }
+});
+
+window.addEventListener('mv-next-in-path', () => {
+  if (!currentGroup) return;
+  const n = shelfCount();
+  if (n < 2) return;
+  detail.close(); // o dossiê fecha e o novo hero sobe em palco com o salto
+  scrollToSlot(heroIdx < 0 ? 0 : (heroIdx + 1) % n);
+});

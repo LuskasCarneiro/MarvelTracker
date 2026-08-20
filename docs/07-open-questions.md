@@ -6,6 +6,9 @@ _(vazio — tudo decidido 2026-08-10)_
 
 ## Fechadas (2026-08-20)
 
+- ~~**Push/deploy (decisão tua, 11ª)**~~ → Feito (13ª sessão): branch pushed,
+  `gh-pages` com o build, live em https://luskascarneiro.github.io/MarvelTracker/app.html
+  (canary verde). Publicar via subpath GH (nada de domínio próprio ainda).
 - ~~**Temas do legado (decisão tua, 11ª)**~~ → Entram como **cores por título**:
   o item em palco (hero/dossiê) leva acento+fundo+metadados do tema curado
   (themes.json, 42 títulos); sem tema → acento do cluster. As animações/panels

@@ -301,6 +301,19 @@
     cursor: pointer;
   }
   #detail-toggle:hover { background: color-mix(in srgb, var(--accent) 10%, transparent); }
+  #detail-next {
+    width: 100%;
+    margin-top: 1rem;
+    background: none;
+    border: 1px solid color-mix(in srgb, var(--accent) 33%, transparent);
+    color: var(--accent);
+    font: inherit;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    padding: 0.7rem 1rem;
+    cursor: pointer;
+  }
+  #detail-next:hover { background: color-mix(in srgb, var(--accent) 10%, transparent); }
   #detail-watched { margin-top: 1.4rem; }
   #detail-date { font-size: 0.8rem; color: var(--accent2, #a9782f); margin-bottom: 0.8rem; }
   #detail-rating { display: grid; grid-template-columns: repeat(10, 1fr); gap: 0.3rem; }
@@ -316,6 +329,7 @@
   #detail-rating button.active { color: var(--accent); border-color: var(--accent); background: color-mix(in srgb, var(--accent) 10%, transparent); }
   #detail-close:focus-visible,
   #detail-toggle:focus-visible,
+  #detail-next:focus-visible,
   #detail-rating button:focus-visible,
   #preview-open:focus-visible,
   #nav button:focus-visible,
@@ -384,6 +398,7 @@
   <ul class="facts" id="detail-refs"></ul>
   <h3 class="sec" id="detail-links-h" hidden>PERCURSOS LIGADOS</h3>
   <div id="detail-links"></div>
+  <button id="detail-next" type="button">PRÓXIMO NO PERCURSO →</button>
   <button id="detail-toggle" type="button"></button>
   <div id="detail-watched" hidden>
     <p id="detail-date"></p>

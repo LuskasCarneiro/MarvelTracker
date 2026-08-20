@@ -64,8 +64,8 @@ sem LLM nenhum (ex.: `apply_storyyear.mjs`).
 |---|---|---|---|
 | 1–3 | Quick path + detalhe + logs.v1 | flash-free + kimi (review) | ✅ 2026-08-10 |
 | 4–6 | ADR-0002 + navegação clusters + alternador + revisão | kimi (ADR) + flash-free + kimi (frames) | ✅ 2026-08-10 |
-| 6a | Acentos por universo (decisão owner: materialidade por universo) — tokens em 02, aplicação CSS/rim/prateleira | flash-free | pendente |
-| 7 | Emergência por scroll + toggle cron/release + morph de formato (2–3 iterações visuais) | flash-free + kimi (visual) | **próximo** |
+| 6a | Acentos por universo (decisão owner: materialidade por universo) — tokens em 02, aplicação CSS/rim/prateleira | flash-free | ✅ 2026-08-10 (CLUSTER_ACCENT + themes) |
+| 7 | Emergência por scroll + toggle cron/release + morph de formato (2–3 iterações visuais) | flash-free + kimi (visual) | ✅ 2026-08-10 (4ª sessão) |
 | 8 | ~~Atlas covers + InstancedMesh~~ **ADIADO 2026-08-10 (ponytail/YAGNI)** — ≤62 draw calls numa estante de cada vez (ADR-0002) passam a 60fps em iGPU real; o budget ≤20 é para renderização multi-estante, que não existe. Rever quando: estante >100 itens, ou multi-estante entrar. Sem sharp, sem shader, sem refactor. | — | adiado |
 | 9 | Medição FPS (stats.js dev-only) + registo no 05 | flash-free + kimi (veredito) | ✅ 2026-08-10 (headless=SwiftShader, inútil p/ GPU real — ver 05) |
 | 10 | Auditoria visual dos 152 covers (4 sheets de ~40) | kimi-k3 | ✅ 2026-08-10 (152/152 corretas — 0 erros tipo Wonder Man; sheets em tools/frames/covers/) |
@@ -74,6 +74,11 @@ sem LLM nenhum (ex.: `apply_storyyear.mjs`).
 | 13 | ~~Paridade: remover legado, `app.html` → `index.html`~~ **REVOGADO pelo owner 2026-08-10** — legado fica no repo para sempre; app nova mantém `app.html` como entrada | — | congelado |
 | 14 | ADRs/docs por fase (entradas curtas) | kimi-k3 direto | contínuo |
 | 15 | Temas do legado → cores por título (decisão owner 12ª): `extract_themes.mjs` + `themeFor` + `applyTitleTheme` (accent/ink/accent2/fundo) + `audit_themes.mjs` (42/152, drift 0) | 2× general (paralelo) + orquestrador (probes/pixel) | ✅ 2026-08-20 |
+| 16 | Cobertura de temas 152/152: `gen_cover_themes.mjs` (paleta das covers reais via ImageMagick → accent/accent2/bg/ink + `src`) | general | ✅ 2026-08-20 |
+| 17 | Deploy GH Pages (decisão owner 13ª): push branch + `gh-pages` com o build + canary | general (git/gh) + orquestrador | ✅ 2026-08-20 |
+| 18 | Teclado na estante (a11y): ←/→ wrap, Home/End, Enter abre dossiê, Esc fecha; `check_keys.mjs` | general | ✅ 2026-08-20 |
+| 19 | Botão PRÓXIMO NO PERCURSO no dossiê (`mv-next-in-path`, fechar dossiê + saltar) | general + orquestrador (fix 1 linha) | ✅ 2026-08-20 |
+| 20 | QA tools: hashes `/tudo` (4.º segmento), contact sheet frames3d não-fatal, foco no check Esc | general | ✅ 2026-08-20 |
 
 ## Registo de desvios
 

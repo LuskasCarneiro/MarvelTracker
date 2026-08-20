@@ -3,6 +3,25 @@
 Dated log of what changed and why, so a new session can see the project's history at a
 glance without re-deriving it from the diff. Newest first.
 
+## 2026-08-20 (13ª sessão) — Deploy live + teclado + próximo no percurso + temas completos
+
+- **Publicado**: `feature/3d-shelf` pushed; `gh-pages` serve o build (commit 3a89402);
+  live em https://luskascarneiro.github.io/MarvelTracker/app.html. Canary: canvas,
+  HUD, cover e sw.js 200, 0 pageerrors. (Decisão owner: deploy.)
+- **Temas 152/152**: `tools/gen_cover_themes.mjs` deriva cores de cada cover real
+  (paleta ImageMagick → accent/accent2/bg/ink, guardas de luminância; `src:"curado"`
+  vs `"cover"`). Os 110 títulos sem curadoria deixam de cair no acento do cluster.
+- **Teclado (a11y)**: ←/→ percorrem a estante (wrap), Home/End extremos, Enter abre o
+  dossiê do hero, Esc fecha; ignora inputs/nav/dossiê aberto/modificadores.
+  `tools/check_keys.mjs` verde.
+- **PRÓXIMO NO PERCURSO**: botão no dossiê dispara `mv-next-in-path` → fecha o dossiê
+  e salta para o item seguinte da ordem atual (wrap). `tools/check_next.mjs` verde.
+- **QA tools curados**: hashes `check_links`/`check_search` atualizados para o 4.º
+  segmento `/tudo` (10ª sessão); contact sheet do frames3d deixa de ser fatal (flaky);
+  foco explícito no check do Esc.
+- Verificação completa: tsc, build, check_links/search/keys/next, frames3d combinado,
+  offline_check, audit_covers (152), audit_themes (152) — tudo verde.
+
 ## 2026-08-20 (12ª sessão) — Temas do legado no 3D
 
 - Decisão owner (registada no 07): **temas do legado vêm para a app 3D como
