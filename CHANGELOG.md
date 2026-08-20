@@ -16,6 +16,9 @@ glance without re-deriving it from the diff. Newest first.
   `tools/check_keys.mjs` verde.
 - **PRÓXIMO NO PERCURSO**: botão no dossiê dispara `mv-next-in-path` → fecha o dossiê
   e salta para o item seguinte da ordem atual (wrap). `tools/check_next.mjs` verde.
+  Fix pós-código: o índice atual vem do progresso do ScrollTrigger (o dossiê aberto
+  liberta `heroIdx` e re-assenta a estante no quick path) — `check_next` passou a
+  asserir o título seguinte exato.
 - **QA tools curados**: hashes `check_links`/`check_search` atualizados para o 4.º
   segmento `/tudo` (10ª sessão); contact sheet do frames3d deixa de ser fatal (flaky);
   foco explícito no check do Esc.

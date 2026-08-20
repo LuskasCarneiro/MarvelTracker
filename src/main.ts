@@ -445,9 +445,13 @@ window.addEventListener('keydown', (e) => {
 });
 
 window.addEventListener('mv-next-in-path', () => {
-  if (!currentGroup) return;
+  if (!currentGroup || !st) return;
   const n = shelfCount();
   if (n < 2) return;
+  // o índice atual vem do progresso do ScrollTrigger — com o dossiê aberto o
+  // heroIdx foi libertado (=-2), por isso não é fonte fiável do item em palco
+  const cur = Math.min(n - 1, Math.max(0, Math.round(st.progress * (n - 1))));
+  const next = (cur + 1) % n;
   detail.close(); // o dossiê fecha e o novo hero sobe em palco com o salto
-  scrollToSlot(heroIdx < 0 ? 0 : (heroIdx + 1) % n);
+  scrollToSlot(next);
 });
