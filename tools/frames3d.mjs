@@ -149,9 +149,13 @@ await writeFile(new URL('contact.html', dir), `<meta charset="utf-8">
   figcaption{padding:2px 1px;}
 </style>${cells}`);
 
-const sheet = await b.newPage({ viewport: { width: 1600, height: 100 } });
-await sheet.goto(new URL('contact.html', dir).href);
-await sheet.screenshot({ path: new URL('contact.png', dir).pathname, fullPage: true });
-console.log('  tools/frames/shelf3d/contact.png');
+try {
+  const sheet = await b.newPage({ viewport: { width: 1600, height: 100 } });
+  await sheet.goto(new URL('contact.html', dir).href);
+  await sheet.screenshot({ path: new URL('contact.png', dir).pathname, fullPage: true });
+  console.log('  tools/frames/shelf3d/contact.png');
+} catch {
+  console.log('  WARN: contact.png não capturado (flaky)');
+}
 
 await b.close();

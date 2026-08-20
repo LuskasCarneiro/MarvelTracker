@@ -12,7 +12,7 @@ const themes = Function(`return ${m[1]}`)();
 
 const out = {};
 for (const [title, t] of Object.entries(themes)) {
-  out[title] = { accent: t.accent, accent2: t.accent2, bg: t.bg, ink: t.ink };
+  out[title] = { accent: t.accent, accent2: t.accent2, bg: t.bg, ink: t.ink, src: 'curado' };
 }
 
 writeFileSync(new URL('../src/data/themes.json', import.meta.url), JSON.stringify(out, null, 2) + '\n');

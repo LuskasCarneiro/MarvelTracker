@@ -6,6 +6,7 @@ export interface TitleTheme {
   accent2: string;
   bg: string;
   ink: string;
+  src?: string;
 }
 
 export interface CatalogItem {

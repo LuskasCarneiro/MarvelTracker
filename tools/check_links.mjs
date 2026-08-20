@@ -52,7 +52,7 @@ console.log('  dossiê fechado:', !(await open()));
 console.log('  hash:', await hash());
 console.log('  preview:', await preview());
 if (await open()) fail('dossiê não fechou');
-if ((await hash()) !== '#/xmen/filmes/estreia') fail(`hash ${await hash()} ≠ #/xmen/filmes/estreia`);
+if ((await hash()) !== '#/xmen/filmes/estreia/tudo') fail(`hash ${await hash()} ≠ #/xmen/filmes/estreia/tudo`);
 if ((await preview()) !== target.split(' · ')[0]) fail(`preview ${await preview()} ≠ alvo ${target}`);
 
 console.log(process.exitCode ? '✗ check_links: FALHOU' : '✓ check_links: PASS');

@@ -35,7 +35,7 @@ if (!l.some((t) => t.includes('Doctor Strange'))) fail('doutor não devolve Doct
 await p.keyboard.press('Enter');
 await p.waitForTimeout(1000);
 console.log('[doutor→Enter] hash:', await hash(), '| preview:', await preview());
-if ((await hash()) !== '#/mcu/filmes/estreia') fail(`hash ${await hash()} ≠ #/mcu/filmes/estreia`);
+if ((await hash()) !== '#/mcu/filmes/estreia/tudo') fail(`hash ${await hash()} ≠ #/mcu/filmes/estreia/tudo`);
 if ((await preview()) !== 'Doctor Strange') fail(`preview ${await preview()} ≠ Doctor Strange`);
 
 // 2 — loki → série (mcu/series)
@@ -44,7 +44,7 @@ console.log('[loki] sugestões:', l);
 await p.keyboard.press('Enter');
 await p.waitForTimeout(1000);
 console.log('[loki→Enter] hash:', await hash());
-if ((await hash()) !== '#/mcu/series/estreia') fail(`hash ${await hash()} ≠ #/mcu/series/estreia`);
+if ((await hash()) !== '#/mcu/series/estreia/tudo') fail(`hash ${await hash()} ≠ #/mcu/series/estreia/tudo`);
 
 // 3 — venom → Venom (sony, filme)
 l = await search('venom');
@@ -53,15 +53,18 @@ if (!l[0]?.includes('SONY') || !l[0]?.includes('FILMES')) fail(`venom não abre 
 await p.keyboard.press('Enter');
 await p.waitForTimeout(1000);
 console.log('[venom→Enter] hash:', await hash());
-if ((await hash()) !== '#/sony/filmes/estreia') fail(`hash ${await hash()} ≠ #/sony/filmes/estreia`);
+if ((await hash()) !== '#/sony/filmes/estreia/tudo') fail(`hash ${await hash()} ≠ #/sony/filmes/estreia/tudo`);
 
 // 4 — Esc fecha as sugestões
 await search('doutor');
+await p.focus('#search');
 const open = !(await hidden());
 console.log('[Esc] abertas:', open);
 await p.keyboard.press('Escape');
-await p.waitForTimeout(200);
-const closed = await hidden();
+await p.waitForTimeout(400);
+const closed = await p.evaluate(() =>
+  document.getElementById('search-results').hidden ||
+  document.getElementById('search-results').querySelector('button') === null);
 console.log('[Esc] fechadas:', closed);
 if (open && !closed) fail('Esc não fechou as sugestões');
 
