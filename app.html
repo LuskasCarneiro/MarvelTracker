@@ -80,7 +80,7 @@
     width: 320px;
     background: #141210f2;
     border: 1px solid #d8a24a33;
-    color: #efe7da;
+    color: var(--ink, #efe7da);
     font: inherit;
     font-size: 0.8rem;
     letter-spacing: 0.12em;
@@ -195,7 +195,7 @@
   }
   #preview.visible { opacity: 1; transform: translate(0, -50%); pointer-events: auto; }
   #preview .kick { color: var(--accent); font-size: 0.65rem; letter-spacing: 0.2em; }
-  #preview h2 { color: #efe7da; font-size: 1.05rem; margin: 0.35rem 0; }
+  #preview h2 { color: var(--ink, #efe7da); font-size: 1.05rem; margin: 0.35rem 0; }
   #preview-meta { color: #8a7f6d; font-size: 0.7rem; letter-spacing: 0.08em; }
   #preview-rating { color: var(--accent); font-size: 0.75rem; letter-spacing: 0.1em; margin-top: 0.4rem; }
   #preview-overview {
@@ -255,7 +255,7 @@
     position: absolute;
     top: 0.6rem; right: 0.8rem;
     background: none; border: none;
-    color: #a9782f;
+    color: var(--accent2, #a9782f);
     font: inherit; font-size: 1.4rem;
     cursor: pointer;
     padding: 0.2rem 0.5rem;
@@ -264,7 +264,7 @@
   #detail .kick {
     font-size: 0.75rem;
     letter-spacing: 0.3em;
-    color: #a9782f;
+    color: var(--accent2, #a9782f);
     margin-bottom: 0.6rem;
   }
   #detail-poster {
@@ -282,7 +282,7 @@
     line-height: 1.3;
     margin-bottom: 0.5rem;
   }
-  #detail-meta { font-size: 0.8rem; color: #a9782f; margin-bottom: 1.2rem; }
+  #detail-meta { font-size: 0.8rem; color: var(--accent2, #a9782f); margin-bottom: 1.2rem; }
   #detail-overview {
     font-size: 0.85rem;
     line-height: 1.6;
@@ -302,7 +302,7 @@
   }
   #detail-toggle:hover { background: color-mix(in srgb, var(--accent) 10%, transparent); }
   #detail-watched { margin-top: 1.4rem; }
-  #detail-date { font-size: 0.8rem; color: #a9782f; margin-bottom: 0.8rem; }
+  #detail-date { font-size: 0.8rem; color: var(--accent2, #a9782f); margin-bottom: 0.8rem; }
   #detail-rating { display: grid; grid-template-columns: repeat(10, 1fr); gap: 0.3rem; }
   #detail-rating button {
     background: none;

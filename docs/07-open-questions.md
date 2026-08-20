@@ -4,6 +4,14 @@
 
 _(vazio — tudo decidido 2026-08-10)_
 
+## Fechadas (2026-08-20)
+
+- ~~**Temas do legado (decisão tua, 11ª)**~~ → Entram como **cores por título**:
+  o item em palco (hero/dossiê) leva acento+fundo+metadados do tema curado
+  (themes.json, 42 títulos); sem tema → acento do cluster. As animações/panels
+  pesados do themes.js ficam no legado (YAGNI — o dossiê 3D já é um overlay
+  próprio). Implementado e commitado na 12ª sessão.
+
 ## Fechadas (2026-08-10)
 
 - ~~**`storyYear` fuzzy (22 entradas)**~~ → Owner preencheu; aplicados por

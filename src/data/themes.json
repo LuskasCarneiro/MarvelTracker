@@ -1,0 +1,254 @@
+{
+  "Iron Man": {
+    "accent": "#c98a2c",
+    "accent2": "#7a1414",
+    "bg": "#170f08",
+    "ink": "#f2e3c8"
+  },
+  "The Incredible Hulk": {
+    "accent": "#6fcf7a",
+    "accent2": "#c24a3a",
+    "bg": "#0a0e10",
+    "ink": "#d9e2dc"
+  },
+  "Iron Man 2": {
+    "accent": "#3fc6e0",
+    "accent2": "#8a8f94",
+    "bg": "#0a1218",
+    "ink": "#dff6fb"
+  },
+  "Thor": {
+    "accent": "#8fa8ff",
+    "accent2": "#c9a24a",
+    "bg": "#0a0e1c",
+    "ink": "#e6ecff"
+  },
+  "Captain America: The First Avenger": {
+    "accent": "#3f6b4a",
+    "accent2": "#8a1f2b",
+    "bg": "#0e1210",
+    "ink": "#e4ede5"
+  },
+  "The Avengers": {
+    "accent": "#2f8fce",
+    "accent2": "#c9a832",
+    "bg": "#0a1420",
+    "ink": "#e2f0fb"
+  },
+  "Thor: The Dark World": {
+    "accent": "#6f3fa0",
+    "accent2": "#c94a8a",
+    "bg": "#0c0a16",
+    "ink": "#ece0f7"
+  },
+  "Iron Man 3": {
+    "accent": "#e0521f",
+    "accent2": "#2a2620",
+    "bg": "#170a08",
+    "ink": "#f7e3d8"
+  },
+  "Captain America: The Winter Soldier": {
+    "accent": "#6f7680",
+    "accent2": "#8a1414",
+    "bg": "#0d0f11",
+    "ink": "#dde1e5"
+  },
+  "Guardians of the Galaxy": {
+    "accent": "#b74bd6",
+    "accent2": "#f2c14e",
+    "bg": "#0a0714",
+    "ink": "#ece6f5"
+  },
+  "Avengers: Age of Ultron": {
+    "accent": "#c94a4a",
+    "accent2": "#7a7a84",
+    "bg": "#0e0a12",
+    "ink": "#f0e3e3"
+  },
+  "Ant-Man": {
+    "accent": "#c9403a",
+    "accent2": "#3fa8c6",
+    "bg": "#0d1114",
+    "ink": "#e8eef0"
+  },
+  "Captain America: Civil War": {
+    "accent": "#8a1f2b",
+    "accent2": "#2f4f8a",
+    "bg": "#0d1012",
+    "ink": "#e0e5e8"
+  },
+  "Doctor Strange": {
+    "accent": "#5f3fa0",
+    "accent2": "#e0a832",
+    "bg": "#0a0818",
+    "ink": "#ece3f7"
+  },
+  "Black Panther": {
+    "accent": "#8a1f2b",
+    "accent2": "#c9a832",
+    "bg": "#0a0d10",
+    "ink": "#e4e8ea"
+  },
+  "Spider-Man: Homecoming": {
+    "accent": "#c92f3a",
+    "accent2": "#1f4fa0",
+    "bg": "#120a0a",
+    "ink": "#f7e3e3"
+  },
+  "Thor: Ragnarok": {
+    "accent": "#e05fa0",
+    "accent2": "#2fc6c0",
+    "bg": "#160a1c",
+    "ink": "#f7e3f0"
+  },
+  "Avengers: Infinity War": {
+    "accent": "#7a3f9a",
+    "accent2": "#c9a832",
+    "bg": "#0a0810",
+    "ink": "#ece3f2"
+  },
+  "Avengers: Endgame": {
+    "accent": "#3f5fa0",
+    "accent2": "#c9a832",
+    "bg": "#0a0c14",
+    "ink": "#e2e6f0"
+  },
+  "Captain Marvel": {
+    "accent": "#e0a832",
+    "accent2": "#2f5fa0",
+    "bg": "#0a0e1c",
+    "ink": "#f2ecdc"
+  },
+  "Into the Spider-Verse": {
+    "accent": "#e0507a",
+    "accent2": "#3fc6e0",
+    "bg": "#0a0818",
+    "ink": "#f2e3ec"
+  },
+  "Across the Spider-Verse": {
+    "accent": "#c92f6a",
+    "accent2": "#5f3fa0",
+    "bg": "#1c0a12",
+    "ink": "#f7e3ec"
+  },
+  "Spider-Man (2002)": {
+    "accent": "#a01f1f",
+    "accent2": "#1f3f8a",
+    "bg": "#100a0a",
+    "ink": "#f0dede"
+  },
+  "Spider-Man 2": {
+    "accent": "#8a1f5a",
+    "accent2": "#c9a832",
+    "bg": "#0e0a10",
+    "ink": "#f0e3ec"
+  },
+  "Venom": {
+    "accent": "#0f0f0f",
+    "accent2": "#c9302a",
+    "bg": "#0a0808",
+    "ink": "#e0d8d8"
+  },
+  "X-Men": {
+    "accent": "#3f6fa0",
+    "accent2": "#c9a832",
+    "bg": "#0a0e10",
+    "ink": "#e0e8ec"
+  },
+  "X2: X-Men United": {
+    "accent": "#5f7f9a",
+    "accent2": "#8a1f2b",
+    "bg": "#0a0c10",
+    "ink": "#e0e6ea"
+  },
+  "X-Men: Days of Future Past": {
+    "accent": "#6f5fa0",
+    "accent2": "#a03f3f",
+    "bg": "#0c0a10",
+    "ink": "#e6e2ec"
+  },
+  "Deadpool": {
+    "accent": "#c9302a",
+    "accent2": "#1f1f1f",
+    "bg": "#100808",
+    "ink": "#f2dede"
+  },
+  "Logan": {
+    "accent": "#8a7040",
+    "accent2": "#3a2e20",
+    "bg": "#0e0c08",
+    "ink": "#e6e0d0"
+  },
+  "Blade": {
+    "accent": "#5f1fa0",
+    "accent2": "#8a1f2b",
+    "bg": "#0a0810",
+    "ink": "#e6dcf0"
+  },
+  "Howard the Duck": {
+    "accent": "#c98a2c",
+    "accent2": "#3a6b3a",
+    "bg": "#120e08",
+    "ink": "#f0e6cc"
+  },
+  "WandaVision": {
+    "accent": "#c9a832",
+    "accent2": "#e05070",
+    "bg": "#0f0c08",
+    "ink": "#f2ecd8"
+  },
+  "Loki S1": {
+    "accent": "#e0a832",
+    "accent2": "#4a3f2a",
+    "bg": "#0e0a06",
+    "ink": "#f2e6cc"
+  },
+  "Loki S2": {
+    "accent": "#3fa8c6",
+    "accent2": "#e0a832",
+    "bg": "#0a0e10",
+    "ink": "#e2eef2"
+  },
+  "Hawkeye": {
+    "accent": "#8a1f2b",
+    "accent2": "#c9a832",
+    "bg": "#0e0a08",
+    "ink": "#f0e0d8"
+  },
+  "Moon Knight": {
+    "accent": "#c9a832",
+    "accent2": "#3a2e14",
+    "bg": "#0a0806",
+    "ink": "#f0e6cc"
+  },
+  "Daredevil S1": {
+    "accent": "#8a1414",
+    "accent2": "#1a1a1a",
+    "bg": "#0a0808",
+    "ink": "#e6dcdc"
+  },
+  "Daredevil S3": {
+    "accent": "#a01f1f",
+    "accent2": "#2a2420",
+    "bg": "#0a0808",
+    "ink": "#e8dcdc"
+  },
+  "Jessica Jones S1": {
+    "accent": "#3f5f9a",
+    "accent2": "#8a1f8a",
+    "bg": "#0a0c14",
+    "ink": "#dce2ec"
+  },
+  "X-Men '97 S1": {
+    "accent": "#e0a832",
+    "accent2": "#3f6fa0",
+    "bg": "#0a0e14",
+    "ink": "#eceef2"
+  },
+  "What If...? S1": {
+    "accent": "#e0a832",
+    "accent2": "#3f2f6f",
+    "bg": "#08060e",
+    "ink": "#ece6f2"
+  }
+}

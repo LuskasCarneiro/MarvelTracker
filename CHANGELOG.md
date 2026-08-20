@@ -3,6 +3,25 @@
 Dated log of what changed and why, so a new session can see the project's history at a
 glance without re-deriving it from the diff. Newest first.
 
+## 2026-08-20 (12ª sessão) — Temas do legado no 3D
+
+- Decisão owner (registada no 07): **temas do legado vêm para a app 3D como
+  cores por título** (não as animações/panels pesados do themes.js).
+- `tools/extract_themes.mjs` extrai as 42 cores curadas de `themes.js` →
+  `src/data/themes.json` (build-time, regenerável).
+- `themeFor()` em `catalog.ts` (match exato ou série `S\d+` sem sufixo);
+  `applyTitleTheme()` em `main.ts`: `--accent`/`--ink`/`--accent2` no body +
+  tween do rim e do fundo da cena para a cor do item em palco; sem tema →
+  acento do cluster. Aplicado no hero (applyHero) e no dossiê (beforeOpen).
+- CSS: `#efe7da` → `var(--ink)`, ouro do dossiê `#a9782f` → `var(--accent2)`
+  (datas/meta/kick/fechar). Muted greys e `--accent` intocados.
+- `tools/audit_themes.mjs`: cobertura 42/152 (mcu 25, xmen 5, netflix 3,
+  sony 3, anim 2, verse 2, vintage 2; 110 sem tema → acento do cluster);
+  drift 0 (todas as chaves do legado existem no catálogo).
+- Verificado mecanicamente (modelo sem visão): computed styles do body/preview/
+  dossiê batem com o tema; pixel do canto do frame `hero.png` = `#0e0a12` (bg
+  exato do Age of Ultron); build + tsc verdes.
+
 ## 2026-08-12 (11ª sessão) — Service worker offline-first
 
 - `public/sw.js`: cache-first stale-while-revalidate; pre-cache do shell +

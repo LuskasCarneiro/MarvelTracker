@@ -73,6 +73,7 @@ sem LLM nenhum (ex.: `apply_storyyear.mjs`).
 | 12 | 22 overrides `storyYear` | script Node (`apply_storyyear.mjs`) | ✅ 2026-08-10 (22/22) |
 | 13 | ~~Paridade: remover legado, `app.html` → `index.html`~~ **REVOGADO pelo owner 2026-08-10** — legado fica no repo para sempre; app nova mantém `app.html` como entrada | — | congelado |
 | 14 | ADRs/docs por fase (entradas curtas) | kimi-k3 direto | contínuo |
+| 15 | Temas do legado → cores por título (decisão owner 12ª): `extract_themes.mjs` + `themeFor` + `applyTitleTheme` (accent/ink/accent2/fundo) + `audit_themes.mjs` (42/152, drift 0) | 2× general (paralelo) + orquestrador (probes/pixel) | ✅ 2026-08-20 |
 
 ## Registo de desvios
 
@@ -83,3 +84,7 @@ sem LLM nenhum (ex.: `apply_storyyear.mjs`).
 - 2026-08-10 — build #5 (nav clusters): 1.º dispatch flash-free devolveu vazio sem
   escrever nada; redispatch idêntico (falha 1 de 2 antes de escalar) → sucesso.
   Escalação para luna NÃO usada.
+- 2026-08-20 (12ª) — **sem modelo com visão disponível na sessão**: verificação
+  visual dos temas feita por probes computados (computed styles + amostra de
+  pixel do frame) em vez de veredito Kimi sobre a contact sheet. Frames ficam
+  em `tools/frames/shelf3d/` para revisão humana/visual futura.

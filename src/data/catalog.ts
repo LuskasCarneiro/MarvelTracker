@@ -1,4 +1,12 @@
 import catalog from './catalog.json';
+import themes from './themes.json';
+
+export interface TitleTheme {
+  accent: string;
+  accent2: string;
+  bg: string;
+  ink: string;
+}
 
 export interface CatalogItem {
   id: string;
@@ -21,6 +29,13 @@ export interface CatalogItem {
 }
 
 const items = catalog as unknown as CatalogItem[];
+
+const titleThemes = themes as unknown as Record<string, TitleTheme>;
+
+// tema curado do legado por título (match exato ou série sem sufixo S\d+)
+export function themeFor(item: CatalogItem): TitleTheme | null {
+  return titleThemes[item.title] ?? titleThemes[item.title.replace(/ S\d+$/, '')] ?? null;
+}
 
 export const CLUSTERS: string[] = [
   'mcu', 'xmen', 'sony', 'netflix', 'vintage', 'classica',

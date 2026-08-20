@@ -2,6 +2,26 @@
 
 > Ficheiro de retoma. Lê-se no início de cada sessão depois do CLAUDE.md.
 
+## 2026-08-20 (12ª sessão) — Temas do legado no 3D (cores por título)
+
+**Feito:**
+- Decisão owner (07): temas do legado entram como **cores por título** — o
+  item em palco (hero/dossiê) traz o acento, o fundo e os metadados do tema
+  curado; sem tema → acento do cluster. Animações/panels pesados do themes.js
+  ficam no legado.
+- `tools/extract_themes.mjs` → `src/data/themes.json` (42 temas, build-time);
+  `themeFor()` em catalog.ts; `applyTitleTheme()` em main.ts (--accent/--ink/
+  --accent2 no body + tween rim/fundo); CSS: `--ink` e `--accent2` no UI.
+- `tools/audit_themes.mjs`: cobertura 42/152 (110 sem tema), drift 0.
+- Verificação mecânica (esta sessão corre sem modelo com visão — frames
+  capturados mas veredito por probes computados + amostra de pixel): CSS
+  batem com o tema, fundo 3D = `#0e0a12` exato no frame do Age of Ultron.
+
+**Você está aqui:** ▶ Temas do legado encerrados. Próximos possíveis: push/deploy
+(owner), mais temas para os 110 títulos sem curadoria, micro-polimento.
+
+**Pendente do owner:** nada.
+
 ## 2026-08-12 (11ª sessão) — Offline-first (SW) + fecho da ronda
 
 **Feito:**
