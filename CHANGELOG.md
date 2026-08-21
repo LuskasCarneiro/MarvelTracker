@@ -3,6 +3,18 @@
 Dated log of what changed and why, so a new session can see the project's history at a
 glance without re-deriving it from the diff. Newest first.
 
+## 2026-08-21 (17ª sessão) — Sala TVA + caixa Blu-ray
+
+- **Sala 3D:** `src/room.ts` — arquivo quente em betão e carvalho (chão 120×30,
+  parede fundo 120×12, laterais, teto, sancas âmbar, luz de teto quente + fill
+  frio). `src/scene.ts` com `ACESFilmicToneMapping`, `PCFSoftShadowMap` e key
+  com sombra 2048. Estante agora vive num volume fechado com fog, não no vazio.
+- **Caixa Blu-ray:** `src/shelf.ts` — `spineMaterial()` gera lombada em canvas
+  (título vertical + faixa “Blu-ray” azul), plásticos laterais `#0f2a4a` com
+  `metalness 0.15`, verso escuro; frente com poster `roughness 0.35`; `castShadow`.
+  `rebuildMesh` dispõe corretamente sem tocar no singleton `DARK`.
+- Verificado: tsc, build (vendor 637 kB), hero Ant-Man em palco com sala visível.
+
 ## 2026-08-21 (16ª sessão) — Swarm follow-up: SW lazy, theme extraction, nitpicks
 
 - **O1 SW lazy**: `public/sw.js` deixa de pré-cachear 152 covers no `install` (só

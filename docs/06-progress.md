@@ -2,6 +2,20 @@
 
 > Ficheiro de retoma. Lê-se no início de cada sessão depois do CLAUDE.md.
 
+## 2026-08-21 (17ª sessão) — Sala TVA + caixa Blu-ray
+
+**Feito:**
+- Sala 3D (`src/room.ts` + `src/scene.ts`): chão carvalho, parede betão, teto,
+  sancas, luz de teto quente + fill frio, sombras PCFSoft, fog. Estante com contexto.
+- Caixa Blu-ray (`src/shelf.ts`): lombada em canvas com título + faixa azul,
+  plásticos laterais, frente poster, verso escuro, `castShadow`; `rebuildMesh` seguro.
+- Verificado tsc + build; hero Ant-Man com sala visível (probe).
+
+**Você está aqui:** ▶ Estante com sala e Blu-rays reais. Próximos: polir sala
+(texturas, props) ou InstancedMesh quando multi-estante.
+
+**Pendente do owner:** nada.
+
 ## 2026-08-21 (16ª sessão) — Swarm follow-up: SW lazy + theme.ts + nitpicks
 
 **Feito:**

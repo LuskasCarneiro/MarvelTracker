@@ -26,7 +26,33 @@ function coverMaterial(poster: string, faceW: number, faceH: number) {
   const loader = new THREE.TextureLoader();
   const texture = loader.load(poster, (tex) => fitCover(tex, faceW, faceH));
   texture.colorSpace = THREE.SRGBColorSpace;
-  return new THREE.MeshStandardMaterial({ map: texture, roughness: 0.5 });
+  return new THREE.MeshStandardMaterial({ map: texture, roughness: 0.35, metalness: 0.02 });
+}
+
+function spineMaterial(title: string) {
+  const c = document.createElement('canvas');
+  c.width = 64; c.height = 512;
+  const g = c.getContext('2d')!;
+  g.fillStyle = '#0a1628';
+  g.fillRect(0, 0, 64, 512);
+  g.fillStyle = '#d8c8a8';
+  g.font = 'bold 20px ui-monospace, monospace';
+  g.textAlign = 'center';
+  g.save();
+  g.translate(32, 256);
+  g.rotate(-Math.PI / 2);
+  const t = title.length > 22 ? title.slice(0, 22) + '…' : title;
+  g.fillText(t.toUpperCase(), 0, 7);
+  g.restore();
+  // faixa azul Blu-ray no topo da lombada
+  g.fillStyle = '#0a4a9a';
+  g.fillRect(0, 0, 64, 22);
+  g.fillStyle = '#fff';
+  g.font = 'bold 10px ui-monospace, monospace';
+  g.fillText('Blu-ray', 32, 15);
+  const tex = new THREE.CanvasTexture(c);
+  tex.colorSpace = THREE.SRGBColorSpace;
+  return new THREE.MeshStandardMaterial({ map: tex, roughness: 0.6 });
 }
 
 function geometryFor(format: EraFormat): {
@@ -62,9 +88,22 @@ function meshFor(item: CatalogItem, format: EraFormat, x: number): THREE.Mesh {
   const materials = new Array<THREE.Material>(geometry.groups.length).fill(DARK);
   const cover = coverMaterial(item.poster, faceW, faceH);
   materials[coverIndex] = cover;
+  if (format === 'bluray') {
+    // caixa Blu-ray — plástico azul nas laterais, lombada com título
+    const plastic = new THREE.MeshStandardMaterial({ color: 0x0f2a4a, roughness: 0.25, metalness: 0.15 });
+    const darkBack = new THREE.MeshStandardMaterial({ color: 0x0a1628, roughness: 0.7 });
+    materials[0] = plastic; // right
+    materials[1] = spineMaterial(item.title); // left — lombada
+    materials[2] = plastic; // top
+    materials[3] = plastic; // bottom
+    materials[5] = darkBack; // back
+    // frente já é cover
+  }
   const mesh = new THREE.Mesh(geometry, materials);
   const half = height / 2;
   mesh.position.set(x, half, 0);
+  mesh.castShadow = format === 'bluray';
+  mesh.receiveShadow = true;
   mesh.userData.item = item;
   mesh.userData.format = format;
   mesh.userData.coverMaterial = cover;
@@ -74,13 +113,28 @@ function meshFor(item: CatalogItem, format: EraFormat, x: number): THREE.Mesh {
 
 function rebuildMesh(mesh: THREE.Mesh, item: CatalogItem, format: EraFormat, x: number) {
   mesh.geometry.dispose();
-  (mesh.userData.coverMaterial as THREE.Material | undefined)?.dispose();
+  const oldMats = mesh.material as THREE.Material[] | THREE.Material;
+  for (const m of Array.isArray(oldMats) ? oldMats : [oldMats]) {
+    if (m === DARK) continue; // singleton partilhado — não dispor
+    (m as THREE.MeshStandardMaterial).map?.dispose();
+    m.dispose();
+  }
   const { geometry, faceW, faceH, coverIndex, height } = geometryFor(format);
   const materials = new Array<THREE.Material>(geometry.groups.length).fill(DARK);
   const cover = coverMaterial(item.poster, faceW, faceH);
   materials[coverIndex] = cover;
+  if (format === 'bluray') {
+    const plastic = new THREE.MeshStandardMaterial({ color: 0x0f2a4a, roughness: 0.25, metalness: 0.15 });
+    const darkBack = new THREE.MeshStandardMaterial({ color: 0x0a1628, roughness: 0.7 });
+    materials[0] = plastic;
+    materials[1] = spineMaterial(item.title);
+    materials[2] = plastic;
+    materials[3] = plastic;
+    materials[5] = darkBack;
+  }
   mesh.geometry = geometry;
   mesh.material = materials;
+  mesh.castShadow = format === 'bluray';
   mesh.userData.format = format;
   mesh.userData.coverMaterial = cover;
   mesh.userData.coverBase = undefined; // a cover mudou — recaptura na próxima pose

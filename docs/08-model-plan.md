@@ -88,6 +88,8 @@ sem LLM nenhum (ex.: `apply_storyyear.mjs`).
 | 27 | D1 dedup effectiveYear + export | orquestrador direto | ✅ 2026-08-21 |
 | 28 | UX1 badge VISTO/POR VER no dossiê + UX2 busca prioriza cluster + UX3 export/import + M1 nav mobile | orquestrador direto | ✅ 2026-08-21 |
 | 29 | Swarm critique 8 lentes + docs/09-improvements.md | orquestrador (probes paralelos) | ✅ 2026-08-21 |
+| 30 | Sala TVA 3D (room.ts + scene.ts shadows) | orquestrador direto | ✅ 2026-08-21 |
+| 31 | Caixa Blu-ray real (spine canvas + plásticos, posters como cover) | orquestrador direto | ✅ 2026-08-21 |
 
 ## Registo de desvios
 
