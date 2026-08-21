@@ -3,7 +3,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { CLUSTER_LABELS, type CatalogItem } from '../data/catalog';
 import catalog from '../data/catalog.json';
-import { getEntry, isWatched, setRating, setWatched } from '../data/logs';
+import { exportLog, getEntry, importLog, isWatched, setRating, setWatched } from '../data/logs';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -85,6 +85,8 @@ export function initDetail({ canvas, camera, getShelf, beforeOpen, onOpen, onClo
   const watchedBox = document.getElementById('detail-watched') as HTMLElement;
   const dateP = document.getElementById('detail-date')!;
   const ratingBox = document.getElementById('detail-rating') as HTMLElement;
+  const exportBtn = document.getElementById('detail-export') as HTMLButtonElement | null;
+  const importInput = document.getElementById('detail-import') as HTMLInputElement | null;
 
   const raycaster = new THREE.Raycaster();
   const ndc = new THREE.Vector2();
@@ -97,8 +99,10 @@ export function initDetail({ canvas, camera, getShelf, beforeOpen, onOpen, onClo
 
   function render() {
     if (!current) return;
+    const seg = location.hash.split('/')[4];
+    const filterBadge = seg === 'visto' ? ' · VISTO' : seg === 'porver' ? ' · POR VER' : '';
     kick.textContent =
-      current.type === 'movie' ? 'DOSSIÊ COMPLETO · FILME' : `DOSSIÊ COMPLETO · TEMPORADA ${current.seasonNumber}`;
+      (current.type === 'movie' ? 'DOSSIÊ COMPLETO · FILME' : `DOSSIÊ COMPLETO · TEMPORADA ${current.seasonNumber}`) + filterBadge;
     poster.src = current.poster;
     poster.alt = current.title;
     title.textContent = current.title;
@@ -294,6 +298,25 @@ export function initDetail({ canvas, camera, getShelf, beforeOpen, onOpen, onClo
     if (!current) return;
     setWatched(current.id, !isWatched(current.id));
     render();
+  });
+
+  exportBtn?.addEventListener('click', () => {
+    const json = exportLog();
+    const blob = new Blob([json], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = 'marvel-vault-percurso.json'; a.click();
+    URL.revokeObjectURL(url);
+  });
+
+  importInput?.addEventListener('change', async () => {
+    const file = importInput.files?.[0];
+    if (!file) return;
+    const text = await file.text();
+    const ok = importLog(text, true);
+    importInput.value = '';
+    if (ok) render();
+    else alert('Ficheiro inválido — esperava um export do Marvel Vault.');
   });
 
   ratingBox.addEventListener('click', (ev) => {

@@ -82,6 +82,12 @@ sem LLM nenhum (ex.: `apply_storyyear.mjs`).
 | 21 | PRÓXIMO POR VER no dossiê (`mv-next-unwatched`, salto ao próximo não visto) + `check_next_unwatched.mjs` | orquestrador direto | ✅ 2026-08-20 |
 | 22 | `tools/deploy.mjs` + `npm run deploy` (build → gh-pages → push, `--dry-run`) | orquestrador direto | ✅ 2026-08-20 |
 | 23 | README.md reescrito para a app 3D | orquestrador direto | ✅ 2026-08-20 |
+| 24 | Híbrido 3D do dossiê (fase 1): hero fica em palco | orquestrador direto | ✅ 2026-08-21 |
+| 25 | P1 bundle split vendor (three+gsap) | orquestrador direto | ✅ 2026-08-21 |
+| 26 | V1 preview mobile bottom sheet | orquestrador direto | ✅ 2026-08-21 |
+| 27 | D1 dedup effectiveYear + export | orquestrador direto | ✅ 2026-08-21 |
+| 28 | UX1 badge VISTO/POR VER no dossiê + UX2 busca prioriza cluster + UX3 export/import + M1 nav mobile | orquestrador direto | ✅ 2026-08-21 |
+| 29 | Swarm critique 8 lentes + docs/09-improvements.md | orquestrador (probes paralelos) | ✅ 2026-08-21 |
 
 ## Registo de desvios
 

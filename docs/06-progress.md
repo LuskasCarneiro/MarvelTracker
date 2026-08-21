@@ -2,6 +2,24 @@
 
 > Ficheiro de retoma. Lê-se no início de cada sessão depois do CLAUDE.md.
 
+## 2026-08-21 (15ª sessão) — Swarm round: hybrid + bundle + mobile + export/import
+
+**Feito:**
+- **Fase 1 (tudo o que faltava)**: híbrido 3D (hero fica em palco no dossiê),
+  P1 bundle split (vendor), V1 preview mobile como bottom sheet, D1 dedup
+  effectiveYear, UX1 badge VISTO/POR VER no dossiê, UX2 busca prioriza cluster
+  atual, UX3 export/import do percurso, M1 nav mobile scrollable.
+- **Fase 2 swarm**: 6 checks runnable em paralelo (tudo verde) + leitura de 8
+  lentes; modelo deepseek removido → binding corrigido para muse-spark.
+- **Fase 3 doc**: `docs/09-improvements.md` com 14 achados priorizados (3 🔴 6 🟡).
+- **Fase 4** já integrada na fase 1 (top 7 melhorias de 09 em diffs <50 linhas).
+
+**Você está aqui:** ▶ Melhorias do swarm todas verdes e publicáveis. Próximos:
+O1 SW lazy-covers (adiado — requer throttle 3G), C1 extração hero.ts (refactor),
+UX3 polish do import (feedback toast).
+
+**Pendente do owner:** nada.
+
 ## 2026-08-20 (14ª sessão) — PRÓXIMO POR VER + deploy script + README
 
 **Feito (orquestrador direto — subagents devolveram vazios 3× nesta ronda):**

@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import { gsap } from 'gsap';
-import { formatFor, type CatalogItem, type EraFormat } from './data/catalog';
+import { effectiveYear, formatFor, type CatalogItem, type EraFormat } from './data/catalog';
 
 export const SPACING = 1.7;
 
@@ -27,10 +27,6 @@ function coverMaterial(poster: string, faceW: number, faceH: number) {
   const texture = loader.load(poster, (tex) => fitCover(tex, faceW, faceH));
   texture.colorSpace = THREE.SRGBColorSpace;
   return new THREE.MeshStandardMaterial({ map: texture, roughness: 0.5 });
-}
-
-function effectiveYear(item: CatalogItem, mode: 'release' | 'story'): number {
-  return mode === 'story' ? (item.storyYear ?? item.releaseYear) : item.releaseYear;
 }
 
 function geometryFor(format: EraFormat): {

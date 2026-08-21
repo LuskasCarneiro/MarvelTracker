@@ -82,7 +82,7 @@ export function formatFor(year: number): EraFormat {
   return 'bluray';
 }
 
-function effectiveYear(item: CatalogItem, mode: 'release' | 'story'): number {
+export function effectiveYear(item: CatalogItem, mode: 'release' | 'story'): number {
   return mode === 'story' ? (item.storyYear ?? item.releaseYear) : item.releaseYear;
 }
 

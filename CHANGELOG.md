@@ -3,6 +3,26 @@
 Dated log of what changed and why, so a new session can see the project's history at a
 glance without re-deriving it from the diff. Newest first.
 
+## 2026-08-21 (15ª sessão) — Swarm improvements: hybrid dossier, bundle split, mobile, export/import
+
+- **Híbrido 3D (fase 1)**: `beforeOpen` deixa de devolver o hero ao slot — fica em
+  palco ao lado do dossiê (panel shift 0.9 já o compõe no terço esquerdo); visível
+  atrás do gradiente.
+- **P1 bundle split**: `vite.config.ts` `manualChunks(vendor: three+gsap)` → 637 kB +
+  315 kB em vez de 954 kB monolítico; `chunkSizeWarningLimit` 600.
+- **V1 mobile**: `#preview` deixa de ser `display:none` — vira bottom sheet deslizando
+  de baixo (max-height 42vh).
+- **D1/C1**: `effectiveYear` exportado de `catalog.ts`, importado em `shelf.ts`
+  (remove duplicação); `main.ts` continua god-file mas documentado no 09.
+- **UX1/UX2/UX3/M1**: badge VISTO/POR VER no dossiê (`location.hash`); busca prioriza
+  o cluster atual; export/import do percurso no dossiê (Blob + file input, merge);
+  nav mobile com `max-height:42vh` scrollable + fundo.
+- **Swarm + doc 09**: 6 checks runnable + leitura paralela → `docs/09-improvements.md`
+  (8 lentes, 3 🔴 6 🟡 5 🟢 ordenados por dif). Subagents falharam (modelo
+  `deepseek-v4-flash-free` removido); swarm feito via probes paralelos + leitura.
+  Binding corrigido para `muse-spark-1.2-contributor-free`.
+- Verificado: tsc, build (vendor split), check_links/search/keys/next/next_unwatched.
+
 ## 2026-08-20 (14ª sessão) — PRÓXIMO POR VER + deploy script + README
 
 - **PRÓXIMO POR VER**: segundo botão no dossiê — salta para o próximo item NÃO

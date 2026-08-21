@@ -73,15 +73,15 @@ const detail = initDetail({
   onRelated: jumpToItem,
   beforeOpen: (mesh) => {
     applyTitleTheme(mesh.userData.item as CatalogItem); // o dossiê traz o tema do título aberto
-    if (mesh !== heroMesh) return;
-    unposeHero(mesh, false); // hero volta ao slot antes do quick path
-    heroMesh = null;
-    heroIdx = -2; // -2 = libertado pelo detalhe; onClose repõe
+    // híbrido: o hero fica em palco ao lado do dossiê (não volta ao slot)
+    // — o panel shift da câmara (0.9) já o compõe no terço esquerdo
+    if (mesh === heroMesh) heroIdx = -2; // -2 = em dossiê; onClose repõe
   },
   onOpen: () => preview.hide(),
   onClose: () => {
     heroIdx = -1; // força re-pose: o refresh() não dispara onUpdate com progresso igual
     if (currentGroup && st) applyHero(currentGroup, st.progress);
+    // híbrido: o hero já está em palco; onClose repõe o estado normal
   },
 });
 
@@ -227,7 +227,12 @@ function applyHero(group: THREE.Group, p: number): void {
 }
 
 function dossieText(n: number): string {
-  return `DOSSIÊ ${CLUSTER_LABELS[current.cluster]} — ${n} PERCURSOS · ${MEDIA_LABEL[current.media]} · ${MODE_LABEL[current.mode]}`;
+  const base = `DOSSIÊ ${CLUSTER_LABELS[current.cluster]} — ${n} PERCURSOS · ${MEDIA_LABEL[current.media]} · ${MODE_LABEL[current.mode]}`;
+  if (current.filter !== 'tudo') {
+    const f = current.filter === 'visto' ? 'VISTO' : 'POR VER';
+    return `${base} · ${f}`;
+  }
+  return base;
 }
 
 function mount(cluster: string, media: Media, mode: Mode, filter: Filter): void {

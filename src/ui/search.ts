@@ -102,10 +102,13 @@ export function initSearch(onPick: (item: CatalogItem) => void): void {
     }
     const t1 = norm(raw);
     const t2 = norm(ptToEn(raw.toLowerCase()));
-    options = ALL.filter((item) => {
+    const cur = document.body.dataset.cluster ?? '';
+    const hits = ALL.filter((item) => {
       const t = norm(item.title);
       return t.includes(t1) || (t2 !== t1 && t.includes(t2));
-    }).slice(0, MAX);
+    });
+    hits.sort((a, b) => (a.cluster === cur ? -1 : 0) - (b.cluster === cur ? -1 : 0));
+    options = hits.slice(0, MAX);
     active = options.length ? 0 : -1;
     render();
   });

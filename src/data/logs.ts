@@ -76,3 +76,24 @@ export function setRating(id: string, rating: number | null): void {
   log[id] = entry;
   save(log);
 }
+
+export function exportLog(): string {
+  return JSON.stringify(log, null, 2);
+}
+
+export function importLog(json: string, merge = true): boolean {
+  try {
+    const data: unknown = JSON.parse(json);
+    if (!data || typeof data !== 'object' || Array.isArray(data)) return false;
+    if (!merge) log = {};
+    for (const [k, v] of Object.entries(data as Record<string, unknown>)) {
+      if (!v || typeof v !== 'object') continue;
+      const e = v as Record<string, unknown>;
+      const watchedAt = typeof e.watchedAt === 'string' || e.watchedAt === null ? e.watchedAt : null;
+      const rating = typeof e.rating === 'number' ? Math.min(10, Math.max(1, Math.round(e.rating))) : null;
+      log[k] = { watchedAt, rating };
+    }
+    save(log);
+    return true;
+  } catch { return false; }
+}

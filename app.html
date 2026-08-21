@@ -209,7 +209,16 @@
   }
   #preview-open:hover { border-color: var(--accent); }
   @media (prefers-reduced-motion: reduce) { #preview { transition: none; } }
-  @media (max-width: 700px) { #preview { display: none; } }
+  @media (max-width: 700px) {
+    #preview {
+      right: 0; left: 0; top: auto; bottom: 0;
+      width: auto; max-width: none;
+      transform: translateY(100%);
+      border-left: none; border-right: none; border-bottom: none;
+      max-height: 42vh; overflow-y: auto;
+    }
+    #preview.visible { transform: translateY(0); }
+  }
   #scroll-space { width: 100%; }
   #detail {
     position: fixed;
@@ -352,6 +361,8 @@
       align-items: stretch;
       gap: 0;
       padding: 1rem;
+      max-height: 42vh; overflow-y: auto;
+      background: #0e0c0af2; border-bottom: 1px solid color-mix(in srgb, var(--accent) 15%, transparent);
     }
     #nav .clusters { max-width: 100%; }
     #nav .media {
@@ -402,6 +413,11 @@
   <div id="detail-links"></div>
   <button id="detail-next" type="button">PRÓXIMO NO PERCURSO →</button>
   <button id="detail-next-unwatched" type="button">PRÓXIMO POR VER →</button>
+  <div id="detail-io" style="display:flex;gap:0.5rem;margin-top:1rem">
+    <button id="detail-export" type="button" style="flex:1;background:none;border:1px solid color-mix(in srgb,var(--accent) 20%,transparent);color:#8a7f6d;font:inherit;font-size:0.65rem;letter-spacing:0.1em;padding:0.45rem;cursor:pointer">EXPORTAR PERCURSO</button>
+    <label for="detail-import" style="flex:1;display:grid;place-items:center;border:1px solid color-mix(in srgb,var(--accent) 20%,transparent);color:#8a7f6d;font-size:0.65rem;letter-spacing:0.1em;cursor:pointer">IMPORTAR</label>
+    <input id="detail-import" type="file" accept=".json" hidden>
+  </div>
   <button id="detail-toggle" type="button"></button>
   <div id="detail-watched" hidden>
     <p id="detail-date"></p>
