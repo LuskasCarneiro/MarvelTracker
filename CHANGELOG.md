@@ -3,6 +3,16 @@
 Dated log of what changed and why, so a new session can see the project's history at a
 glance without re-deriving it from the diff. Newest first.
 
+## 2026-08-21 (16ª sessão) — Swarm follow-up: SW lazy, theme extraction, nitpicks
+
+- **O1 SW lazy**: `public/sw.js` deixa de pré-cachear 152 covers no `install` (só
+  shell+bundle); covers em `stale-while-revalidate` sob procura + `skipWaiting`.
+- **`src/theme.ts`**: `themeColors()` extraído de `main.ts` (C1 parcial); D1 já
+  feito — `shelf.ts` importa `effectiveYear` de `catalog.ts`.
+- **Nitpicks**: `shelf.ts:half`, `detail.ts` poster `onerror/onload` + feedback de
+  import (`n IMPORTADOS ✓` no botão), `app.html` nav mobile já scrollable.
+- `docs/09` fechado como histórico; 7/14 achados implementados, resto documentado.
+
 ## 2026-08-21 (15ª sessão) — Swarm improvements: hybrid dossier, bundle split, mobile, export/import
 
 - **Híbrido 3D (fase 1)**: `beforeOpen` deixa de devolver o hero ao slot — fica em

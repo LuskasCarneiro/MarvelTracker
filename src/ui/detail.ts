@@ -103,6 +103,8 @@ export function initDetail({ canvas, camera, getShelf, beforeOpen, onOpen, onClo
     const filterBadge = seg === 'visto' ? ' · VISTO' : seg === 'porver' ? ' · POR VER' : '';
     kick.textContent =
       (current.type === 'movie' ? 'DOSSIÊ COMPLETO · FILME' : `DOSSIÊ COMPLETO · TEMPORADA ${current.seasonNumber}`) + filterBadge;
+    poster.onerror = () => { poster.style.opacity = '0.3'; };
+    poster.onload = () => { poster.style.opacity = '1'; };
     poster.src = current.poster;
     poster.alt = current.title;
     title.textContent = current.title;
@@ -315,8 +317,16 @@ export function initDetail({ canvas, camera, getShelf, beforeOpen, onOpen, onClo
     const text = await file.text();
     const ok = importLog(text, true);
     importInput.value = '';
-    if (ok) render();
-    else alert('Ficheiro inválido — esperava um export do Marvel Vault.');
+    if (ok) {
+      render();
+      const n = Object.keys(JSON.parse(text) as Record<string, unknown>).length;
+      // feedback breve no botão de export
+      if (exportBtn) {
+        const prev = exportBtn.textContent;
+        exportBtn.textContent = `${n} IMPORTADOS ✓`;
+        setTimeout(() => { exportBtn.textContent = prev; }, 1800);
+      }
+    } else alert('Ficheiro inválido — esperava um export do Marvel Vault.');
   });
 
   ratingBox.addEventListener('click', (ev) => {

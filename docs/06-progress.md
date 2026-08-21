@@ -2,6 +2,18 @@
 
 > Ficheiro de retoma. Lê-se no início de cada sessão depois do CLAUDE.md.
 
+## 2026-08-21 (16ª sessão) — Swarm follow-up: SW lazy + theme.ts + nitpicks
+
+**Feito:**
+- O1 SW lazy (sem precache de covers no install) + skipWaiting, `src/theme.ts`
+  (C1), nitpicks (half, poster fallback, import toast), `docs/09` fechado.
+- Verificado: tsc, build (vendor split), 5 checks.
+
+**Você está aqui:** ▶ Melhorias críticas do swarm todas aplicadas. Próximos:
+C1 completo (hero.ts), M1 drawer, #8 InstancedMesh — todos YAGNI até multi-estante.
+
+**Pendente do owner:** nada.
+
 ## 2026-08-21 (15ª sessão) — Swarm round: hybrid + bundle + mobile + export/import
 
 **Feito:**

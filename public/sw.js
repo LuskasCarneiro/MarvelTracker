@@ -2,6 +2,7 @@ const VERSION = 'mv1';
 const CACHE = `marvel-vault-${VERSION}`;
 
 self.addEventListener('install', (event) => {
+  self.skipWaiting();
   event.waitUntil(
     caches.open(CACHE).then(async (cache) => {
       for (const url of ['./', './app.html']) {
@@ -21,16 +22,8 @@ self.addEventListener('install', (event) => {
         try {
           await cache.add(bundle);
         } catch {}
-        // o registo acontece no load da 1.ª visita → os covers nunca seriam
-        // intercetados a tempo; pré-cacheia-os a partir do bundle (catálogo embutido).
-        const text = await (await cache.match(bundle))?.text();
-        if (text) {
-          for (const m of text.matchAll(/covers\/[\w.\-]+\.jpg/g)) {
-            try {
-              await cache.add(m[0]);
-            } catch {}
-          }
-        }
+        // covers em cache sob procura (stale-while-revalidate no fetch handler),
+        // não no install — evita bloquear o install em 3G e estourar quota
       }
       for (const ref of refs) {
         try {

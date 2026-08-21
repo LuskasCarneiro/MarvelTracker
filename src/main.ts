@@ -1,8 +1,9 @@
 import * as THREE from 'three';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { itemsFor, themeFor, CLUSTER_ACCENT, CLUSTER_LABELS, type CatalogItem, type TitleTheme } from './data/catalog';
+import { itemsFor, CLUSTER_ACCENT, CLUSTER_LABELS, type CatalogItem } from './data/catalog';
 import { isWatched } from './data/logs';
+import { themeColors } from './theme';
 import { setupScene } from './scene';
 import { applyFocus, applyOrder, buildShelf, poseHero, SPACING, unposeHero } from './shelf';
 import { initDetail } from './ui/detail';
@@ -193,22 +194,13 @@ gsap.ticker.add(() => {
 const current = { cluster: '', media: 'filmes' as Media, mode: 'estreia' as Mode, filter: 'tudo' as Filter };
 
 // tema curado do título (se existir): o UI, o rim e o fundo seguem o item em palco.
-// Sem tema → acento do cluster. Temas vivem em src/data/themes.json (extraído do
-// legado themes.js por tools/extract_themes.mjs).
 function applyTitleTheme(item: CatalogItem | null): void {
-  const theme: TitleTheme | null = item ? themeFor(item) : null;
-  const accent = theme?.accent ?? CLUSTER_ACCENT[current.cluster];
+  const { accent, accent2, bg, ink } = themeColors(item, current.cluster);
   document.body.style.setProperty('--accent', accent);
-  document.body.style.setProperty('--ink', theme?.ink ?? '#efe7da');
-  document.body.style.setProperty('--accent2', theme?.accent2 ?? '#a9782f');
+  document.body.style.setProperty('--ink', ink);
+  document.body.style.setProperty('--accent2', accent2);
   gsap.to(rim.color, { r: new THREE.Color(accent).r, g: new THREE.Color(accent).g, b: new THREE.Color(accent).b, duration: 0.8, ease: 'power2.out' });
-  const bg = theme?.bg;
-  if (bg) {
-    const c = new THREE.Color(bg);
-    gsap.to(scene.background as THREE.Color, { r: c.r, g: c.g, b: c.b, duration: 0.8, ease: 'power2.out' });
-  } else {
-    gsap.to(scene.background as THREE.Color, { r: 0x0e / 255, g: 0x0c / 255, b: 0x0a / 255, duration: 0.8, ease: 'power2.out' });
-  }
+  gsap.to(scene.background as THREE.Color, { r: new THREE.Color(bg).r, g: new THREE.Color(bg).g, b: new THREE.Color(bg).b, duration: 0.8, ease: 'power2.out' });
 }
 
 function applyHero(group: THREE.Group, p: number): void {

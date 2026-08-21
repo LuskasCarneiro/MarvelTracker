@@ -63,7 +63,8 @@ function meshFor(item: CatalogItem, format: EraFormat, x: number): THREE.Mesh {
   const cover = coverMaterial(item.poster, faceW, faceH);
   materials[coverIndex] = cover;
   const mesh = new THREE.Mesh(geometry, materials);
-  mesh.position.set(x, height / 2, 0);
+  const half = height / 2;
+  mesh.position.set(x, half, 0);
   mesh.userData.item = item;
   mesh.userData.format = format;
   mesh.userData.coverMaterial = cover;
