@@ -79,6 +79,9 @@ sem LLM nenhum (ex.: `apply_storyyear.mjs`).
 | 18 | Teclado na estante (a11y): ←/→ wrap, Home/End, Enter abre dossiê, Esc fecha; `check_keys.mjs` | general | ✅ 2026-08-20 |
 | 19 | Botão PRÓXIMO NO PERCURSO no dossiê (`mv-next-in-path`, fechar dossiê + saltar) | general + orquestrador (fix 1 linha) | ✅ 2026-08-20 |
 | 20 | QA tools: hashes `/tudo` (4.º segmento), contact sheet frames3d não-fatal, foco no check Esc | general | ✅ 2026-08-20 |
+| 21 | PRÓXIMO POR VER no dossiê (`mv-next-unwatched`, salto ao próximo não visto) + `check_next_unwatched.mjs` | orquestrador direto | ✅ 2026-08-20 |
+| 22 | `tools/deploy.mjs` + `npm run deploy` (build → gh-pages → push, `--dry-run`) | orquestrador direto | ✅ 2026-08-20 |
+| 23 | README.md reescrito para a app 3D | orquestrador direto | ✅ 2026-08-20 |
 
 ## Registo de desvios
 
@@ -93,3 +96,7 @@ sem LLM nenhum (ex.: `apply_storyyear.mjs`).
   visual dos temas feita por probes computados (computed styles + amostra de
   pixel do frame) em vez de veredito Kimi sobre a contact sheet. Frames ficam
   em `tools/frames/shelf3d/` para revisão humana/visual futura.
+- 2026-08-20 (14ª) — **subagents devolveram vazios 3× consecutivas** (mesma spec,
+  `general`): 0 ficheiros escritos, 0 output. Nenhuma falha de infra observada;
+  trabalho feito pelo orquestrador diretamente. Se repetir, rever binding do
+  `general` antes de confiar em despachos paralelos.

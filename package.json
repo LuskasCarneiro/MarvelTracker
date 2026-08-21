@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "deploy": "node tools/deploy.mjs",
     "catalog": "node tools/build_catalog.mjs"
   },
   "dependencies": {

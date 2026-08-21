@@ -455,3 +455,20 @@ window.addEventListener('mv-next-in-path', () => {
   detail.close(); // o dossiê fecha e o novo hero sobe em palco com o salto
   scrollToSlot(next);
 });
+
+window.addEventListener('mv-next-unwatched', () => {
+  if (!currentGroup || !st) return;
+  const items = itemsFor(current.cluster, MODE_CAT[current.mode], current.media).filter((i) => passesFilter(i, current.filter));
+  const n = items.length;
+  if (n < 2) return;
+  const cur = Math.min(n - 1, Math.max(0, Math.round(st.progress * (n - 1))));
+  for (let step = 1; step <= n; step++) {
+    const idx = (cur + step) % n;
+    if (!isWatched(items[idx].id)) {
+      detail.close();
+      scrollToSlot(idx);
+      return;
+    }
+  }
+  // percurso todo visto — fica-se no dossiê
+});

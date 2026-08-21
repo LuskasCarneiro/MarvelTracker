@@ -1,81 +1,65 @@
 # Marvel Vault
 
-A personal Marvel movies + TV timeline archive, styled as a TVA case-file terminal, with
-per-title visual themes, IMDb/Rotten Tomatoes data via OMDb, and a watch log with your own ratings.
+Arquivo pessoal de todos os filmes e séries Marvel (MCU, X-Men/Fox, Sony, Netflix,
+Vintage, Clássica, Fox, Hulu, ABC, Animação, Spider-Verse, F4), em formato dossiê
+TVA, agora numa **estante 3D imersiva era-aware** (Vite + TypeScript + Three.js +
+GSAP). 100% client-side, sem backend e sem API keys em runtime.
 
-## Open it
+**Live:** https://luskascarneiro.github.io/MarvelTracker/app.html
 
-Two ways:
+## Arranque
 
-- **Double-click `index.html`.** Fully self-contained, works offline except Google
-  Fonts and OMDb. The one thing that *doesn't* work this way: `.env` auto-loading the
-  OMDb key (see below) — use the sidebar key box instead.
-- **Serve it locally**, e.g. `python3 -m http.server` from inside this folder (there's
-  an empty `.venv` here if you want to keep that isolated — nothing to install, the
-  server is Python stdlib). This way `.env` loads automatically.
+```sh
+npm install
+npm run dev      # Vite → http://localhost:5173/app.html
+npm run build    # dist/ estático (offline-first, com service worker)
+npm run deploy   # build + publica em gh-pages (tools/deploy.mjs)
+```
 
-## Files
+## A estante
 
-- `index.html` — the whole app: markup, styles, and logic in one file.
-- `themes.js` — per-title visual theme registry. Loaded as a separate `<script src>` so it
-  can be extended independently of the app logic. Titles not listed here fall back to their
-  universe's cluster color — a valid, working state, not a bug.
-- `THEMES_CHECKLIST.md` — tracks which of the 152 titles have a bespoke theme in `themes.js`
-  vs. which are still on the cluster-color fallback. Tick a box there whenever you add an
-  entry to `themes.js` for that title, in the same pass.
-- `.env` — put `OMDB_API_KEY=your-key` here if you're serving locally (see above).
-- `CLAUDE.md` — project context for AI-assisted sessions (stack, conventions, data model).
-- `CHANGELOG.md` — dated log of what changed each session and why.
+- **Formatos era-aware** — o objeto físico segue o ano efetivo (cronológico ou de
+  estreia): pré-1978 rolo de cinema, 1978–1999 VHS, 2000–2009 DVD, 2010+ Blu-ray.
+  Alternador ESTREIA/CRONOLÓGICA por estante.
+- **12 estantes por universo** com acento próprio; cada título carrega um tema de
+  cores próprio (152/152: 42 curados do legado + 110 derivados das covers reais).
+- **Quick path** — clicar num item traz-no para primeiro plano; o dossiê abre em
+  overlay (HISTÓRIA, CURIOSIDADES, REFERÊNCIAS, nota IMDb, carimbar VISTO + rating
+  1–10). Os logs vivem em `marvelVault.logs.v1` no localStorage.
+- **PRÓXIMO NO PERCURSO / PRÓXIMO POR VER** — saltos do dossiê para o item seguinte
+  (ou o seguinte não visto) da ordem atual.
+- **Busca** (títulos pt-PT→EN), **filtros** VISTO/POR VER/TUDO (4.º segmento do
+  hash), **navegação por teclado** (←/→, Home/End, Enter, Esc) e offline-first.
 
-## OMDb (posters, IMDb rating, Rotten Tomatoes, cast)
+## Branches
 
-1. Get a free key at **omdbapi.com/apikey.aspx** (instant, no card, 1000 requests/day).
-2. Either paste it into `.env` (if serving locally) or into the "Ficha externa" box in
-   the sidebar and click Guardar (works either way you open the app).
-3. Open any card — its poster, IMDb score, Rotten Tomatoes score, cast, and plot load from
-   OMDb and get cached in your browser's localStorage, so each title is only fetched once.
+- `main` — app 2D legada (grafo + painéis TVA); fica no repo como rollback e fonte
+  histórica, nunca é eliminada.
+- `feature/3d-shelf` — a app 3D (trabalho corrente). `gh-pages` — build publicado.
 
-Without a key the app still works fully — cards just show the hand-written synopsis without
-the poster/ratings block. Letterboxd has no public API, so it isn't included.
+## Verificação
 
-## Extending the per-title themes
+Checks contra `npm run dev` (porta 5173):
 
-Two separate things can exist per title, both optional:
+```sh
+node tools/check_links.mjs            # percursos ligados no dossiê
+node tools/check_search.mjs           # busca doutor/loki/venom + Esc
+node tools/check_keys.mjs             # navegação por teclado
+node tools/check_next.mjs             # PRÓXIMO NO PERCURSO
+node tools/check_next_unwatched.mjs   # PRÓXIMO POR VER
+node tools/frames3d.mjs ... --nav --ordem --hero --detail   # frames congelados
+node tools/offline_check.mjs          # reload sem rede (usa `npm run build`)
+node tools/audit_covers.mjs           # contact sheets das 152 covers
+node tools/audit_themes.mjs           # cobertura de temas por cluster
+```
 
-1. **Color-only theme** — palette tokens in `themes.js` (`bg`, `accent`, `accent2`,
-   `ink`). Applies UI-wide when that title's card is open. See the format note at the
-   top of `themes.js`.
-2. **Deep-pass panel skin** — bespoke decorative markup for the note panel itself
-   (patterns, sticker-style badges, textures), for a small, deliberately chosen set of
-   flagship titles — not meant to scale to all 152. Add a `panel:"someKey"` field to a
-   theme entry, then a matching `.panel-someKey` CSS block and `PANEL_HTML.someKey`
-   markup template in `index.html`. Two exist so far (Iron Man, Spider-Man: Homecoming)
-   — read their entries in `themes.js` for the pattern and for what "verified reference"
-   means here (checked via web search, not invented).
+Pipeline de dados build-time em `tools/` (Node determinístico, TMDb apenas em
+build; nunca em runtime): `extract_curated`, `tmdb_fetch`, `build_catalog`,
+`extract_themes`, `gen_cover_themes`, `apply_storyyear`.
 
-Workflow for a new batch of either kind:
+## Créditos
 
-1. Pick a chunk (a universe, an arc, a handful of titles you care about).
-2. Write real entries — each needs a *specific* in-world visual reference, not just
-   "this character's costume is red". If you're not sure a detail is accurate, say so
-   in the `ref` comment rather than presenting a guess as fact.
-3. Tick the matching boxes in `THEMES_CHECKLIST.md` and bump the progress count at the top.
-
-## Your data
-
-Everything you enter — watched status, ratings, dates, OMDb key, OMDb cache, filters — lives
-in your browser's localStorage for this file, nowhere else. Clearing browser data for local
-files (or switching browsers/machines) will reset it.
-
-## Credits
-
-- **Mjolnir 3D model** — ["Mjolnir (Thor's hammer)"](https://sketchfab.com/3d-models/mjolnir-thors-hammer-ecca1232710f4721b14d64a90bba6557)
-  by [TheDevilsEye](https://sketchfab.com/TheDevilsEye), licensed
-  [CC-BY-4.0](http://creativecommons.org/licenses/by/4.0/). Used in the Thor: Ragnarok
-  opening sequence, rendered offline to a sprite sheet by `tools/bake_hammer.mjs`.
-- Film and series metadata, posters and ratings come from [OMDb](https://www.omdbapi.com/),
-  fetched at runtime with your own API key. Posters remain the property of their
-  respective studios and are not redistributed by this project.
-- Build-time tooling only: [three.js](https://threejs.org/) and
-  [Playwright](https://playwright.dev/). Neither is shipped — the app itself loads no
-  external JavaScript.
+- Metadados, posters e ratings: TMDb (build-time) + IMDb (dataset de ratings).
+  Posters pertencem aos respetivos estúdios; não são redistribuídos por este
+  projeto. A app publicada não carrega JavaScript externo.
+- Stack: three.js, GSAP, Vite, Playwright (verificação).

@@ -285,6 +285,11 @@ export function initDetail({ canvas, camera, getShelf, beforeOpen, onOpen, onClo
     window.dispatchEvent(new CustomEvent('mv-next-in-path'));
   });
 
+  const nextUnwatchedBtn = document.getElementById('detail-next-unwatched');
+  nextUnwatchedBtn?.addEventListener('click', () => {
+    window.dispatchEvent(new CustomEvent('mv-next-unwatched'));
+  });
+
   toggle.addEventListener('click', () => {
     if (!current) return;
     setWatched(current.id, !isWatched(current.id));

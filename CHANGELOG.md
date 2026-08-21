@@ -3,6 +3,21 @@
 Dated log of what changed and why, so a new session can see the project's history at a
 glance without re-deriving it from the diff. Newest first.
 
+## 2026-08-20 (14ª sessão) — PRÓXIMO POR VER + deploy script + README
+
+- **PRÓXIMO POR VER**: segundo botão no dossiê — salta para o próximo item NÃO
+  VISTO da ordem atual (logs.v1; varre a partir do item em palco, wrap; percurso
+  todo visto → não faz nada). `tools/check_next_unwatched.mjs` (seed de logs via
+  addInitScript, asserção exata) verde; regressões check_next/keys/links/search
+  verdes.
+- **`tools/deploy.mjs` + `npm run deploy`**: publica em gh-pages com um comando
+  (build → worktree gh-pages com o dist + `.nojekyll` → push -f; `--dry-run`).
+  Substitui a sequência manual da 13ª.
+- **README.md** reescrito para a app 3D (URL live, arranque, estante, branches,
+  verificação, créditos).
+- Nota: subagents devolveram vazios nesta ronda (3×) — trabalho feito pelo
+  orquestrador diretamente; registado no 08.
+
 ## 2026-08-20 (13ª sessão) — Deploy live + teclado + próximo no percurso + temas completos
 
 - **Publicado**: `feature/3d-shelf` pushed; `gh-pages` serve o build (commit 3a89402);

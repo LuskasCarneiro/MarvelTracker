@@ -2,6 +2,22 @@
 
 > Ficheiro de retoma. Lê-se no início de cada sessão depois do CLAUDE.md.
 
+## 2026-08-20 (14ª sessão) — PRÓXIMO POR VER + deploy script + README
+
+**Feito (orquestrador direto — subagents devolveram vazios 3× nesta ronda):**
+- PRÓXIMO POR VER no dossiê (salto para o próximo não visto; wrap; nada se tudo
+  visto) + `tools/check_next_unwatched.mjs` com seed de logs.v1 e asserção exata.
+- `tools/deploy.mjs` + `npm run deploy` (build → gh-pages → push -f, `--dry-run`).
+- README.md reescrito para a app 3D (live URL, arranque, verificação).
+- Tudo verde: tsc, build, check_next_unwatched + regressões (next/keys/links/
+  search), deploy dry-run.
+
+**Você está aqui:** ▶ 6 frentes fechadas em 2 rondas (temas, deploy, teclado,
+próximo no percurso, QA tools, por-ver). Próximos possíveis: filtro VISTO/POR VER
+no dossiê, híbrido 3D do dossiê (adiado — precisa de visão), mais polimento.
+
+**Pendente do owner:** nada.
+
 ## 2026-08-20 (13ª sessão) — Deploy live + teclado + próximo no percurso + temas 152/152
 
 **Feito (4 frentes paralelas + orquestrador):**
